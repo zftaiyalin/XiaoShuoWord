@@ -7,15 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		686202C496DA91917D5E6155 /* libPods-XiaoShuoTool.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D69760388ECFE20A5DD42C8B /* libPods-XiaoShuoTool.a */; };
 		E803C75E1CF57793001BB402 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E803C75D1CF57793001BB402 /* main.m */; };
 		E803C7611CF57793001BB402 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E803C7601CF57793001BB402 /* AppDelegate.m */; };
 		E803C7641CF57793001BB402 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E803C7631CF57793001BB402 /* ViewController.m */; };
 		E803C7671CF57793001BB402 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E803C7651CF57793001BB402 /* Main.storyboard */; };
 		E803C7691CF57793001BB402 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E803C7681CF57793001BB402 /* Assets.xcassets */; };
 		E803C76C1CF57793001BB402 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E803C76A1CF57793001BB402 /* LaunchScreen.storyboard */; };
+		E803C7791CF58451001BB402 /* JASidePanelController.m in Sources */ = {isa = PBXBuildFile; fileRef = E803C7761CF58451001BB402 /* JASidePanelController.m */; };
+		E803C77A1CF58451001BB402 /* UIViewController+JASidePanel.m in Sources */ = {isa = PBXBuildFile; fileRef = E803C7781CF58451001BB402 /* UIViewController+JASidePanel.m */; };
+		E803C7831CF584EC001BB402 /* JADebugViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E803C77C1CF584EC001BB402 /* JADebugViewController.m */; };
+		E803C7841CF584EC001BB402 /* JACenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E803C77E1CF584EC001BB402 /* JACenterViewController.m */; };
+		E803C7851CF584EC001BB402 /* JALeftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E803C7801CF584EC001BB402 /* JALeftViewController.m */; };
+		E803C7861CF584EC001BB402 /* JARightViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E803C7821CF584EC001BB402 /* JARightViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		36BF3FD6CB5596B00F42B16D /* Pods-XiaoShuoTool.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XiaoShuoTool.debug.xcconfig"; path = "Pods/Target Support Files/Pods-XiaoShuoTool/Pods-XiaoShuoTool.debug.xcconfig"; sourceTree = "<group>"; };
+		BDE428C665560CAD0D731550 /* Pods-XiaoShuoTool.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XiaoShuoTool.release.xcconfig"; path = "Pods/Target Support Files/Pods-XiaoShuoTool/Pods-XiaoShuoTool.release.xcconfig"; sourceTree = "<group>"; };
+		D69760388ECFE20A5DD42C8B /* libPods-XiaoShuoTool.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-XiaoShuoTool.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E803C7591CF57793001BB402 /* XiaoShuoTool.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XiaoShuoTool.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E803C75D1CF57793001BB402 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E803C75F1CF57793001BB402 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -26,6 +36,18 @@
 		E803C7681CF57793001BB402 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E803C76B1CF57793001BB402 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E803C76D1CF57793001BB402 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E803C7751CF58451001BB402 /* JASidePanelController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JASidePanelController.h; sourceTree = "<group>"; };
+		E803C7761CF58451001BB402 /* JASidePanelController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JASidePanelController.m; sourceTree = "<group>"; };
+		E803C7771CF58451001BB402 /* UIViewController+JASidePanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+JASidePanel.h"; sourceTree = "<group>"; };
+		E803C7781CF58451001BB402 /* UIViewController+JASidePanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+JASidePanel.m"; sourceTree = "<group>"; };
+		E803C77B1CF584EC001BB402 /* JADebugViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JADebugViewController.h; sourceTree = "<group>"; };
+		E803C77C1CF584EC001BB402 /* JADebugViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JADebugViewController.m; sourceTree = "<group>"; };
+		E803C77D1CF584EC001BB402 /* JACenterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JACenterViewController.h; sourceTree = "<group>"; };
+		E803C77E1CF584EC001BB402 /* JACenterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JACenterViewController.m; sourceTree = "<group>"; };
+		E803C77F1CF584EC001BB402 /* JALeftViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JALeftViewController.h; sourceTree = "<group>"; };
+		E803C7801CF584EC001BB402 /* JALeftViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JALeftViewController.m; sourceTree = "<group>"; };
+		E803C7811CF584EC001BB402 /* JARightViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JARightViewController.h; sourceTree = "<group>"; };
+		E803C7821CF584EC001BB402 /* JARightViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JARightViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,17 +55,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				686202C496DA91917D5E6155 /* libPods-XiaoShuoTool.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8332FC0B2A2460BD29CA29BF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D69760388ECFE20A5DD42C8B /* libPods-XiaoShuoTool.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		E803C7501CF57793001BB402 = {
 			isa = PBXGroup;
 			children = (
 				E803C75B1CF57793001BB402 /* XiaoShuoTool */,
 				E803C75A1CF57793001BB402 /* Products */,
+				F82496718C877CAFFDBBDD2C /* Pods */,
+				8332FC0B2A2460BD29CA29BF /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -58,10 +91,19 @@
 		E803C75B1CF57793001BB402 /* XiaoShuoTool */ = {
 			isa = PBXGroup;
 			children = (
+				E803C7741CF58451001BB402 /* JASidePanels */,
 				E803C75F1CF57793001BB402 /* AppDelegate.h */,
 				E803C7601CF57793001BB402 /* AppDelegate.m */,
 				E803C7621CF57793001BB402 /* ViewController.h */,
 				E803C7631CF57793001BB402 /* ViewController.m */,
+				E803C77B1CF584EC001BB402 /* JADebugViewController.h */,
+				E803C77C1CF584EC001BB402 /* JADebugViewController.m */,
+				E803C77D1CF584EC001BB402 /* JACenterViewController.h */,
+				E803C77E1CF584EC001BB402 /* JACenterViewController.m */,
+				E803C77F1CF584EC001BB402 /* JALeftViewController.h */,
+				E803C7801CF584EC001BB402 /* JALeftViewController.m */,
+				E803C7811CF584EC001BB402 /* JARightViewController.h */,
+				E803C7821CF584EC001BB402 /* JARightViewController.m */,
 				E803C7651CF57793001BB402 /* Main.storyboard */,
 				E803C7681CF57793001BB402 /* Assets.xcassets */,
 				E803C76A1CF57793001BB402 /* LaunchScreen.storyboard */,
@@ -79,6 +121,26 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		E803C7741CF58451001BB402 /* JASidePanels */ = {
+			isa = PBXGroup;
+			children = (
+				E803C7751CF58451001BB402 /* JASidePanelController.h */,
+				E803C7761CF58451001BB402 /* JASidePanelController.m */,
+				E803C7771CF58451001BB402 /* UIViewController+JASidePanel.h */,
+				E803C7781CF58451001BB402 /* UIViewController+JASidePanel.m */,
+			);
+			path = JASidePanels;
+			sourceTree = "<group>";
+		};
+		F82496718C877CAFFDBBDD2C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				36BF3FD6CB5596B00F42B16D /* Pods-XiaoShuoTool.debug.xcconfig */,
+				BDE428C665560CAD0D731550 /* Pods-XiaoShuoTool.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -86,9 +148,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E803C7701CF57793001BB402 /* Build configuration list for PBXNativeTarget "XiaoShuoTool" */;
 			buildPhases = (
+				C9FFE857DEF3398544F2B1F4 /* 📦 Check Pods Manifest.lock */,
 				E803C7551CF57793001BB402 /* Sources */,
 				E803C7561CF57793001BB402 /* Frameworks */,
 				E803C7571CF57793001BB402 /* Resources */,
+				362106DDA7966B01A16B3CD0 /* 📦 Embed Pods Frameworks */,
+				15B4881CF34EBBCB7050EFFB /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -144,14 +209,68 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		15B4881CF34EBBCB7050EFFB /* 📦 Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-XiaoShuoTool/Pods-XiaoShuoTool-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		362106DDA7966B01A16B3CD0 /* 📦 Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-XiaoShuoTool/Pods-XiaoShuoTool-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C9FFE857DEF3398544F2B1F4 /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		E803C7551CF57793001BB402 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E803C77A1CF58451001BB402 /* UIViewController+JASidePanel.m in Sources */,
 				E803C7641CF57793001BB402 /* ViewController.m in Sources */,
 				E803C7611CF57793001BB402 /* AppDelegate.m in Sources */,
+				E803C7831CF584EC001BB402 /* JADebugViewController.m in Sources */,
+				E803C7841CF584EC001BB402 /* JACenterViewController.m in Sources */,
+				E803C7791CF58451001BB402 /* JASidePanelController.m in Sources */,
+				E803C7851CF584EC001BB402 /* JALeftViewController.m in Sources */,
 				E803C75E1CF57793001BB402 /* main.m in Sources */,
+				E803C7861CF584EC001BB402 /* JARightViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,6 +380,7 @@
 		};
 		E803C7711CF57793001BB402 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 36BF3FD6CB5596B00F42B16D /* Pods-XiaoShuoTool.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = XiaoShuoTool/Info.plist;
@@ -272,6 +392,7 @@
 		};
 		E803C7721CF57793001BB402 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BDE428C665560CAD0D731550 /* Pods-XiaoShuoTool.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = XiaoShuoTool/Info.plist;
@@ -300,6 +421,7 @@
 				E803C7721CF57793001BB402 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

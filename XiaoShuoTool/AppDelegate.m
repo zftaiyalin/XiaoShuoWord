@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import "JALeftViewController.h"
+#import "JACenterViewController.h"
 
 @interface AppDelegate ()
 
@@ -17,6 +19,69 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
+    self.viewController = [[JASidePanelController alloc] init];
+    self.viewController.shouldDelegateAutorotateToVisiblePanel = NO;
+    
+    self.viewController.leftPanel = [[JALeftViewController alloc] init];
+    //
+    
+    
+    JACenterViewController *firstViewController = [[JACenterViewController alloc] init];
+    firstViewController.hidesBottomBarWhenPushed = NO;
+    UINavigationController *firstNavigationController = [[UINavigationController alloc]
+                                                         initWithRootViewController:firstViewController];
+    
+    JACenterViewController *secondViewController =  [[JACenterViewController alloc]init];
+    secondViewController.hidesBottomBarWhenPushed = NO;
+    UINavigationController *secondNavigationController = [[UINavigationController alloc]
+                                                          initWithRootViewController:secondViewController];
+    
+    JACenterViewController *thirdViewController =  [[JACenterViewController alloc] init];
+    thirdViewController.hidesBottomBarWhenPushed = NO;
+    UINavigationController *thirdNavigationController = [[UINavigationController alloc]
+                                                         initWithRootViewController:thirdViewController];
+    
+    JACenterViewController *fourViewController = [[JACenterViewController alloc] init];
+    fourViewController.hidesBottomBarWhenPushed = NO;
+    UINavigationController *fourNavigationController = [[UINavigationController alloc]
+                                                        initWithRootViewController:fourViewController];
+    
+    UIColor *unSelectedTabBarTitleTextColor = [UIColor colorWithRed:114.0/255.0 green:115.0/255.0 blue:116.0/255.0 alpha:1.0f];
+    
+    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObject:unSelectedTabBarTitleTextColor
+                                                                                  forKey:NSForegroundColorAttributeName]
+                                             forState:UIControlStateNormal];
+    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObject:[UIColor blackColor]
+                                                                                  forKey:NSForegroundColorAttributeName]
+                                             forState:UIControlStateSelected];
+    
+    NSArray *titles = @[@"医讯", @"随访", @"粉丝", @"我的"];
+    //    NSArray *images = @[@"news", @"msg", @"contacts", @"userCenter"];
+    
+    self.mainVC = [[UITabBarController alloc] init];
+    
+    self.mainVC.viewControllers = @[firstNavigationController, secondNavigationController, thirdNavigationController,fourNavigationController];
+    
+    [self.mainVC.tabBar.items enumerateObjectsUsingBlock:^(UITabBarItem *item, NSUInteger idx, BOOL *stop) {
+        //        UIImage *selectedimage = [UIImage imageNamed:[NSString stringWithFormat:@"%@_selected",
+        //                                                      [images objectAtIndex:idx]]];
+        //        UIImage *unselectedimage = [UIImage imageNamed:[NSString stringWithFormat:@"%@_unselected",
+        //                                                        [images objectAtIndex:idx]]];
+        [item setTitle:titles[idx]];
+        //        [item setImage:[unselectedimage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+        //        [item setSelectedImage:[selectedimage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+        
+    }];
+    self.mainVC.tabBar.translucent = NO;
+    
+    self.viewController.centerPanel =self.mainVC;
+    
+    self.window.rootViewController = self.viewController;
+    [self.window makeKeyAndVisible];
+    
     return YES;
 }
 
