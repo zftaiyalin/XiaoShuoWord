@@ -10,9 +10,11 @@
 #import "YYTextView.h"
 #import "MMAlertView.h"
 #import "ToolManager.h"
+#import "UIColor+YYAdd.h"
+#import "NSAttributedString+YYText.h"
 
 @interface FourViewController ()<YYTextViewDelegate>{
-    YYTextView *_textView;
+    UILabel *_textView;
     NSMutableArray *wordArray;
     
 }
@@ -37,18 +39,19 @@
     self.navigationItem.rightBarButtonItem = rightItem;
     
     
-    _textView=[[YYTextView alloc]initWithFrame:self.view.bounds];
+    _textView=[[UILabel alloc]initWithFrame:self.view.bounds];
     _textView.backgroundColor=[UIColor colorWithRed:((float)((0xf1eef5 & 0xFF0000) >> 16))/255.0
                                                                        green:((float)((0xf1eef5 & 0xFF00) >> 8))/255.0
                                                                         blue:((float)(0xf1eef5 & 0xFF))/255.0
                                               alpha:1.0];
     _textView.font=[UIFont systemFontOfSize:20];
-    _textView.placeholderText=@"文章";
-    _textView.placeholderFont=[UIFont systemFontOfSize:20];
+    _textView.numberOfLines=0;
+//    _textView.placeholderText=@"文章";
+//    _textView.placeholderFont=[UIFont systemFontOfSize:20];
     if (_mainData.content.length>0) {
-        _textView.text=_mainData.content;
+        [self textAttritbute];
     }
-    _textView.delegate=self;
+//    _textView.delegate=self;
     [self.view addSubview:_textView];
     
     
@@ -76,7 +79,40 @@
 
 -(void)addStatusTagsInfo:(NSString *)text{
     [_mainData.wordArray addObject:text];
+    [self textAttritbute];
+    [[ToolManager sharedInstance]saveXiaoShuo];
 }
+
+-(void)textAttritbute{
+    NSMutableAttributedString *feekong=[[NSMutableAttributedString alloc]initWithString:_mainData.content];
+
+
+    [feekong addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:20] range:NSMakeRange(0, _mainData.content.length)];
+
+    [_mainData.wordArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSString *str=(NSString *)obj;
+
+        NSRange range=[_mainData.content rangeOfString:str];
+
+        if (range.length>0) {
+
+            NSString* encodedText = [str stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            NSURL *url=[[NSURL alloc]initWithString:[NSString stringWithFormat:@"http://dict.baidu.com/s?wd=%@",encodedText]];
+
+
+            [feekong appendAttributedString:[NSAttributedString hyperlinkFromString:str withURL:url]];
+
+
+            
+
+        }
+    }];
+
+
+    _textView.attributedText=feekong;
+
+}
+
 -(void)viewWillDisappear:(BOOL)animated{
     
    [[ToolManager sharedInstance]saveXiaoShuo];

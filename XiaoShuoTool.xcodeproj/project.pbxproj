@@ -299,6 +299,7 @@
 				E803C7571CF57793001BB402 /* Resources */,
 				362106DDA7966B01A16B3CD0 /* 📦 Embed Pods Frameworks */,
 				15B4881CF34EBBCB7050EFFB /* 📦 Copy Pods Resources */,
+				798BC49CDB82FBCC00DB67A0 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -378,6 +379,21 @@
 			inputPaths = (
 			);
 			name = "📦 Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-XiaoShuoTool/Pods-XiaoShuoTool-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		798BC49CDB82FBCC00DB67A0 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -42,7 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (nullable instancetype)unarchiveFromData:(NSData *)data;
 
 
-
++(id)hyperlinkFromString:(NSString*)inString withURL:(NSURL*)aURL;
 #pragma mark - Retrieving character attribute information
 ///=============================================================================
 /// @name Retrieving character attribute information
