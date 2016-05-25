@@ -9,6 +9,8 @@
 #import "AppDelegate.h"
 #import "JALeftViewController.h"
 #import "JACenterViewController.h"
+#import "UIColor+YYAdd.h"
+#import "XiaoshuoViewController.h"
 
 @interface AppDelegate ()
 
@@ -29,7 +31,7 @@
     //
     
     
-    JACenterViewController *firstViewController = [[JACenterViewController alloc] init];
+    XiaoshuoViewController *firstViewController = [[XiaoshuoViewController alloc] init];
     firstViewController.hidesBottomBarWhenPushed = NO;
     UINavigationController *firstNavigationController = [[UINavigationController alloc]
                                                          initWithRootViewController:firstViewController];
@@ -44,26 +46,21 @@
     UINavigationController *thirdNavigationController = [[UINavigationController alloc]
                                                          initWithRootViewController:thirdViewController];
     
-    JACenterViewController *fourViewController = [[JACenterViewController alloc] init];
-    fourViewController.hidesBottomBarWhenPushed = NO;
-    UINavigationController *fourNavigationController = [[UINavigationController alloc]
-                                                        initWithRootViewController:fourViewController];
     
     UIColor *unSelectedTabBarTitleTextColor = [UIColor colorWithRed:114.0/255.0 green:115.0/255.0 blue:116.0/255.0 alpha:1.0f];
     
-    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObject:unSelectedTabBarTitleTextColor
-                                                                                  forKey:NSForegroundColorAttributeName]
+    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:unSelectedTabBarTitleTextColor
+                                                                                  ,NSForegroundColorAttributeName ,[UIFont systemFontOfSize:26], NSFontAttributeName, nil]
                                              forState:UIControlStateNormal];
-    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObject:[UIColor blackColor]
-                                                                                  forKey:NSForegroundColorAttributeName]
+    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor]
+                                                                                  ,NSForegroundColorAttributeName,[UIFont systemFontOfSize:26], NSFontAttributeName, nil]
                                              forState:UIControlStateSelected];
-    
-    NSArray *titles = @[@"医讯", @"随访", @"粉丝", @"我的"];
+    NSArray *titles = @[@"小说", @"歌词", @"诗词"];
     //    NSArray *images = @[@"news", @"msg", @"contacts", @"userCenter"];
     
     self.mainVC = [[UITabBarController alloc] init];
     
-    self.mainVC.viewControllers = @[firstNavigationController, secondNavigationController, thirdNavigationController,fourNavigationController];
+    self.mainVC.viewControllers = @[firstNavigationController, secondNavigationController, thirdNavigationController];
     
     [self.mainVC.tabBar.items enumerateObjectsUsingBlock:^(UITabBarItem *item, NSUInteger idx, BOOL *stop) {
         //        UIImage *selectedimage = [UIImage imageNamed:[NSString stringWithFormat:@"%@_selected",
@@ -75,6 +72,8 @@
         //        [item setSelectedImage:[selectedimage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
         
     }];
+
+    
     self.mainVC.tabBar.translucent = NO;
     
     self.viewController.centerPanel =self.mainVC;
@@ -84,6 +83,28 @@
     
     return YES;
 }
+
+
+- (void)customizeInterface {
+    UINavigationBar *navigationBarAppearance = [UINavigationBar appearance];
+    
+    [navigationBarAppearance setTintColor:[UIColor whiteColor]];
+    
+    [navigationBarAppearance setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
+    [navigationBarAppearance setShadowImage:[[UIImage alloc] init]];
+    [navigationBarAppearance setBarTintColor:[UIColor whiteColor]];
+    [navigationBarAppearance setTranslucent:NO];
+    
+    [navigationBarAppearance setTitleTextAttributes:
+     [NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor], NSForegroundColorAttributeName, nil]];
+    
+    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,[UIFont systemFontOfSize:15],NSFontAttributeName, nil];
+    
+    [navigationBarAppearance setTitleTextAttributes:attributes];
+    
+}
+
+
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

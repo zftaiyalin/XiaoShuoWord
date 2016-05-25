@@ -13,6 +13,13 @@
 @end
 
 @implementation JADebugViewController
+- (instancetype) init{
+    self = [super init];
+    if (self){
+        self.hidesBottomBarWhenPushed = YES;
+    }
+    return self;
+}
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];

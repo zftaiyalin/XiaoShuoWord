@@ -1,15 +1,13 @@
 //
-//  ViewController.h
+//  XiaoshuoViewController.h
 //  XiaoShuoTool
 //
 //  Created by AnFeng on 16/5/25.
 //  Copyright © 2016年 TheLastCode. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "JADebugViewController.h"
 
-@interface ViewController : UIViewController
-
+@interface XiaoshuoViewController : JADebugViewController
 
 @end
-
