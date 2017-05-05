@@ -13,8 +13,13 @@
 #import "OCGumbo.h"
 #import "OCGumbo+Query.h"
 #import "VideoModel.h"
+#import "MJRefresh.h"
+#import "Masonry.h"
+#import "JRPlayerViewController.h"
 
-#define baseUrl "https://www.youjizz.com/most-popular/"
+//#define baseUrl "https://www.youjizz.com/most-popular/"
+#define baseUrl "https://www.youjizz.com/search/japanese-"
+#define youjizz "https://www.youjizz.com/"
 
 @interface XiaoshuoViewController ()<UITableViewDelegate,UITableViewDataSource>{
     UITableView *_tv;
@@ -56,11 +61,13 @@
             VideoModel *model = [[VideoModel alloc]init];
             model.url = link.attr(@"href");
             model.title = title.text();
-            model.url = time.text();
+            model.time = time.text();
             [self.videoModelArray addObject:model];
         }
 //        https://www.youjizz.com/most-popular/1.html
     }
+    [_tv.mj_footer endRefreshing];
+    [_tv.mj_header endRefreshing];
     [_tv reloadData];
 }
 
@@ -94,12 +101,18 @@
     _tv.delegate = self;
     _tv.allowsSelection=YES;
     _tv.showsHorizontalScrollIndicator = NO;
+    _tv.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(reFreshVideoModel)];
+    _tv.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadVideoModel)];
     _tv.showsVerticalScrollIndicator = NO;
     _tv.backgroundColor = [UIColor clearColor];
     [_tv registerClass:[UITableViewCell class] forCellReuseIdentifier:@"optionCell"];
     [self.view addSubview:_tv];
     
     [self reFreshVideoModel];
+    
+    [_tv mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
+    }];
     
 
 //    /videos/mother-son-38583101.html
@@ -194,6 +207,29 @@
 //    MainModel *model=[[ToolManager sharedInstance].xiaoshuo.array objectAtIndex:indexPath.row];
 //    vc.mainData=model;
 //    [self.navigationController pushViewController:vc animated:YES];
+    VideoModel *model=[self.videoModelArray objectAtIndex:indexPath.row];
+    
+    NSString *urlString = [[NSString alloc]initWithFormat:@"%s%@",youjizz,model.url];
+    NSError *error = nil;
+    //    https://www.youjizz.com/most-popular/2.html
+    NSURL *xcfURL = [NSURL URLWithString:urlString];
+    NSString *htmlString = [NSString stringWithContentsOfURL:xcfURL encoding:NSUTF8StringEncoding error:&error];
+    
+    if (htmlString) {
+        OCGumboDocument *iosfeedDoc = [[OCGumboDocument alloc] initWithHTMLString:htmlString];
+        NSArray *array = iosfeedDoc.body.Query(@"div.main-content").find(@"#yj-video");
+//        NSLog(@"%@", videoStr.attr(@"src"));
+        for (OCGumboNode *row in array) {
+            OCGumboNode *videoStr = row.Query(@"source").last();
+            NSLog(@"from:(%@)",videoStr.attr(@"src"));
+            NSString *video = [[NSString alloc]initWithFormat:@"https:%@",videoStr.attr(@"src")];
+            JRPlayerViewController *playerVC = [[JRPlayerViewController alloc] initWithHTTPLiveStreamingMediaURL: [[NSURL alloc]initWithString:video]];
+            playerVC.mediaTitle = model.title;
+            [self presentViewController:playerVC animated:YES completion:nil];
+            
+        }
+    }
+
 }
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
