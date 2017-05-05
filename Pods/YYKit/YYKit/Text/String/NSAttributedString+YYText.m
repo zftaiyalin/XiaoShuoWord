@@ -35,25 +35,7 @@ YYSYNTH_DUMMY_CLASS(NSAttributedString_YYText)
     }
     return data;
 }
-+(id)hyperlinkFromString:(NSString*)inString withURL:(NSURL*)aURL
-{
-    NSMutableAttributedString* attrString = [[NSMutableAttributedString alloc] initWithString: inString];
-    NSRange range = NSMakeRange(0, [attrString length]);
 
-    [attrString beginEditing];
-    [attrString addAttribute:NSLinkAttributeName value:[aURL absoluteString] range:range];
-
-    // make the text appear in blue
-    [attrString addAttribute:NSForegroundColorAttributeName value:[UIColor blueColor] range:range];
-
-    // next make the text appear with an underline
-    [attrString addAttribute:
-     NSUnderlineStyleAttributeName value:NSUnderlineColorAttributeName range:range];
-
-    [attrString endEditing];
-
-    return attrString;
-}
 + (instancetype)unarchiveFromData:(NSData *)data {
     NSAttributedString *one = nil;
     @try {
@@ -66,13 +48,14 @@ YYSYNTH_DUMMY_CLASS(NSAttributedString_YYText)
 }
 
 - (NSDictionary *)attributesAtIndex:(NSUInteger)index {
+    if (index > self.length || self.length == 0) return nil;
     if (self.length > 0 && index == self.length) index--;
     return [self attributesAtIndex:index effectiveRange:NULL];
 }
 
 - (id)attribute:(NSString *)attributeName atIndex:(NSUInteger)index {
     if (!attributeName) return nil;
-    if (self.length == 0) return nil;
+    if (index > self.length || self.length == 0) return nil;
     if (self.length > 0 && index == self.length) index--;
     return [self attribute:attributeName atIndex:index effectiveRange:NULL];
 }
@@ -797,7 +780,7 @@ return style. _attr_;
 }
 
 - (void)setStrikethroughColor:(UIColor *)strikethroughColor {
-    [self setStrokeColor:strikethroughColor range:NSMakeRange(0, self.length)];
+    [self setStrikethroughColor:strikethroughColor range:NSMakeRange(0, self.length)];
 }
 
 - (void)setUnderlineStyle:(NSUnderlineStyle)underlineStyle {

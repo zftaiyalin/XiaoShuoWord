@@ -10,4 +10,7 @@
 
 @interface XiaoshuoViewController : JADebugViewController
 
+@property(nonatomic, strong) NSMutableArray *videoModelArray;
+@property (nonatomic, assign) int pageIndex;
+
 @end
