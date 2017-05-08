@@ -16,12 +16,18 @@
 #import "ZFPlayer.h"
 #import "ZFCollectionViewCell.h"
 #import <ZFDownload/ZFDownloadManager.h>
+#import "UMVideoAd.h"
+#import "YouJiVideoModel.h"
+
+
 
 //#define baseUrl "https://www.youjizz.com/most-popular/"
 
 static NSString * const reuseIdentifier = @"collectionViewCell";
 
 @interface XiaoshuoViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,ZFPlayerDelegate>{
+    
+    __block BOOL isShowVideo;
     
 }
 
@@ -54,6 +60,7 @@ static NSString * const reuseIdentifier = @"collectionViewCell";
     if (htmlString) {
         OCGumboDocument *iosfeedDoc = [[OCGumboDocument alloc] initWithHTMLString:htmlString];
         NSArray *rows = iosfeedDoc.body.Query(@"div.main-content").find(@"div.video-item");
+        YouJiVideoModel *array = [[YouJiVideoModel alloc]init];
         for (OCGumboNode *row in rows) {
             OCGumboNode *title = row.Query(@".video-title").first();
             NSLog(@"title:[%@]", title.text());
@@ -70,7 +77,18 @@ static NSString * const reuseIdentifier = @"collectionViewCell";
             model.title = title.text();
             model.time = time.text();
             model.img = img.attr(@"data-original");
-            [self.videoModelArray addObject:model];
+
+            
+            if (array.videoModel.count < 10) {
+                [array.videoModel addObject:model];
+            }else{
+                [self.videoModelArray addObject:array];
+                array = [[YouJiVideoModel alloc]init];
+            }
+        }
+        
+        if (array.videoModel.count != 10) {
+            [self.videoModelArray addObject:array];
         }
     }
     [_collectionView.mj_footer endRefreshing];
@@ -102,10 +120,12 @@ static NSString * const reuseIdentifier = @"collectionViewCell";
     layout.sectionInset = UIEdgeInsetsMake(10, margin, 10, margin);
     layout.minimumLineSpacing = 5;
     layout.minimumInteritemSpacing = 5;
+    layout.headerReferenceSize = CGSizeMake(self.view.bounds.size.width, 50);
     
     
     _collectionView=[[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, 375, 667) collectionViewLayout:layout];
     _collectionView.backgroundColor=[UIColor whiteColor];
+   
     _collectionView.delegate=self;
     _collectionView.dataSource=self;
     
@@ -113,6 +133,7 @@ static NSString * const reuseIdentifier = @"collectionViewCell";
     _collectionView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadVideoModel)];
 
     [_collectionView registerClass:[ZFCollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
+    [_collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderView"];
 //    layout.scrollDirection=UICollectionViewScrollDirectionVertical;
     [self.view addSubview:_collectionView];
 
@@ -164,12 +185,15 @@ static NSString * const reuseIdentifier = @"collectionViewCell";
 #pragma mark <UICollectionViewDataSource>
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.videoModelArray.count;
+    
+    YouJiVideoModel *model = [self.videoModelArray objectAtIndex:section];
+    
+    return model.videoModel.count;
 }
 
 //一共有多少个组
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
-    return 1;
+    return self.videoModelArray.count;
 }
 
 //定义每一个cell的大小
@@ -185,7 +209,10 @@ static NSString * const reuseIdentifier = @"collectionViewCell";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     ZFCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     // 取到对应cell的model
-    __block VideoModel *model        = self.videoModelArray[indexPath.row];
+    
+    YouJiVideoModel *array = [self.videoModelArray objectAtIndex:indexPath.section];
+    
+    __block VideoModel *model        = array.videoModel[indexPath.row];
     // 赋值model
     cell.model                         = model;
     __block NSIndexPath *weakIndexPath = indexPath;
@@ -194,61 +221,111 @@ static NSString * const reuseIdentifier = @"collectionViewCell";
     // 点击播放的回调
     cell.playBlock = ^(UIButton *btn){
         
-        // 分辨率字典（key:分辨率名称，value：分辨率url)
-//        NSMutableDictionary *dic = @{}.mutableCopy;
-//        for (ZFVideoResolution * resolution in model.playInfo) {
-//            [dic setValue:resolution.url forKey:resolution.name];
-//        }
-//        // 取出字典中的第一视频URL
-//        NSURL *videoURL = [NSURL URLWithString:dic.allValues.firstObject];
+        if (!isShowVideo) {
+            [weakSelf.playerView shutDownPlayer];
+            [UMVideoAd videoSpotPlay:weakSelf videoSuperView:weakSelf.view videoPlayFinishCallBackBlock:^(BOOL isFinishPlay){
+                if (isFinishPlay) {
+                    NSLog(@"视频播放结束");
+                    //            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"" message:@"视频播放结束" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+                    //            [alert show];
+                    //            [alert release];
+                }else{
+                    NSLog(@"中途退出");
+                    //            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"" message:@"中途退出" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+                    //            [alert show];
+                    //            [alert release];
+                }
+                
+            } videoPlayConfigCallBackBlock:^(BOOL isLegal){
+                //注意：  isLegal在（app有联网，并且注册的appkey后台审核通过）的情况下才返回yes, 否则都是返回no.
+                NSString *message = @"";
+                if (isLegal) {
+                    message = @"此次播放有效";
+                    isShowVideo = YES;
+                }else{
+                    message = @"此次播放无效";
+                }
+                //                UIImage *image = [MobiVideoAd oWVideoImage];
+                NSLog(@"是否有效：%@",message);
+                //        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"" message:[NSString stringWithFormat:@"是否有效：%@",message] delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+                //        [alert show];
+                //        [alert release];
+            }];
+            
+        }else{
         
-        
-        NSString *urlString = [[NSString alloc]initWithFormat:@"%s%@",youjizz,model.url];
-        NSError *error = nil;
-        //    https://www.youjizz.com/most-popular/2.html
-        NSURL *xcfURL = [NSURL URLWithString:urlString];
-        NSString *htmlString = [NSString stringWithContentsOfURL:xcfURL encoding:NSUTF8StringEncoding error:&error];
-        
-        if (htmlString) {
-            OCGumboDocument *iosfeedDoc = [[OCGumboDocument alloc] initWithHTMLString:htmlString];
-            NSArray *array = iosfeedDoc.body.Query(@"div.main-content").find(@"#yj-video");
-            //        NSLog(@"%@", videoStr.attr(@"src"));
-            NSString *video = nil;
-            for (OCGumboNode *row in array) {
-                OCGumboNode *videoStr = row.Query(@"source").last();
-                NSLog(@"from:(%@)",videoStr.attr(@"src"));
-                video = [[NSString alloc]initWithFormat:@"https:%@",videoStr.attr(@"src")];
+            isShowVideo = NO;
+            NSString *urlString = [[NSString alloc]initWithFormat:@"%s%@",youjizz,model.url];
+            NSError *error = nil;
+            NSURL *xcfURL = [NSURL URLWithString:urlString];
+            NSString *htmlString = [NSString stringWithContentsOfURL:xcfURL encoding:NSUTF8StringEncoding error:&error];
+            
+            if (htmlString) {
+                OCGumboDocument *iosfeedDoc = [[OCGumboDocument alloc] initWithHTMLString:htmlString];
+                NSArray *array = iosfeedDoc.body.Query(@"div.main-content").find(@"#yj-video");
+                
+                NSString *video = nil;
+                for (OCGumboNode *row in array) {
+                    OCGumboNode *videoStr = row.Query(@"source").last();
+                    NSLog(@"from:(%@)",videoStr.attr(@"src"));
+                    video = [[NSString alloc]initWithFormat:@"https:%@",videoStr.attr(@"src")];
+                }
+                
+                if (video == nil) {
+                    return;
+                }
+                
+                ZFPlayerModel *playerModel = [[ZFPlayerModel alloc] init];
+                playerModel.title            = model.title;
+                playerModel.videoURL         = [[NSURL alloc]initWithString:video];
+                NSString *image = [[NSString alloc]initWithFormat:@"https:%@",model.img];
+                playerModel.placeholderImageURLString = image;
+                playerModel.scrollView       = weakSelf.collectionView;
+                playerModel.indexPath        = weakIndexPath;
+                // 赋值分辨率字典
+                //        playerModel.resolutionDic    = dic;
+                // player的父视图tag
+                playerModel.fatherViewTag    = weakCell.topicImageView.tag;
+                
+                // 设置播放控制层和model
+                [weakSelf.playerView playerControlView:nil playerModel:playerModel];
+                // 下载功能
+                weakSelf.playerView.hasDownload = YES;
+                // 自动播放
+                [weakSelf.playerView autoPlayTheVideo];
             }
-            
-            if (video == nil) {
-                return;
-            }
-            
-            ZFPlayerModel *playerModel = [[ZFPlayerModel alloc] init];
-            playerModel.title            = model.title;
-            playerModel.videoURL         = [[NSURL alloc]initWithString:video];
-            NSString *image = [[NSString alloc]initWithFormat:@"https:%@",model.img];
-            playerModel.placeholderImageURLString = image;
-            playerModel.scrollView       = weakSelf.collectionView;
-            playerModel.indexPath        = weakIndexPath;
-            // 赋值分辨率字典
-            //        playerModel.resolutionDic    = dic;
-            // player的父视图tag
-            playerModel.fatherViewTag    = weakCell.topicImageView.tag;
-            
-            // 设置播放控制层和model
-            [weakSelf.playerView playerControlView:nil playerModel:playerModel];
-            // 下载功能
-            weakSelf.playerView.hasDownload = YES;
-            // 自动播放
-            [weakSelf.playerView autoPlayTheVideo];
+
         }
-        
-        
         
     };
     
     return cell;
+}
+
+
+- (UICollectionReusableView *) collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
+{
+    UICollectionReusableView *reusableview = nil;
+    
+    if (kind == UICollectionElementKindSectionHeader)
+    {
+        UICollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderView" forIndexPath:indexPath];
+        
+        
+        reusableview = headerView;
+        
+    }
+    
+    UMBannerView *bannerView = [UMVideoAd videoBannerPlayerFrame:CGRectMake(0, 0, self.view.frame.size.width, 50) videoBannerPlayCloseCallBackBlock:^(BOOL isLegal){
+        NSLog(@"关闭banner");
+        NSLog(@"close banner");
+    }];
+    
+    [reusableview addSubview:bannerView];
+    
+    reusableview.backgroundColor = [UIColor whiteColor];
+    
+    return reusableview;
 }
 
 - (ZFPlayerView *)playerView {

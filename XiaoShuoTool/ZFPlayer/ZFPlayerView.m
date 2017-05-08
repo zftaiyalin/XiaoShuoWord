@@ -1472,6 +1472,10 @@ typedef NS_ENUM(NSInteger, PanDirection){
 }
 
 - (void)zf_controlView:(UIView *)controlView closeAction:(UIButton *)sender {
+    [self shutDownPlayer];
+}
+
+-(void)shutDownPlayer{
     [self resetPlayer];
     [self removeFromSuperview];
 }

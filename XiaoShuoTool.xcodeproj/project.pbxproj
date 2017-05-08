@@ -8,6 +8,21 @@
 
 /* Begin PBXBuildFile section */
 		686202C496DA91917D5E6155 /* libPods-XiaoShuoTool.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D69760388ECFE20A5DD42C8B /* libPods-XiaoShuoTool.a */; };
+		6B5E67C11EC098B200A4D59E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B5E67C01EC098B200A4D59E /* SystemConfiguration.framework */; };
+		6B5E67C31EC098BB00A4D59E /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B5E67C21EC098BB00A4D59E /* CFNetwork.framework */; };
+		6B5E67C51EC098C400A4D59E /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B5E67C41EC098C400A4D59E /* MediaPlayer.framework */; };
+		6B5E67C71EC098F200A4D59E /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B5E67C61EC098F200A4D59E /* libz.tbd */; };
+		6B5E67C91EC098FD00A4D59E /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B5E67C81EC098FD00A4D59E /* StoreKit.framework */; };
+		6B5E67CB1EC0990A00A4D59E /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B5E67CA1EC0990A00A4D59E /* CoreMotion.framework */; };
+		6B5E67CD1EC0991800A4D59E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B5E67CC1EC0991800A4D59E /* AudioToolbox.framework */; };
+		6B5E67CF1EC0992600A4D59E /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B5E67CE1EC0992600A4D59E /* libicucore.tbd */; };
+		6B5E67D11EC0992E00A4D59E /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B5E67D01EC0992E00A4D59E /* AdSupport.framework */; };
+		6B5E67D31EC0993B00A4D59E /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B5E67D21EC0993B00A4D59E /* CoreTelephony.framework */; };
+		6B5E67D51EC0995000A4D59E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B5E67D41EC0995000A4D59E /* Security.framework */; };
+		6B5E67D71EC0995800A4D59E /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B5E67D61EC0995800A4D59E /* WebKit.framework */; };
+		6B5E67DD1EC0999E00A4D59E /* UMVideo.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6B5E67DB1EC0999E00A4D59E /* UMVideo.bundle */; };
+		6B5E67DE1EC0999E00A4D59E /* UMVideoSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B5E67DC1EC0999E00A4D59E /* UMVideoSDK.a */; };
+		6B5E67E11EC0A98800A4D59E /* YouJiVideoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B5E67E01EC0A98800A4D59E /* YouJiVideoModel.m */; };
 		6B666A6A1EBC806E00AA5C75 /* libGumbo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B666A651EBC806E00AA5C75 /* libGumbo.a */; };
 		6B666A6B1EBC806E00AA5C75 /* OCGumbo+Query.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B666A671EBC806E00AA5C75 /* OCGumbo+Query.m */; };
 		6B666A6C1EBC806E00AA5C75 /* OCGumbo.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B666A691EBC806E00AA5C75 /* OCGumbo.m */; };
@@ -81,6 +96,23 @@
 
 /* Begin PBXFileReference section */
 		36BF3FD6CB5596B00F42B16D /* Pods-XiaoShuoTool.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XiaoShuoTool.debug.xcconfig"; path = "Pods/Target Support Files/Pods-XiaoShuoTool/Pods-XiaoShuoTool.debug.xcconfig"; sourceTree = "<group>"; };
+		6B5E67C01EC098B200A4D59E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		6B5E67C21EC098BB00A4D59E /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		6B5E67C41EC098C400A4D59E /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		6B5E67C61EC098F200A4D59E /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		6B5E67C81EC098FD00A4D59E /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		6B5E67CA1EC0990A00A4D59E /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		6B5E67CC1EC0991800A4D59E /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		6B5E67CE1EC0992600A4D59E /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
+		6B5E67D01EC0992E00A4D59E /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		6B5E67D21EC0993B00A4D59E /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		6B5E67D41EC0995000A4D59E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		6B5E67D61EC0995800A4D59E /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		6B5E67DA1EC0999E00A4D59E /* UMVideoAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMVideoAd.h; sourceTree = "<group>"; };
+		6B5E67DB1EC0999E00A4D59E /* UMVideo.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = UMVideo.bundle; sourceTree = "<group>"; };
+		6B5E67DC1EC0999E00A4D59E /* UMVideoSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = UMVideoSDK.a; sourceTree = "<group>"; };
+		6B5E67DF1EC0A98800A4D59E /* YouJiVideoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouJiVideoModel.h; sourceTree = "<group>"; };
+		6B5E67E01EC0A98800A4D59E /* YouJiVideoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YouJiVideoModel.m; sourceTree = "<group>"; };
 		6B666A631EBC806E00AA5C75 /* gumbo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gumbo.h; sourceTree = "<group>"; };
 		6B666A641EBC806E00AA5C75 /* tag_enum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tag_enum.h; sourceTree = "<group>"; };
 		6B666A651EBC806E00AA5C75 /* libGumbo.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGumbo.a; sourceTree = "<group>"; };
@@ -235,7 +267,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6B5E67D71EC0995800A4D59E /* WebKit.framework in Frameworks */,
+				6B5E67D51EC0995000A4D59E /* Security.framework in Frameworks */,
+				6B5E67D31EC0993B00A4D59E /* CoreTelephony.framework in Frameworks */,
+				6B5E67D11EC0992E00A4D59E /* AdSupport.framework in Frameworks */,
+				6B5E67CF1EC0992600A4D59E /* libicucore.tbd in Frameworks */,
+				6B5E67CD1EC0991800A4D59E /* AudioToolbox.framework in Frameworks */,
+				6B5E67CB1EC0990A00A4D59E /* CoreMotion.framework in Frameworks */,
+				6B5E67C91EC098FD00A4D59E /* StoreKit.framework in Frameworks */,
+				6B5E67C71EC098F200A4D59E /* libz.tbd in Frameworks */,
+				6B5E67C51EC098C400A4D59E /* MediaPlayer.framework in Frameworks */,
+				6B5E67C31EC098BB00A4D59E /* CFNetwork.framework in Frameworks */,
+				6B5E67C11EC098B200A4D59E /* SystemConfiguration.framework in Frameworks */,
 				6B666A6A1EBC806E00AA5C75 /* libGumbo.a in Frameworks */,
+				6B5E67DE1EC0999E00A4D59E /* UMVideoSDK.a in Frameworks */,
 				686202C496DA91917D5E6155 /* libPods-XiaoShuoTool.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -243,6 +288,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6B5E67D81EC0999E00A4D59E /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				6B5E67D91EC0999E00A4D59E /* include */,
+				6B5E67DB1EC0999E00A4D59E /* UMVideo.bundle */,
+				6B5E67DC1EC0999E00A4D59E /* UMVideoSDK.a */,
+			);
+			path = lib;
+			sourceTree = "<group>";
+		};
+		6B5E67D91EC0999E00A4D59E /* include */ = {
+			isa = PBXGroup;
+			children = (
+				6B5E67DA1EC0999E00A4D59E /* UMVideoAd.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
 		6B666A601EBC806E00AA5C75 /* OCGumboRelease */ = {
 			isa = PBXGroup;
 			children = (
@@ -427,6 +490,18 @@
 		8332FC0B2A2460BD29CA29BF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6B5E67D61EC0995800A4D59E /* WebKit.framework */,
+				6B5E67D41EC0995000A4D59E /* Security.framework */,
+				6B5E67D21EC0993B00A4D59E /* CoreTelephony.framework */,
+				6B5E67D01EC0992E00A4D59E /* AdSupport.framework */,
+				6B5E67CE1EC0992600A4D59E /* libicucore.tbd */,
+				6B5E67CC1EC0991800A4D59E /* AudioToolbox.framework */,
+				6B5E67CA1EC0990A00A4D59E /* CoreMotion.framework */,
+				6B5E67C81EC098FD00A4D59E /* StoreKit.framework */,
+				6B5E67C61EC098F200A4D59E /* libz.tbd */,
+				6B5E67C41EC098C400A4D59E /* MediaPlayer.framework */,
+				6B5E67C21EC098BB00A4D59E /* CFNetwork.framework */,
+				6B5E67C01EC098B200A4D59E /* SystemConfiguration.framework */,
 				D69760388ECFE20A5DD42C8B /* libPods-XiaoShuoTool.a */,
 			);
 			name = Frameworks;
@@ -453,6 +528,7 @@
 		E803C75B1CF57793001BB402 /* XiaoShuoTool */ = {
 			isa = PBXGroup;
 			children = (
+				6B5E67D81EC0999E00A4D59E /* lib */,
 				6B8A704E1EBD774000CFFB62 /* ZFPlayer */,
 				6B666A6D1EBC808600AA5C75 /* MJRefresh */,
 				6B666A601EBC806E00AA5C75 /* OCGumboRelease */,
@@ -466,6 +542,8 @@
 				E803C77E1CF584EC001BB402 /* JACenterViewController.m */,
 				E803C7871CF58E1B001BB402 /* XiaoshuoViewController.h */,
 				E803C7881CF58E1B001BB402 /* XiaoshuoViewController.m */,
+				6B5E67DF1EC0A98800A4D59E /* YouJiVideoModel.h */,
+				6B5E67E01EC0A98800A4D59E /* YouJiVideoModel.m */,
 				6B8A70921EBDA7A100CFFB62 /* MoviePlayerViewController.h */,
 				6B8A70931EBDA7A100CFFB62 /* MoviePlayerViewController.m */,
 				6B8A70811EBD7D8400CFFB62 /* ZFDownloadViewController.h */,
@@ -624,6 +702,7 @@
 				E803C7691CF57793001BB402 /* Assets.xcassets in Resources */,
 				6B666AAA1EBC808600AA5C75 /* MJRefresh.bundle in Resources */,
 				E803C7671CF57793001BB402 /* Main.storyboard in Resources */,
+				6B5E67DD1EC0999E00A4D59E /* UMVideo.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -701,6 +780,7 @@
 				6B666A9E1EBC808600AA5C75 /* MJRefreshComponent.m in Sources */,
 				6B666AA91EBC808600AA5C75 /* MJRefreshStateHeader.m in Sources */,
 				6B666AAD1EBC808600AA5C75 /* UIScrollView+MJExtension.m in Sources */,
+				6B5E67E11EC0A98800A4D59E /* YouJiVideoModel.m in Sources */,
 				6B666AA81EBC808600AA5C75 /* MJRefreshNormalHeader.m in Sources */,
 				6B666AA31EBC808600AA5C75 /* MJRefreshAutoStateFooter.m in Sources */,
 				E803C7891CF58E1B001BB402 /* XiaoshuoViewController.m in Sources */,
@@ -880,6 +960,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/XiaoShuoTool/OCGumboRelease/gumbo",
+					"$(PROJECT_DIR)/XiaoShuoTool/lib",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.test.XiaoShuoTool;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -899,6 +980,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/XiaoShuoTool/OCGumboRelease/gumbo",
+					"$(PROJECT_DIR)/XiaoShuoTool/lib",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.test.XiaoShuoTool;
 				PRODUCT_NAME = "$(TARGET_NAME)";
