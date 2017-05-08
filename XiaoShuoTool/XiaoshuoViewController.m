@@ -7,23 +7,28 @@
 //
 
 #import "XiaoshuoViewController.h"
-#import "ToolManager.h"
 #import "MMAlertView.h"
-//#import "SecondViewController.h"
 #import "OCGumbo.h"
 #import "OCGumbo+Query.h"
 #import "VideoModel.h"
 #import "MJRefresh.h"
 #import "Masonry.h"
-#import "JRPlayerViewController.h"
+#import "ZFPlayer.h"
+#import "ZFCollectionViewCell.h"
+#import <ZFDownload/ZFDownloadManager.h>
 
 //#define baseUrl "https://www.youjizz.com/most-popular/"
-#define baseUrl "https://www.youjizz.com/search/japanese-"
-#define youjizz "https://www.youjizz.com/"
 
-@interface XiaoshuoViewController ()<UITableViewDelegate,UITableViewDataSource>{
-    UITableView *_tv;
+static NSString * const reuseIdentifier = @"collectionViewCell";
+
+@interface XiaoshuoViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,ZFPlayerDelegate>{
+    
 }
+
+@property (nonatomic,strong) UICollectionView *collectionView;
+@property (nonatomic, strong) ZFPlayerView        *playerView;
+@property (nonatomic, strong) ZFPlayerControlView *controlView;
+
 
 @end
 
@@ -56,19 +61,21 @@
             NSLog(@"from:(%@)",link.attr(@"href"));
             OCGumboNode *time = row.Query(@".time").first();
             NSLog(@"title:[%@]", time.text());
+            OCGumboNode *img = row.Query(@".img-responsive").first();
+            NSLog(@"title:[%@]", img.attr(@"data-original"));
             //            NSLog(@"by %@ \n", row.Query(@"p.meta").children(@"a").get(1).text());
             
             VideoModel *model = [[VideoModel alloc]init];
             model.url = link.attr(@"href");
             model.title = title.text();
             model.time = time.text();
+            model.img = img.attr(@"data-original");
             [self.videoModelArray addObject:model];
         }
-//        https://www.youjizz.com/most-popular/1.html
     }
-    [_tv.mj_footer endRefreshing];
-    [_tv.mj_header endRefreshing];
-    [_tv reloadData];
+    [_collectionView.mj_footer endRefreshing];
+    [_collectionView.mj_header endRefreshing];
+    [_collectionView reloadData];
 }
 
 -(void)reFreshVideoModel {
@@ -87,70 +94,54 @@
 
     self.view.backgroundColor = [UIColor whiteColor];
 
-//    UIBarButtonItem *item = [[UIBarButtonItem alloc] init];
-//    item.title = @"";
-//    self.navigationItem.backBarButtonItem = item;
-//
-//    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithTitle:@"添加" style:UIBarButtonItemStyleDone target:self action:@selector(edit)];
-//    self.navigationItem.rightBarButtonItem = rightItem;
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    CGFloat margin = 5;
+    CGFloat itemWidth = ScreenWidth/2 - 2*margin;
+    CGFloat itemHeight = itemWidth*9/16 + 30;
+    layout.itemSize = CGSizeMake(itemWidth, itemHeight);
+    layout.sectionInset = UIEdgeInsetsMake(10, margin, 10, margin);
+    layout.minimumLineSpacing = 5;
+    layout.minimumInteritemSpacing = 5;
+    
+    
+    _collectionView=[[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, 375, 667) collectionViewLayout:layout];
+    _collectionView.backgroundColor=[UIColor whiteColor];
+    _collectionView.delegate=self;
+    _collectionView.dataSource=self;
+    
+    _collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(reFreshVideoModel)];
+    _collectionView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadVideoModel)];
+
+    [_collectionView registerClass:[ZFCollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
+//    layout.scrollDirection=UICollectionViewScrollDirectionVertical;
+    [self.view addSubview:_collectionView];
 
     
-    
-    _tv = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
-    _tv.dataSource = self;
-    _tv.delegate = self;
-    _tv.allowsSelection=YES;
-    _tv.showsHorizontalScrollIndicator = NO;
-    _tv.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(reFreshVideoModel)];
-    _tv.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadVideoModel)];
-    _tv.showsVerticalScrollIndicator = NO;
-    _tv.backgroundColor = [UIColor clearColor];
-    [_tv registerClass:[UITableViewCell class] forCellReuseIdentifier:@"optionCell"];
-    [self.view addSubview:_tv];
-    
-    [self reFreshVideoModel];
-    
-    [_tv mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
     
-
-//    /videos/mother-son-38583101.html
-
+     [self reFreshVideoModel];
 }
-//-(void)edit{
-//    
-//    MMPopupCompletionBlock completeBlock = ^(MMPopupView *popupView, BOOL finished){
-//        NSLog(@"animation complete");
-//    };
-//
-//    
-//    MMAlertView *alertView = [[MMAlertView alloc] initWithInputTitle:@"添加类型标签" detail:nil placeholder:@"类型标签" handler:^(NSString *text) {
-//        NSLog(@"input:%@",text);
-//        
-//        if(text.length>0){
-//            [self addStatusTagsInfo:text];
-//        }
-//    }];
-//    alertView.maxInputLength=10;
-//    alertView.attachedView = self.view;
-//    alertView.attachedView.mm_dimBackgroundBlurEnabled = NO;
-//    alertView.attachedView.mm_dimBackgroundBlurEffectStyle = UIBlurEffectStyleExtraLight;
-//    [alertView showWithBlock:completeBlock];
-//}
-//- (void)didReceiveMemoryWarning {
-//    [super didReceiveMemoryWarning];
-//    // Dispose of any resources that can be recreated.
-//}
-//
-//
-//-(void)addStatusTagsInfo:(NSString *)text{
-//    MainModel *da=  [MainModel new];
-//    da.string=text;
-//    [[ToolManager sharedInstance].xiaoshuo.array addObject:da];
-//    [[ToolManager sharedInstance]saveXiaoShuo];
-//    [_tv reloadData];
-//}
+
+// 页面消失时候
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.playerView resetPlayer];
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    // 这里设置横竖屏不同颜色的statusbar
+    if (ZFPlayerShared.isLandscape) {
+        return UIStatusBarStyleLightContent;
+    }
+    return UIStatusBarStyleDefault;
+}
+
+- (BOOL)prefersStatusBarHidden {
+    return ZFPlayerShared.isStatusBarHidden;
+}
+
 
 /*
 #pragma mark - Navigation
@@ -164,91 +155,134 @@
 #pragma mark - Table view data source
 
 
-- (void)viewDidLayoutSubviews
+
+- (BOOL)shouldAutorotate
 {
-    if ([_tv respondsToSelector:@selector(setSeparatorInset:)]) {
-        [_tv setSeparatorInset:UIEdgeInsetsMake(0,0,0,0)];
-    }
-    
-    if ([_tv respondsToSelector:@selector(setLayoutMargins:)]) {
-        [_tv setLayoutMargins:UIEdgeInsetsMake(0,0,0,0)];
-    }
-}
-//cell即将展示的时候调用
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
-        [cell setSeparatorInset:UIEdgeInsetsZero];
-    }
-    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
-        [cell setLayoutMargins:UIEdgeInsetsZero];
-    }
+    return NO;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+#pragma mark <UICollectionViewDataSource>
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.videoModelArray.count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"optionCell" forIndexPath:indexPath];
-    VideoModel *model=[self.videoModelArray objectAtIndex:indexPath.row];
-    cell.textLabel.text=model.title;
+//一共有多少个组
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+    return 1;
+}
+
+//定义每一个cell的大小
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    CGFloat margin = 5;
+    CGFloat itemWidth = ScreenWidth/2 - 2*margin;
+    CGFloat itemHeight = itemWidth*9/16 + 30;
+    return CGSizeMake(itemWidth, itemHeight);
+}
+
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    ZFCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
+    // 取到对应cell的model
+    __block VideoModel *model        = self.videoModelArray[indexPath.row];
+    // 赋值model
+    cell.model                         = model;
+    __block NSIndexPath *weakIndexPath = indexPath;
+    __block ZFCollectionViewCell *weakCell = cell;
+    __weak typeof(self)  weakSelf      = self;
+    // 点击播放的回调
+    cell.playBlock = ^(UIButton *btn){
+        
+        // 分辨率字典（key:分辨率名称，value：分辨率url)
+//        NSMutableDictionary *dic = @{}.mutableCopy;
+//        for (ZFVideoResolution * resolution in model.playInfo) {
+//            [dic setValue:resolution.url forKey:resolution.name];
+//        }
+//        // 取出字典中的第一视频URL
+//        NSURL *videoURL = [NSURL URLWithString:dic.allValues.firstObject];
+        
+        
+        NSString *urlString = [[NSString alloc]initWithFormat:@"%s%@",youjizz,model.url];
+        NSError *error = nil;
+        //    https://www.youjizz.com/most-popular/2.html
+        NSURL *xcfURL = [NSURL URLWithString:urlString];
+        NSString *htmlString = [NSString stringWithContentsOfURL:xcfURL encoding:NSUTF8StringEncoding error:&error];
+        
+        if (htmlString) {
+            OCGumboDocument *iosfeedDoc = [[OCGumboDocument alloc] initWithHTMLString:htmlString];
+            NSArray *array = iosfeedDoc.body.Query(@"div.main-content").find(@"#yj-video");
+            //        NSLog(@"%@", videoStr.attr(@"src"));
+            NSString *video = nil;
+            for (OCGumboNode *row in array) {
+                OCGumboNode *videoStr = row.Query(@"source").last();
+                NSLog(@"from:(%@)",videoStr.attr(@"src"));
+                video = [[NSString alloc]initWithFormat:@"https:%@",videoStr.attr(@"src")];
+            }
+            
+            if (video == nil) {
+                return;
+            }
+            
+            ZFPlayerModel *playerModel = [[ZFPlayerModel alloc] init];
+            playerModel.title            = model.title;
+            playerModel.videoURL         = [[NSURL alloc]initWithString:video];
+            NSString *image = [[NSString alloc]initWithFormat:@"https:%@",model.img];
+            playerModel.placeholderImageURLString = image;
+            playerModel.scrollView       = weakSelf.collectionView;
+            playerModel.indexPath        = weakIndexPath;
+            // 赋值分辨率字典
+            //        playerModel.resolutionDic    = dic;
+            // player的父视图tag
+            playerModel.fatherViewTag    = weakCell.topicImageView.tag;
+            
+            // 设置播放控制层和model
+            [weakSelf.playerView playerControlView:nil playerModel:playerModel];
+            // 下载功能
+            weakSelf.playerView.hasDownload = YES;
+            // 自动播放
+            [weakSelf.playerView autoPlayTheVideo];
+        }
+        
+        
+        
+    };
+    
     return cell;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    return 44;
-}
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//    SecondViewController *vc=[SecondViewController new];
-//    
-//    MainModel *model=[[ToolManager sharedInstance].xiaoshuo.array objectAtIndex:indexPath.row];
-//    vc.mainData=model;
-//    [self.navigationController pushViewController:vc animated:YES];
-    VideoModel *model=[self.videoModelArray objectAtIndex:indexPath.row];
-    
-    NSString *urlString = [[NSString alloc]initWithFormat:@"%s%@",youjizz,model.url];
-    NSError *error = nil;
-    //    https://www.youjizz.com/most-popular/2.html
-    NSURL *xcfURL = [NSURL URLWithString:urlString];
-    NSString *htmlString = [NSString stringWithContentsOfURL:xcfURL encoding:NSUTF8StringEncoding error:&error];
-    
-    if (htmlString) {
-        OCGumboDocument *iosfeedDoc = [[OCGumboDocument alloc] initWithHTMLString:htmlString];
-        NSArray *array = iosfeedDoc.body.Query(@"div.main-content").find(@"#yj-video");
-//        NSLog(@"%@", videoStr.attr(@"src"));
-        for (OCGumboNode *row in array) {
-            OCGumboNode *videoStr = row.Query(@"source").last();
-            NSLog(@"from:(%@)",videoStr.attr(@"src"));
-            NSString *video = [[NSString alloc]initWithFormat:@"https:%@",videoStr.attr(@"src")];
-            JRPlayerViewController *playerVC = [[JRPlayerViewController alloc] initWithHTTPLiveStreamingMediaURL: [[NSURL alloc]initWithString:video]];
-            playerVC.mediaTitle = model.title;
-            [self presentViewController:playerVC animated:YES completion:nil];
-            
-        }
+- (ZFPlayerView *)playerView {
+    if (!_playerView) {
+        _playerView = [ZFPlayerView sharedPlayerView];
+        _playerView.delegate = self;
+        // 当cell播放视频由全屏变为小屏时候，不回到中间位置
+        _playerView.cellPlayerOnCenter = NO;
+        
+        // 当cell划出屏幕的时候停止播放
+        // _playerView.stopPlayWhileCellNotVisable = YES;
+        //（可选设置）可以设置视频的填充模式，默认为（等比例填充，直到一个维度到达区域边界）
+        // _playerView.playerLayerGravity = ZFPlayerLayerGravityResizeAspect;
+        // 静音
+        // _playerView.mute = YES;
     }
-
+    return _playerView;
 }
--(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-//    //删除cell
-//    if (editingStyle ==UITableViewCellEditingStyleDelete)
-//    {
-//        illnessModel *data= [_lnessDiagnoseModel.data objectAtIndex:indexPath.row];
-//        
-//        deleteIllnessDiagnoseApi *api = [[deleteIllnessDiagnoseApi alloc] initWithContentId:[NSNumber numberWithInteger:data.id]];
-//        
-//        [api startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
-//            [_lnessDiagnoseModel.data removeObjectAtIndex:indexPath.row];
-//            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-//        } failure:^(YTKBaseRequest *request) {
-//            NSLog(@"failed");
-//        }];
-//        //        [self.friendListremoveObjectAtIndex:indexPath.row];  //删除数据源记录
-//        
-//    }
+
+- (ZFPlayerControlView *)controlView {
+    if (!_controlView) {
+        _controlView = [[ZFPlayerControlView alloc] init];
+    }
+    return _controlView;
+}
+
+#pragma mark - ZFPlayerDelegate
+
+- (void)zf_playerDownload:(NSString *)url {
+    // 此处是截取的下载地址，可以自己根据服务器的视频名称来赋值
+    NSString *name = [url lastPathComponent];
+    [[ZFDownloadManager sharedDownloadManager] downFileUrl:url filename:name fileimage:nil];
+    // 设置最多同时下载个数（默认是3）
+    [ZFDownloadManager sharedDownloadManager].maxCount = 4;
 }
 
 

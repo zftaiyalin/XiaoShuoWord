@@ -7,11 +7,10 @@
 //
 
 #import "AppDelegate.h"
-#import "JALeftViewController.h"
 #import "JACenterViewController.h"
 #import "UIColor+YYAdd.h"
 #import "XiaoshuoViewController.h"
-
+#import "ZFDownloadViewController.h"
 @interface AppDelegate ()
 
 @end
@@ -23,11 +22,7 @@
     // Override point for customization after application launch.
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    
-    self.viewController = [[JASidePanelController alloc] init];
-    self.viewController.shouldDelegateAutorotateToVisiblePanel = NO;
-    
-    self.viewController.leftPanel = [[JALeftViewController alloc] init];
+  
     //
     
     
@@ -41,7 +36,7 @@
     UINavigationController *secondNavigationController = [[UINavigationController alloc]
                                                           initWithRootViewController:secondViewController];
     
-    JACenterViewController *thirdViewController =  [[JACenterViewController alloc] init];
+    ZFDownloadViewController *thirdViewController =  [[ZFDownloadViewController alloc] init];
     thirdViewController.hidesBottomBarWhenPushed = NO;
     UINavigationController *thirdNavigationController = [[UINavigationController alloc]
                                                          initWithRootViewController:thirdViewController];
@@ -55,7 +50,7 @@
     [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor]
                                                                                   ,NSForegroundColorAttributeName,[UIFont systemFontOfSize:26], NSFontAttributeName, nil]
                                              forState:UIControlStateSelected];
-    NSArray *titles = @[@"小说", @"歌词", @"诗词"];
+    NSArray *titles = @[@"首页", @"歌词", @"下载"];
     //    NSArray *images = @[@"news", @"msg", @"contacts", @"userCenter"];
     
     self.mainVC = [[UITabBarController alloc] init];
@@ -76,9 +71,9 @@
     
     self.mainVC.tabBar.translucent = NO;
     
-    self.viewController.centerPanel =self.mainVC;
+ 
     
-    self.window.rootViewController = self.viewController;
+    self.window.rootViewController = self.mainVC;
     [self.window makeKeyAndVisible];
     
     return YES;
@@ -129,3 +124,6 @@
 }
 
 @end
+
+
+
