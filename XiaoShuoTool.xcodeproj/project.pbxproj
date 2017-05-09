@@ -47,6 +47,19 @@
 		6B666AAE1EBC808600AA5C75 /* UIScrollView+MJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B666A991EBC808600AA5C75 /* UIScrollView+MJRefresh.m */; };
 		6B666AAF1EBC808600AA5C75 /* UIView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B666A9B1EBC808600AA5C75 /* UIView+MJExtension.m */; };
 		6B666AB21EBC80CF00AA5C75 /* VideoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B666AB11EBC80CF00AA5C75 /* VideoModel.m */; };
+		6B70DAEF1EC160EF00EB09FC /* ALiProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B70DAE71EC160EF00EB09FC /* ALiProgressHUD.m */; };
+		6B70DAF01EC160EF00EB09FC /* HUD_error@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6B70DAE91EC160EF00EB09FC /* HUD_error@2x.png */; };
+		6B70DAF11EC160EF00EB09FC /* HUD_error@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6B70DAEA1EC160EF00EB09FC /* HUD_error@3x.png */; };
+		6B70DAF21EC160EF00EB09FC /* HUD_info@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6B70DAEB1EC160EF00EB09FC /* HUD_info@2x.png */; };
+		6B70DAF31EC160EF00EB09FC /* HUD_info@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6B70DAEC1EC160EF00EB09FC /* HUD_info@3x.png */; };
+		6B70DAF41EC160EF00EB09FC /* HUD_success@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6B70DAED1EC160EF00EB09FC /* HUD_success@2x.png */; };
+		6B70DAF51EC160EF00EB09FC /* HUD_success@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6B70DAEE1EC160EF00EB09FC /* HUD_success@3x.png */; };
+		6B70DB001EC1610600EB09FC /* ZFCommonHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B70DAF81EC1610600EB09FC /* ZFCommonHelper.m */; };
+		6B70DB011EC1610600EB09FC /* ZFDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B70DAFB1EC1610600EB09FC /* ZFDownloadManager.m */; };
+		6B70DB021EC1610600EB09FC /* ZFFileModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B70DAFD1EC1610600EB09FC /* ZFFileModel.m */; };
+		6B70DB031EC1610600EB09FC /* ZFHttpRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B70DAFF1EC1610600EB09FC /* ZFHttpRequest.m */; };
+		6B70DB061EC1732000EB09FC /* NSObject+ALiHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B70DB051EC1732000EB09FC /* NSObject+ALiHUD.m */; };
+		6B70DB091EC173A200EB09FC /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B70DB081EC173A200EB09FC /* SearchViewController.m */; };
 		6B8A706F1EBD774000CFFB62 /* ASValuePopUpView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B8A70501EBD774000CFFB62 /* ASValuePopUpView.m */; };
 		6B8A70701EBD774000CFFB62 /* ASValueTrackingSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B8A70521EBD774000CFFB62 /* ASValueTrackingSlider.m */; };
 		6B8A70711EBD774000CFFB62 /* UIAlertController+ZFPlayerRotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B8A70551EBD774000CFFB62 /* UIAlertController+ZFPlayerRotation.m */; };
@@ -162,6 +175,27 @@
 		6B666A9B1EBC808600AA5C75 /* UIView+MJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MJExtension.m"; sourceTree = "<group>"; };
 		6B666AB01EBC80CF00AA5C75 /* VideoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoModel.h; sourceTree = "<group>"; };
 		6B666AB11EBC80CF00AA5C75 /* VideoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoModel.m; sourceTree = "<group>"; };
+		6B70DAE61EC160EF00EB09FC /* ALiProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALiProgressHUD.h; sourceTree = "<group>"; };
+		6B70DAE71EC160EF00EB09FC /* ALiProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALiProgressHUD.m; sourceTree = "<group>"; };
+		6B70DAE91EC160EF00EB09FC /* HUD_error@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HUD_error@2x.png"; sourceTree = "<group>"; };
+		6B70DAEA1EC160EF00EB09FC /* HUD_error@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HUD_error@3x.png"; sourceTree = "<group>"; };
+		6B70DAEB1EC160EF00EB09FC /* HUD_info@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HUD_info@2x.png"; sourceTree = "<group>"; };
+		6B70DAEC1EC160EF00EB09FC /* HUD_info@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HUD_info@3x.png"; sourceTree = "<group>"; };
+		6B70DAED1EC160EF00EB09FC /* HUD_success@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HUD_success@2x.png"; sourceTree = "<group>"; };
+		6B70DAEE1EC160EF00EB09FC /* HUD_success@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HUD_success@3x.png"; sourceTree = "<group>"; };
+		6B70DAF71EC1610600EB09FC /* ZFCommonHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFCommonHelper.h; sourceTree = "<group>"; };
+		6B70DAF81EC1610600EB09FC /* ZFCommonHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFCommonHelper.m; sourceTree = "<group>"; };
+		6B70DAF91EC1610600EB09FC /* ZFDownloadDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFDownloadDelegate.h; sourceTree = "<group>"; };
+		6B70DAFA1EC1610600EB09FC /* ZFDownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFDownloadManager.h; sourceTree = "<group>"; };
+		6B70DAFB1EC1610600EB09FC /* ZFDownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFDownloadManager.m; sourceTree = "<group>"; };
+		6B70DAFC1EC1610600EB09FC /* ZFFileModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFFileModel.h; sourceTree = "<group>"; };
+		6B70DAFD1EC1610600EB09FC /* ZFFileModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFFileModel.m; sourceTree = "<group>"; };
+		6B70DAFE1EC1610600EB09FC /* ZFHttpRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFHttpRequest.h; sourceTree = "<group>"; };
+		6B70DAFF1EC1610600EB09FC /* ZFHttpRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFHttpRequest.m; sourceTree = "<group>"; };
+		6B70DB041EC1732000EB09FC /* NSObject+ALiHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+ALiHUD.h"; sourceTree = "<group>"; };
+		6B70DB051EC1732000EB09FC /* NSObject+ALiHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+ALiHUD.m"; sourceTree = "<group>"; };
+		6B70DB071EC173A200EB09FC /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
+		6B70DB081EC173A200EB09FC /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		6B8A704F1EBD774000CFFB62 /* ASValuePopUpView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASValuePopUpView.h; sourceTree = "<group>"; };
 		6B8A70501EBD774000CFFB62 /* ASValuePopUpView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASValuePopUpView.m; sourceTree = "<group>"; };
 		6B8A70511EBD774000CFFB62 /* ASValueTrackingSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASValueTrackingSlider.h; sourceTree = "<group>"; };
@@ -431,9 +465,51 @@
 			path = Header;
 			sourceTree = "<group>";
 		};
+		6B70DAE51EC160EF00EB09FC /* ALiHUD */ = {
+			isa = PBXGroup;
+			children = (
+				6B70DAE61EC160EF00EB09FC /* ALiProgressHUD.h */,
+				6B70DAE71EC160EF00EB09FC /* ALiProgressHUD.m */,
+				6B70DB041EC1732000EB09FC /* NSObject+ALiHUD.h */,
+				6B70DB051EC1732000EB09FC /* NSObject+ALiHUD.m */,
+				6B70DAE81EC160EF00EB09FC /* images */,
+			);
+			path = ALiHUD;
+			sourceTree = "<group>";
+		};
+		6B70DAE81EC160EF00EB09FC /* images */ = {
+			isa = PBXGroup;
+			children = (
+				6B70DAE91EC160EF00EB09FC /* HUD_error@2x.png */,
+				6B70DAEA1EC160EF00EB09FC /* HUD_error@3x.png */,
+				6B70DAEB1EC160EF00EB09FC /* HUD_info@2x.png */,
+				6B70DAEC1EC160EF00EB09FC /* HUD_info@3x.png */,
+				6B70DAED1EC160EF00EB09FC /* HUD_success@2x.png */,
+				6B70DAEE1EC160EF00EB09FC /* HUD_success@3x.png */,
+			);
+			path = images;
+			sourceTree = "<group>";
+		};
+		6B70DAF61EC1610600EB09FC /* ZFDownload */ = {
+			isa = PBXGroup;
+			children = (
+				6B70DAF71EC1610600EB09FC /* ZFCommonHelper.h */,
+				6B70DAF81EC1610600EB09FC /* ZFCommonHelper.m */,
+				6B70DAF91EC1610600EB09FC /* ZFDownloadDelegate.h */,
+				6B70DAFA1EC1610600EB09FC /* ZFDownloadManager.h */,
+				6B70DAFB1EC1610600EB09FC /* ZFDownloadManager.m */,
+				6B70DAFC1EC1610600EB09FC /* ZFFileModel.h */,
+				6B70DAFD1EC1610600EB09FC /* ZFFileModel.m */,
+				6B70DAFE1EC1610600EB09FC /* ZFHttpRequest.h */,
+				6B70DAFF1EC1610600EB09FC /* ZFHttpRequest.m */,
+			);
+			path = ZFDownload;
+			sourceTree = "<group>";
+		};
 		6B8A704E1EBD774000CFFB62 /* ZFPlayer */ = {
 			isa = PBXGroup;
 			children = (
+				6B70DAF61EC1610600EB09FC /* ZFDownload */,
 				6B8A70881EBD8F7E00CFFB62 /* ZFNavigationController */,
 				6B8A704F1EBD774000CFFB62 /* ASValuePopUpView.h */,
 				6B8A70501EBD774000CFFB62 /* ASValuePopUpView.m */,
@@ -528,6 +604,7 @@
 		E803C75B1CF57793001BB402 /* XiaoShuoTool */ = {
 			isa = PBXGroup;
 			children = (
+				6B70DAE51EC160EF00EB09FC /* ALiHUD */,
 				6B5E67D81EC0999E00A4D59E /* lib */,
 				6B8A704E1EBD774000CFFB62 /* ZFPlayer */,
 				6B666A6D1EBC808600AA5C75 /* MJRefresh */,
@@ -542,6 +619,8 @@
 				E803C77E1CF584EC001BB402 /* JACenterViewController.m */,
 				E803C7871CF58E1B001BB402 /* XiaoshuoViewController.h */,
 				E803C7881CF58E1B001BB402 /* XiaoshuoViewController.m */,
+				6B70DB071EC173A200EB09FC /* SearchViewController.h */,
+				6B70DB081EC173A200EB09FC /* SearchViewController.m */,
 				6B5E67DF1EC0A98800A4D59E /* YouJiVideoModel.h */,
 				6B5E67E01EC0A98800A4D59E /* YouJiVideoModel.m */,
 				6B8A70921EBDA7A100CFFB62 /* MoviePlayerViewController.h */,
@@ -697,12 +776,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6B70DAF11EC160EF00EB09FC /* HUD_error@3x.png in Resources */,
+				6B70DAF51EC160EF00EB09FC /* HUD_success@3x.png in Resources */,
+				6B70DAF41EC160EF00EB09FC /* HUD_success@2x.png in Resources */,
 				E803C76C1CF57793001BB402 /* LaunchScreen.storyboard in Resources */,
 				6B8A707A1EBD774000CFFB62 /* ZFPlayer.bundle in Resources */,
 				E803C7691CF57793001BB402 /* Assets.xcassets in Resources */,
 				6B666AAA1EBC808600AA5C75 /* MJRefresh.bundle in Resources */,
 				E803C7671CF57793001BB402 /* Main.storyboard in Resources */,
+				6B70DAF21EC160EF00EB09FC /* HUD_info@2x.png in Resources */,
 				6B5E67DD1EC0999E00A4D59E /* UMVideo.bundle in Resources */,
+				6B70DAF01EC160EF00EB09FC /* HUD_error@2x.png in Resources */,
+				6B70DAF31EC160EF00EB09FC /* HUD_info@3x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -779,6 +864,7 @@
 				6B8A70751EBD774000CFFB62 /* UIView+CustomControlView.m in Sources */,
 				6B666A9E1EBC808600AA5C75 /* MJRefreshComponent.m in Sources */,
 				6B666AA91EBC808600AA5C75 /* MJRefreshStateHeader.m in Sources */,
+				6B70DB091EC173A200EB09FC /* SearchViewController.m in Sources */,
 				6B666AAD1EBC808600AA5C75 /* UIScrollView+MJExtension.m in Sources */,
 				6B5E67E11EC0A98800A4D59E /* YouJiVideoModel.m in Sources */,
 				6B666AA81EBC808600AA5C75 /* MJRefreshNormalHeader.m in Sources */,
@@ -786,6 +872,7 @@
 				E803C7891CF58E1B001BB402 /* XiaoshuoViewController.m in Sources */,
 				6B666A6C1EBC806E00AA5C75 /* OCGumbo.m in Sources */,
 				6B8A708B1EBD8F7E00CFFB62 /* UINavigationController+ZFFullscreenPopGesture.m in Sources */,
+				6B70DAEF1EC160EF00EB09FC /* ALiProgressHUD.m in Sources */,
 				6B666AAE1EBC808600AA5C75 /* UIScrollView+MJRefresh.m in Sources */,
 				6B8A70721EBD774000CFFB62 /* UIImageView+ZFCache.m in Sources */,
 				E803C7C51CF59262001BB402 /* MMAlertView.m in Sources */,
@@ -793,6 +880,7 @@
 				6B666AA11EBC808600AA5C75 /* MJRefreshAutoGifFooter.m in Sources */,
 				6B666A9D1EBC808600AA5C75 /* MJRefreshBackFooter.m in Sources */,
 				6B666AAC1EBC808600AA5C75 /* NSBundle+MJRefresh.m in Sources */,
+				6B70DB001EC1610600EB09FC /* ZFCommonHelper.m in Sources */,
 				E803C7C91CF59262001BB402 /* MMPopupView.m in Sources */,
 				6B8A70731EBD774000CFFB62 /* UINavigationController+ZFPlayerRotation.m in Sources */,
 				E803C7BB1CF59262001BB402 /* MASCompositeConstraint.m in Sources */,
@@ -807,12 +895,15 @@
 				E803C7C01CF59262001BB402 /* MASViewConstraint.m in Sources */,
 				6B8A70761EBD774000CFFB62 /* UIViewController+ZFPlayerRotation.m in Sources */,
 				6B8A70711EBD774000CFFB62 /* UIAlertController+ZFPlayerRotation.m in Sources */,
+				6B70DB021EC1610600EB09FC /* ZFFileModel.m in Sources */,
+				6B70DB011EC1610600EB09FC /* ZFDownloadManager.m in Sources */,
 				6B8A706F1EBD774000CFFB62 /* ASValuePopUpView.m in Sources */,
 				6B666AAB1EBC808600AA5C75 /* MJRefreshConst.m in Sources */,
 				E803C7831CF584EC001BB402 /* JADebugViewController.m in Sources */,
 				6B8A707C1EBD774000CFFB62 /* ZFPlayerModel.m in Sources */,
 				6B666A6B1EBC806E00AA5C75 /* OCGumbo+Query.m in Sources */,
 				6B8A70901EBD937100CFFB62 /* ZFDownloadingCell.m in Sources */,
+				6B70DB031EC1610600EB09FC /* ZFHttpRequest.m in Sources */,
 				E803C7C31CF59262001BB402 /* View+MASAdditions.m in Sources */,
 				6B666AA51EBC808600AA5C75 /* MJRefreshBackNormalFooter.m in Sources */,
 				6B666AA71EBC808600AA5C75 /* MJRefreshGifHeader.m in Sources */,
@@ -839,6 +930,7 @@
 				6B666AA01EBC808600AA5C75 /* MJRefreshHeader.m in Sources */,
 				E803C7BF1CF59262001BB402 /* MASViewAttribute.m in Sources */,
 				6B666AA41EBC808600AA5C75 /* MJRefreshBackGifFooter.m in Sources */,
+				6B70DB061EC1732000EB09FC /* NSObject+ALiHUD.m in Sources */,
 				E803C7BC1CF59262001BB402 /* MASConstraint.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

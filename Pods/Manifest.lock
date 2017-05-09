@@ -16,24 +16,20 @@ PODS:
   - SDWebImage (4.0.0):
     - SDWebImage/Core (= 4.0.0)
   - SDWebImage/Core (4.0.0)
-  - YYKit (1.0.9):
-    - YYKit/no-arc (= 1.0.9)
-  - YYKit/no-arc (1.0.9)
-  - ZFDownload (1.0.2):
-    - ASIHTTPRequest
+  - SVProgressHUD (2.1.2)
 
 DEPENDENCIES:
+  - ASIHTTPRequest
+  - Reachability
   - SDWebImage
-  - YYKit
-  - ZFDownload (~> 1.0.1)
+  - SVProgressHUD
 
 SPEC CHECKSUMS:
   ASIHTTPRequest: ec013992946676b7978dcbde6396d57312d21db4
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
-  YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
-  ZFDownload: a52f94ebb080833b8a8ceb19a409f2941343fe7f
+  SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
 
-PODFILE CHECKSUM: fda47b012feef53bf0f999ba1f9aeb2c1084f5a7
+PODFILE CHECKSUM: f2fe4d9ff2789d3d96eedfe3f8de686be149c5e8
 
 COCOAPODS: 1.2.0

@@ -24,12 +24,7 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>YYKit.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>ZFDownload.xcscheme</key>
+		<key>SVProgressHUD.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -37,12 +32,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>4A4091042ACA7EAEB8860A45F6654A78</key>
+		<key>09DDBB86C7EE149399E2CB29364F60A6</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7A3D60C4F9122418054E01EED1A6BD8E</key>
+		<key>9547D0C9C979C284BC15AE6F50465B4F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -52,12 +47,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>AC276DEBEC70768C9976257260306FC3</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>E533817D40728174487D921C21A95CBD</key>
+		<key>CE94FE1831C578505A6A3747A4BA120D</key>
 		<dict>
 			<key>primary</key>
 			<true/>

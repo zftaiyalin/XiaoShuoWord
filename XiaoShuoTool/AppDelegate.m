@@ -8,9 +8,9 @@
 
 #import "AppDelegate.h"
 #import "JACenterViewController.h"
-#import "UIColor+YYAdd.h"
 #import "XiaoshuoViewController.h"
 #import "ZFDownloadViewController.h"
+#import "SearchViewController.h"
 @interface AppDelegate ()
 
 @end
@@ -32,7 +32,7 @@
     //
     
     
-    XiaoshuoViewController *firstViewController = [[XiaoshuoViewController alloc] init];
+    SearchViewController *firstViewController = [[SearchViewController alloc] init];
     firstViewController.hidesBottomBarWhenPushed = NO;
     UINavigationController *firstNavigationController = [[UINavigationController alloc]
                                                          initWithRootViewController:firstViewController];

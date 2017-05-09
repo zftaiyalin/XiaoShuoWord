@@ -11,7 +11,7 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import "Masonry.h"
 #import "VideoModel.h"
-#import <ZFDownload/ZFDownloadManager.h>
+#import "ZFDownloadManager.h"
 #import "ZFPlayer.h"
 #import "UINavigationController+ZFFullscreenPopGesture.h"
 

@@ -11,7 +11,7 @@
 #import "ZFPlayer.h"
 #import "ZFDownloadingCell.h"
 #import "ZFDownloadedCell.h"
-#import <ZFDownload/ZFDownloadManager.h>
+#import "ZFDownloadManager.h"
 #import "Masonry.h"
 #import "MoviePlayerViewController.h"
 
