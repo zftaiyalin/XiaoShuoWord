@@ -15,10 +15,10 @@
 #import "Masonry.h"
 #import "ZFPlayer.h"
 #import "ZFCollectionViewCell.h"
-#import <ZFDownload/ZFDownloadManager.h>
+#import "ZFDownloadManager.h"
 #import "UMVideoAd.h"
 #import "YouJiVideoModel.h"
-
+#import "NSObject+ALiHUD.h"
 
 
 //#define baseUrl "https://www.youjizz.com/most-popular/"
@@ -27,7 +27,7 @@ static NSString * const reuseIdentifier = @"collectionViewCell";
 
 @interface XiaoshuoViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,ZFPlayerDelegate>{
     
-    __block BOOL isShowVideo;
+
     
 }
 
@@ -221,81 +221,96 @@ static NSString * const reuseIdentifier = @"collectionViewCell";
     // 点击播放的回调
     cell.playBlock = ^(UIButton *btn){
         
-        if (!isShowVideo) {
-            [weakSelf.playerView shutDownPlayer];
-            [UMVideoAd videoSpotPlay:weakSelf videoSuperView:weakSelf.view videoPlayFinishCallBackBlock:^(BOOL isFinishPlay){
-                if (isFinishPlay) {
-                    NSLog(@"视频播放结束");
-                    //            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"" message:@"视频播放结束" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
-                    //            [alert show];
-                    //            [alert release];
-                }else{
-                    NSLog(@"中途退出");
-                    //            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"" message:@"中途退出" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
-                    //            [alert show];
-                    //            [alert release];
-                }
-                
-            } videoPlayConfigCallBackBlock:^(BOOL isLegal){
-                //注意：  isLegal在（app有联网，并且注册的appkey后台审核通过）的情况下才返回yes, 否则都是返回no.
-                NSString *message = @"";
-                if (isLegal) {
-                    message = @"此次播放有效";
-                    isShowVideo = YES;
-                }else{
-                    message = @"此次播放无效";
-                }
-                //                UIImage *image = [MobiVideoAd oWVideoImage];
-                NSLog(@"是否有效：%@",message);
-                //        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"" message:[NSString stringWithFormat:@"是否有效：%@",message] delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
-                //        [alert show];
-                //        [alert release];
-            }];
-            
-        }else{
         
-            isShowVideo = NO;
+        
+        dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
+        
+        // 2.调用异步函数
+        dispatch_async(queue, ^{
+            [weakSelf.playerView shutDownPlayer];
+            
+            
             NSString *urlString = [[NSString alloc]initWithFormat:@"%s%@",youjizz,model.url];
             NSError *error = nil;
             NSURL *xcfURL = [NSURL URLWithString:urlString];
             NSString *htmlString = [NSString stringWithContentsOfURL:xcfURL encoding:NSUTF8StringEncoding error:&error];
+            __block NSString *video = nil;
+            
             
             if (htmlString) {
                 OCGumboDocument *iosfeedDoc = [[OCGumboDocument alloc] initWithHTMLString:htmlString];
                 NSArray *array = iosfeedDoc.body.Query(@"div.main-content").find(@"#yj-video");
                 
-                NSString *video = nil;
+                
                 for (OCGumboNode *row in array) {
                     OCGumboNode *videoStr = row.Query(@"source").last();
                     NSLog(@"from:(%@)",videoStr.attr(@"src"));
                     video = [[NSString alloc]initWithFormat:@"https:%@",videoStr.attr(@"src")];
                 }
-                
-                if (video == nil) {
-                    return;
-                }
-                
-                ZFPlayerModel *playerModel = [[ZFPlayerModel alloc] init];
-                playerModel.title            = model.title;
-                playerModel.videoURL         = [[NSURL alloc]initWithString:video];
-                NSString *image = [[NSString alloc]initWithFormat:@"https:%@",model.img];
-                playerModel.placeholderImageURLString = image;
-                playerModel.scrollView       = weakSelf.collectionView;
-                playerModel.indexPath        = weakIndexPath;
-                // 赋值分辨率字典
-                //        playerModel.resolutionDic    = dic;
-                // player的父视图tag
-                playerModel.fatherViewTag    = weakCell.topicImageView.tag;
-                
-                // 设置播放控制层和model
-                [weakSelf.playerView playerControlView:nil playerModel:playerModel];
-                // 下载功能
-                weakSelf.playerView.hasDownload = YES;
-                // 自动播放
-                [weakSelf.playerView autoPlayTheVideo];
-            }
 
-        }
+            }
+            dispatch_sync(dispatch_get_main_queue(), ^{ // 会等block代码执行完毕后，执行后面最后一句的打印代码
+                [UMVideoAd videoSpotPlay:weakSelf videoSuperView:weakSelf.view videoPlayFinishCallBackBlock:^(BOOL isFinishPlay){
+                    if (isFinishPlay) {
+                        NSLog(@"视频播放结束");
+                       
+                    }else{
+                        NSLog(@"中途退出");
+
+                        [self showErrorText:@"需要广告播放完毕方可继续光看，天瞎啦，作者都要要饭了!"];
+                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                            [self dismissLoading];
+                        });
+                        
+                    }
+                    
+                } videoPlayConfigCallBackBlock:^(BOOL isLegal){
+                    //注意：  isLegal在（app有联网，并且注册的appkey后台审核通过）的情况下才返回yes, 否则都是返回no.
+                    NSString *message = @"";
+                    if (isLegal) {
+                        message = @"此次播放有效";
+                        if (video == nil) {
+                            
+                            
+                            //
+                            return;
+                        }
+                        
+                        ZFPlayerModel *playerModel = [[ZFPlayerModel alloc] init];
+                        playerModel.title            = model.title;
+                        playerModel.videoURL         = [[NSURL alloc]initWithString:video];
+                        NSString *image = [[NSString alloc]initWithFormat:@"https:%@",model.img];
+                        playerModel.placeholderImageURLString = image;
+                        playerModel.scrollView       = weakSelf.collectionView;
+                        playerModel.indexPath        = weakIndexPath;
+                        // 赋值分辨率字典
+                        //        playerModel.resolutionDic    = dic;
+                        // player的父视图tag
+                        playerModel.fatherViewTag    = weakCell.topicImageView.tag;
+                        
+                        // 设置播放控制层和model
+                        [weakSelf.playerView playerControlView:nil playerModel:playerModel];
+                        // 下载功能
+                        weakSelf.playerView.hasDownload = YES;
+                        // 自动播放
+                        [weakSelf.playerView autoPlayTheVideo];
+                        
+                    }else{
+                        message = @"此次播放无效";
+                    }
+                    //                UIImage *image = [MobiVideoAd oWVideoImage];
+                    NSLog(@"是否有效：%@",message);
+           
+                }];
+            });
+         
+        });
+ 
+        
+        
+
+        
+        
         
     };
     
