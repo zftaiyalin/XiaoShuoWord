@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		686202C496DA91917D5E6155 /* libPods-XiaoShuoTool.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D69760388ECFE20A5DD42C8B /* libPods-XiaoShuoTool.a */; };
+		6B5B0D1F1EC4A18200945694 /* MineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B5B0D1E1EC4A18200945694 /* MineViewController.m */; };
+		6B5B0D221EC4A66800945694 /* DaiLuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B5B0D211EC4A66800945694 /* DaiLuViewController.m */; };
 		6B5E67C11EC098B200A4D59E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B5E67C01EC098B200A4D59E /* SystemConfiguration.framework */; };
 		6B5E67C31EC098BB00A4D59E /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B5E67C21EC098BB00A4D59E /* CFNetwork.framework */; };
 		6B5E67C51EC098C400A4D59E /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B5E67C41EC098C400A4D59E /* MediaPlayer.framework */; };
@@ -47,6 +49,10 @@
 		6B666AAE1EBC808600AA5C75 /* UIScrollView+MJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B666A991EBC808600AA5C75 /* UIScrollView+MJRefresh.m */; };
 		6B666AAF1EBC808600AA5C75 /* UIView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B666A9B1EBC808600AA5C75 /* UIView+MJExtension.m */; };
 		6B666AB21EBC80CF00AA5C75 /* VideoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B666AB11EBC80CF00AA5C75 /* VideoModel.m */; };
+		6B6849611EC40CAB00EC6D22 /* MyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6849601EC40CAB00EC6D22 /* MyViewController.m */; };
+		6B68496D1EC40FFB00EC6D22 /* AES128Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6849671EC40FFB00EC6D22 /* AES128Util.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		6B68496E1EC40FFB00EC6D22 /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6849691EC40FFB00EC6D22 /* GTMBase64.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		6B68496F1EC40FFB00EC6D22 /* NSData+ASE128.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B68496C1EC40FFB00EC6D22 /* NSData+ASE128.m */; };
 		6B70DAEF1EC160EF00EB09FC /* ALiProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B70DAE71EC160EF00EB09FC /* ALiProgressHUD.m */; };
 		6B70DAF01EC160EF00EB09FC /* HUD_error@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6B70DAE91EC160EF00EB09FC /* HUD_error@2x.png */; };
 		6B70DAF11EC160EF00EB09FC /* HUD_error@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6B70DAEA1EC160EF00EB09FC /* HUD_error@3x.png */; };
@@ -81,6 +87,11 @@
 		6B8A70901EBD937100CFFB62 /* ZFDownloadingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B8A708D1EBD937100CFFB62 /* ZFDownloadingCell.m */; };
 		6B8A70911EBD937100CFFB62 /* ZFDownloadedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B8A708F1EBD937100CFFB62 /* ZFDownloadedCell.m */; };
 		6B8A70941EBDA7A100CFFB62 /* MoviePlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B8A70931EBDA7A100CFFB62 /* MoviePlayerViewController.m */; };
+		6BDD963B1EC440300061C196 /* VideoUrlModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BDD963A1EC440300061C196 /* VideoUrlModel.m */; };
+		6BDD963E1EC441AB0061C196 /* VideoPlayModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BDD963D1EC441AB0061C196 /* VideoPlayModel.m */; };
+		6BDD96411EC4420B0061C196 /* WechatModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BDD96401EC4420B0061C196 /* WechatModel.m */; };
+		6BDD96441EC442B50061C196 /* AppModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BDD96431EC442B50061C196 /* AppModel.m */; };
+		6BDD96491EC4488E0061C196 /* AppUnitl.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BDD96481EC4488E0061C196 /* AppUnitl.m */; };
 		E803C75E1CF57793001BB402 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E803C75D1CF57793001BB402 /* main.m */; };
 		E803C7611CF57793001BB402 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E803C7601CF57793001BB402 /* AppDelegate.m */; };
 		E803C7671CF57793001BB402 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E803C7651CF57793001BB402 /* Main.storyboard */; };
@@ -109,6 +120,10 @@
 
 /* Begin PBXFileReference section */
 		36BF3FD6CB5596B00F42B16D /* Pods-XiaoShuoTool.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XiaoShuoTool.debug.xcconfig"; path = "Pods/Target Support Files/Pods-XiaoShuoTool/Pods-XiaoShuoTool.debug.xcconfig"; sourceTree = "<group>"; };
+		6B5B0D1D1EC4A18200945694 /* MineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineViewController.h; sourceTree = "<group>"; };
+		6B5B0D1E1EC4A18200945694 /* MineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineViewController.m; sourceTree = "<group>"; };
+		6B5B0D201EC4A66800945694 /* DaiLuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DaiLuViewController.h; sourceTree = "<group>"; };
+		6B5B0D211EC4A66800945694 /* DaiLuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DaiLuViewController.m; sourceTree = "<group>"; };
 		6B5E67C01EC098B200A4D59E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		6B5E67C21EC098BB00A4D59E /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		6B5E67C41EC098C400A4D59E /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
@@ -175,6 +190,16 @@
 		6B666A9B1EBC808600AA5C75 /* UIView+MJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MJExtension.m"; sourceTree = "<group>"; };
 		6B666AB01EBC80CF00AA5C75 /* VideoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoModel.h; sourceTree = "<group>"; };
 		6B666AB11EBC80CF00AA5C75 /* VideoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoModel.m; sourceTree = "<group>"; };
+		6B68495E1EC40B2F00EC6D22 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		6B68495F1EC40CAB00EC6D22 /* MyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyViewController.h; sourceTree = "<group>"; };
+		6B6849601EC40CAB00EC6D22 /* MyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyViewController.m; sourceTree = "<group>"; };
+		6B6849661EC40FFB00EC6D22 /* AES128Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AES128Util.h; sourceTree = "<group>"; };
+		6B6849671EC40FFB00EC6D22 /* AES128Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AES128Util.m; sourceTree = "<group>"; };
+		6B6849681EC40FFB00EC6D22 /* GTMBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMBase64.h; sourceTree = "<group>"; };
+		6B6849691EC40FFB00EC6D22 /* GTMBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMBase64.m; sourceTree = "<group>"; };
+		6B68496A1EC40FFB00EC6D22 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
+		6B68496B1EC40FFB00EC6D22 /* NSData+ASE128.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+ASE128.h"; sourceTree = "<group>"; };
+		6B68496C1EC40FFB00EC6D22 /* NSData+ASE128.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+ASE128.m"; sourceTree = "<group>"; };
 		6B70DAE61EC160EF00EB09FC /* ALiProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALiProgressHUD.h; sourceTree = "<group>"; };
 		6B70DAE71EC160EF00EB09FC /* ALiProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALiProgressHUD.m; sourceTree = "<group>"; };
 		6B70DAE91EC160EF00EB09FC /* HUD_error@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HUD_error@2x.png"; sourceTree = "<group>"; };
@@ -239,6 +264,16 @@
 		6B8A708F1EBD937100CFFB62 /* ZFDownloadedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFDownloadedCell.m; sourceTree = "<group>"; };
 		6B8A70921EBDA7A100CFFB62 /* MoviePlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoviePlayerViewController.h; sourceTree = "<group>"; };
 		6B8A70931EBDA7A100CFFB62 /* MoviePlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoviePlayerViewController.m; sourceTree = "<group>"; };
+		6BDD96391EC440300061C196 /* VideoUrlModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoUrlModel.h; sourceTree = "<group>"; };
+		6BDD963A1EC440300061C196 /* VideoUrlModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoUrlModel.m; sourceTree = "<group>"; };
+		6BDD963C1EC441AB0061C196 /* VideoPlayModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoPlayModel.h; sourceTree = "<group>"; };
+		6BDD963D1EC441AB0061C196 /* VideoPlayModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoPlayModel.m; sourceTree = "<group>"; };
+		6BDD963F1EC4420B0061C196 /* WechatModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WechatModel.h; sourceTree = "<group>"; };
+		6BDD96401EC4420B0061C196 /* WechatModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WechatModel.m; sourceTree = "<group>"; };
+		6BDD96421EC442B50061C196 /* AppModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppModel.h; sourceTree = "<group>"; };
+		6BDD96431EC442B50061C196 /* AppModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppModel.m; sourceTree = "<group>"; };
+		6BDD96471EC4488E0061C196 /* AppUnitl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppUnitl.h; path = MMPopupView/AppUnitl.h; sourceTree = "<group>"; };
+		6BDD96481EC4488E0061C196 /* AppUnitl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppUnitl.m; path = MMPopupView/AppUnitl.m; sourceTree = "<group>"; };
 		BDE428C665560CAD0D731550 /* Pods-XiaoShuoTool.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XiaoShuoTool.release.xcconfig"; path = "Pods/Target Support Files/Pods-XiaoShuoTool/Pods-XiaoShuoTool.release.xcconfig"; sourceTree = "<group>"; };
 		D69760388ECFE20A5DD42C8B /* libPods-XiaoShuoTool.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-XiaoShuoTool.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E803C7591CF57793001BB402 /* XiaoShuoTool.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XiaoShuoTool.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -465,6 +500,20 @@
 			path = Header;
 			sourceTree = "<group>";
 		};
+		6B6849651EC40FFB00EC6D22 /* ASE128 */ = {
+			isa = PBXGroup;
+			children = (
+				6B6849661EC40FFB00EC6D22 /* AES128Util.h */,
+				6B6849671EC40FFB00EC6D22 /* AES128Util.m */,
+				6B6849681EC40FFB00EC6D22 /* GTMBase64.h */,
+				6B6849691EC40FFB00EC6D22 /* GTMBase64.m */,
+				6B68496A1EC40FFB00EC6D22 /* GTMDefines.h */,
+				6B68496B1EC40FFB00EC6D22 /* NSData+ASE128.h */,
+				6B68496C1EC40FFB00EC6D22 /* NSData+ASE128.m */,
+			);
+			path = ASE128;
+			sourceTree = "<group>";
+		};
 		6B70DAE51EC160EF00EB09FC /* ALiHUD */ = {
 			isa = PBXGroup;
 			children = (
@@ -563,6 +612,23 @@
 			path = ZFNavigationController;
 			sourceTree = "<group>";
 		};
+		6BDD96451EC442DF0061C196 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6BDD96421EC442B50061C196 /* AppModel.h */,
+				6BDD96431EC442B50061C196 /* AppModel.m */,
+				6B666AB01EBC80CF00AA5C75 /* VideoModel.h */,
+				6B666AB11EBC80CF00AA5C75 /* VideoModel.m */,
+				6BDD96391EC440300061C196 /* VideoUrlModel.h */,
+				6BDD963A1EC440300061C196 /* VideoUrlModel.m */,
+				6BDD963C1EC441AB0061C196 /* VideoPlayModel.h */,
+				6BDD963D1EC441AB0061C196 /* VideoPlayModel.m */,
+				6BDD963F1EC4420B0061C196 /* WechatModel.h */,
+				6BDD96401EC4420B0061C196 /* WechatModel.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		8332FC0B2A2460BD29CA29BF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -604,6 +670,7 @@
 		E803C75B1CF57793001BB402 /* XiaoShuoTool */ = {
 			isa = PBXGroup;
 			children = (
+				6B6849651EC40FFB00EC6D22 /* ASE128 */,
 				6B70DAE51EC160EF00EB09FC /* ALiHUD */,
 				6B5E67D81EC0999E00A4D59E /* lib */,
 				6B8A704E1EBD774000CFFB62 /* ZFPlayer */,
@@ -613,8 +680,16 @@
 				E803C7AA1CF59262001BB402 /* MMPopupView */,
 				E803C75F1CF57793001BB402 /* AppDelegate.h */,
 				E803C7601CF57793001BB402 /* AppDelegate.m */,
+				6BDD96471EC4488E0061C196 /* AppUnitl.h */,
+				6BDD96481EC4488E0061C196 /* AppUnitl.m */,
+				6B5B0D1D1EC4A18200945694 /* MineViewController.h */,
+				6B5B0D1E1EC4A18200945694 /* MineViewController.m */,
+				6B5B0D201EC4A66800945694 /* DaiLuViewController.h */,
+				6B5B0D211EC4A66800945694 /* DaiLuViewController.m */,
 				E803C77B1CF584EC001BB402 /* JADebugViewController.h */,
 				E803C77C1CF584EC001BB402 /* JADebugViewController.m */,
+				6B68495F1EC40CAB00EC6D22 /* MyViewController.h */,
+				6B6849601EC40CAB00EC6D22 /* MyViewController.m */,
 				E803C77D1CF584EC001BB402 /* JACenterViewController.h */,
 				E803C77E1CF584EC001BB402 /* JACenterViewController.m */,
 				E803C7871CF58E1B001BB402 /* XiaoshuoViewController.h */,
@@ -633,8 +708,8 @@
 				6B8A708F1EBD937100CFFB62 /* ZFDownloadedCell.m */,
 				6B8A707E1EBD782500CFFB62 /* ZFCollectionViewCell.h */,
 				6B8A707F1EBD782500CFFB62 /* ZFCollectionViewCell.m */,
-				6B666AB01EBC80CF00AA5C75 /* VideoModel.h */,
-				6B666AB11EBC80CF00AA5C75 /* VideoModel.m */,
+				6BDD96451EC442DF0061C196 /* Model */,
+				6B68495E1EC40B2F00EC6D22 /* PrefixHeader.pch */,
 				E803C7651CF57793001BB402 /* Main.storyboard */,
 				E803C7681CF57793001BB402 /* Assets.xcassets */,
 				E803C76A1CF57793001BB402 /* LaunchScreen.storyboard */,
@@ -863,6 +938,7 @@
 			files = (
 				6B8A70751EBD774000CFFB62 /* UIView+CustomControlView.m in Sources */,
 				6B666A9E1EBC808600AA5C75 /* MJRefreshComponent.m in Sources */,
+				6BDD96491EC4488E0061C196 /* AppUnitl.m in Sources */,
 				6B666AA91EBC808600AA5C75 /* MJRefreshStateHeader.m in Sources */,
 				6B70DB091EC173A200EB09FC /* SearchViewController.m in Sources */,
 				6B666AAD1EBC808600AA5C75 /* UIScrollView+MJExtension.m in Sources */,
@@ -878,10 +954,13 @@
 				E803C7C51CF59262001BB402 /* MMAlertView.m in Sources */,
 				E803C7C81CF59262001BB402 /* MMPopupitem.m in Sources */,
 				6B666AA11EBC808600AA5C75 /* MJRefreshAutoGifFooter.m in Sources */,
+				6BDD963B1EC440300061C196 /* VideoUrlModel.m in Sources */,
 				6B666A9D1EBC808600AA5C75 /* MJRefreshBackFooter.m in Sources */,
+				6BDD963E1EC441AB0061C196 /* VideoPlayModel.m in Sources */,
 				6B666AAC1EBC808600AA5C75 /* NSBundle+MJRefresh.m in Sources */,
 				6B70DB001EC1610600EB09FC /* ZFCommonHelper.m in Sources */,
 				E803C7C91CF59262001BB402 /* MMPopupView.m in Sources */,
+				6B5B0D221EC4A66800945694 /* DaiLuViewController.m in Sources */,
 				6B8A70731EBD774000CFFB62 /* UINavigationController+ZFPlayerRotation.m in Sources */,
 				E803C7BB1CF59262001BB402 /* MASCompositeConstraint.m in Sources */,
 				6B666A9F1EBC808600AA5C75 /* MJRefreshFooter.m in Sources */,
@@ -890,6 +969,7 @@
 				6B8A70741EBD774000CFFB62 /* UITabBarController+ZFPlayerRotation.m in Sources */,
 				6B8A70941EBDA7A100CFFB62 /* MoviePlayerViewController.m in Sources */,
 				E803C7611CF57793001BB402 /* AppDelegate.m in Sources */,
+				6B68496D1EC40FFB00EC6D22 /* AES128Util.m in Sources */,
 				6B8A707D1EBD774000CFFB62 /* ZFPlayerView.m in Sources */,
 				6B666A9C1EBC808600AA5C75 /* MJRefreshAutoFooter.m in Sources */,
 				E803C7C01CF59262001BB402 /* MASViewConstraint.m in Sources */,
@@ -897,6 +977,7 @@
 				6B8A70711EBD774000CFFB62 /* UIAlertController+ZFPlayerRotation.m in Sources */,
 				6B70DB021EC1610600EB09FC /* ZFFileModel.m in Sources */,
 				6B70DB011EC1610600EB09FC /* ZFDownloadManager.m in Sources */,
+				6B68496E1EC40FFB00EC6D22 /* GTMBase64.m in Sources */,
 				6B8A706F1EBD774000CFFB62 /* ASValuePopUpView.m in Sources */,
 				6B666AAB1EBC808600AA5C75 /* MJRefreshConst.m in Sources */,
 				E803C7831CF584EC001BB402 /* JADebugViewController.m in Sources */,
@@ -906,7 +987,9 @@
 				6B70DB031EC1610600EB09FC /* ZFHttpRequest.m in Sources */,
 				E803C7C31CF59262001BB402 /* View+MASAdditions.m in Sources */,
 				6B666AA51EBC808600AA5C75 /* MJRefreshBackNormalFooter.m in Sources */,
+				6BDD96411EC4420B0061C196 /* WechatModel.m in Sources */,
 				6B666AA71EBC808600AA5C75 /* MJRefreshGifHeader.m in Sources */,
+				6B68496F1EC40FFB00EC6D22 /* NSData+ASE128.m in Sources */,
 				6B666AAF1EBC808600AA5C75 /* UIView+MJExtension.m in Sources */,
 				6B8A70781EBD774000CFFB62 /* MMMaterialDesignSpinner.m in Sources */,
 				6B8A70911EBD937100CFFB62 /* ZFDownloadedCell.m in Sources */,
@@ -914,11 +997,13 @@
 				E803C7C21CF59262001BB402 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				E803C7BE1CF59262001BB402 /* MASLayoutConstraint.m in Sources */,
 				6B8A70771EBD774000CFFB62 /* UIWindow+CurrentViewController.m in Sources */,
+				6BDD96441EC442B50061C196 /* AppModel.m in Sources */,
 				E803C7C41CF59262001BB402 /* ViewController+MASAdditions.m in Sources */,
 				6B8A707B1EBD774000CFFB62 /* ZFPlayerControlView.m in Sources */,
 				6B666AA21EBC808600AA5C75 /* MJRefreshAutoNormalFooter.m in Sources */,
 				E803C7BD1CF59262001BB402 /* MASConstraintMaker.m in Sources */,
 				E803C7841CF584EC001BB402 /* JACenterViewController.m in Sources */,
+				6B5B0D1F1EC4A18200945694 /* MineViewController.m in Sources */,
 				6B666AB21EBC80CF00AA5C75 /* VideoModel.m in Sources */,
 				6B8A70791EBD774000CFFB62 /* ZFBrightnessView.m in Sources */,
 				E803C7C71CF59262001BB402 /* MMPopupCategory.m in Sources */,
@@ -927,6 +1012,7 @@
 				6B8A70801EBD782500CFFB62 /* ZFCollectionViewCell.m in Sources */,
 				E803C75E1CF57793001BB402 /* main.m in Sources */,
 				E803C7C11CF59262001BB402 /* NSArray+MASAdditions.m in Sources */,
+				6B6849611EC40CAB00EC6D22 /* MyViewController.m in Sources */,
 				6B666AA01EBC808600AA5C75 /* MJRefreshHeader.m in Sources */,
 				E803C7BF1CF59262001BB402 /* MASViewAttribute.m in Sources */,
 				6B666AA41EBC808600AA5C75 /* MJRefreshBackGifFooter.m in Sources */,
@@ -1046,6 +1132,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = BW3X4QNV6N;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/XiaoShuoTool/PrefixHeader.pch";
 				INFOPLIST_FILE = XiaoShuoTool/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1066,6 +1154,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = BW3X4QNV6N;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/XiaoShuoTool/PrefixHeader.pch";
 				INFOPLIST_FILE = XiaoShuoTool/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

@@ -38,7 +38,7 @@ static NSString * const dwnloadedCell = @"ZFDownloadedCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+        self.title = @"下载器";
         self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
         self.tableView.dataSource = self;
         self.tableView.delegate = self;
