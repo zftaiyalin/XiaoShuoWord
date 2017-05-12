@@ -43,8 +43,8 @@
 
 #define ZFPlayerOrientationIsPortrait       UIDeviceOrientationIsPortrait([UIDevice currentDevice].orientation)
 
-#define baseUrl "https://www.youjizz.com/search/japanese-"
-#define youjizz "https://www.youjizz.com/"
+//#define baseUrl "https://www.youjizz.com/search/japanese-"
+//#define youjizz "https://www.youjizz.com/"
 
 
 

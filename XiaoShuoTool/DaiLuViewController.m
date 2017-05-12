@@ -8,13 +8,15 @@
 
 #import "DaiLuViewController.h"
 #import "Masonry.h"
+#import "AES128Util.h"
+#import "NSObject+ALiHUD.h"
 
 @interface DaiLuViewController ()
 
 @property(nonatomic,strong) UIButton *wechatBtu;
 @property(nonatomic,strong) UITextField *textField;
 @property(nonatomic,strong) UIButton *tijiaoBtu;
-
+@property(nonatomic,strong) UILabel *jgLabel;
 @end
 
 @implementation DaiLuViewController
@@ -85,10 +87,86 @@
         make.top.equalTo(textView).offset(65);
         make.height.mas_equalTo(44);
     }];
+    
+    
+    _jgLabel = [[UILabel alloc]init];
+    _jgLabel.text = @"警告⚠️---千万不要删除客户端，不然VIP状态会丢失，如丢失，老司机概不负责!";
+    _jgLabel.numberOfLines = 0;
+    _jgLabel.textColor = [UIColor colorWithHexString:@"#888888"];
+    _jgLabel.hidden = YES;
+    _jgLabel.font = [UIFont systemFontOfSize:13];
+    [self.view addSubview:_jgLabel];
+    
+    [_jgLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view).offset(13);
+        make.right.equalTo(self.view).offset(-13);
+        make.top.equalTo(self.textField.mas_bottom).offset(6);
+    }];
+    
+    if ([AppUnitl sharedManager].isVip) {
+        NSDateFormatter *formatter1 = [[NSDateFormatter alloc]init];
+        [formatter1 setDateFormat:@"yyyy-MM-dd HH:mm"];
+        
+        NSString *datesString = [[NSUserDefaults standardUserDefaults] objectForKey:@"date"];
+        _textField.text = [[NSString alloc]initWithFormat:@"VIP到期时间: %@",datesString];
+        _textField.userInteractionEnabled = NO;
+        _tijiaoBtu.hidden = YES;
+        _jgLabel.hidden = NO;
+    }else{
+        _textField.userInteractionEnabled = YES;
+        _tijiaoBtu.hidden = NO;
+        _jgLabel.hidden = YES;
+    }
 }
 
 -(void)tijiaolaosiji{
-
+    NSString *decryStr = [AES128Util AES128Decrypt:_textField.text key:[AppUnitl sharedManager].model.video.key];
+    NSLog(@"decryStr: %@", decryStr);
+    
+    if ([decryStr rangeOfString:@"create"].length > 0) {
+        
+        
+        NSArray *dateArray = [decryStr componentsSeparatedByString:@"create"];
+        
+        NSString *dateNow= dateArray.firstObject;
+        NSString *dqDate = dateArray.lastObject;
+        
+        
+        NSDateFormatter *formatter1 = [[NSDateFormatter alloc]init];
+        [formatter1 setDateFormat:@"yyyy-MM-dd HH:mm"];
+        
+        
+        
+        if ([AppUnitl dateTimeDifferenceWithStartTime:dateNow endTime:[formatter1 stringFromDate:[NSDate date]]]) {
+                      
+            
+            NSDate *resDate = [formatter1 dateFromString:dqDate];
+            NSLog(@"%@",resDate);
+            
+            _textField.text = [[NSString alloc]initWithFormat:@"VIP到期时间: %@",dqDate];
+            NSLog(@"\n b: %@",dateArray);
+            
+            _textField.userInteractionEnabled = NO;
+            _tijiaoBtu.hidden = YES;
+            _jgLabel.hidden = NO;
+            
+            [[NSUserDefaults standardUserDefaults] setObject:dqDate forKey:@"date"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            [AppUnitl sharedManager].isVip = YES;
+            
+        }else{
+            
+            [self showErrorText:@"验证码已过期"];
+        
+        }
+        
+  
+        
+    }else{
+        
+        [self showErrorText:@"错误的验证码"];
+    }
+    
 }
 
 -(void)copyWechat{

@@ -11,9 +11,11 @@
 @interface AppUnitl : NSObject
 
 @property(nonatomic,strong) AppModel *model;
-
+@property(nonatomic,assign) _Bool isVip;
 + (AppUnitl *)sharedManager;
 - (NSDate *)getInternetDate;
+-(NSDate *)getDateToString:(NSString *)date;
 +(int)compareOneDay:(NSDate *)oneDay withAnotherDay:(NSDate *)anotherDay;
 -(NSString *)getStringToDate:(NSDate *)date;
++ (BOOL)dateTimeDifferenceWithStartTime:(NSString *)startTime endTime:(NSString *)endTime;
 @end

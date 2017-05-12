@@ -19,6 +19,7 @@
 #import "UMVideoAd.h"
 #import "YouJiVideoModel.h"
 #import "NSObject+ALiHUD.h"
+#import "AES128Util.h"
 
 
 //#define baseUrl "https://www.youjizz.com/most-popular/"
@@ -34,7 +35,8 @@ static NSString * const reuseIdentifier = @"collectionViewCell";
 @property (nonatomic,strong) UICollectionView *collectionView;
 @property (nonatomic, strong) ZFPlayerView        *playerView;
 @property (nonatomic, strong) ZFPlayerControlView *controlView;
-
+@property (nonatomic, strong) NSString *baseUrl;
+@property (nonatomic,strong) NSMutableArray *indexArray;
 
 @end
 
@@ -42,72 +44,104 @@ static NSString * const reuseIdentifier = @"collectionViewCell";
 
 
 -(void)loadVideoModel {
-    _pageIndex += 1;
-    NSString *urlString = [[NSString alloc]initWithFormat:@"%s%d.html",baseUrl,_pageIndex];
+    _pageIndex = (arc4random() % _model.vdieoMaxIndex)+1;
+    NSString *urlString = [[NSString alloc]initWithFormat:@"%@%d.html",_baseUrl,_pageIndex];
     
     [self OCGumboVideoModel:urlString];
 }
 
 -(void)OCGumboVideoModel:(NSString *)urlString  {
-    NSError *error = nil;
-    //    https://www.youjizz.com/most-popular/2.html
-    NSURL *xcfURL = [NSURL URLWithString:urlString];
-    NSString *htmlString = [NSString stringWithContentsOfURL:xcfURL encoding:NSUTF8StringEncoding error:&error];
-    NSLog(@"%@", htmlString);
+   
     
-    //    OCGumboElement *element = document.Query(@"body").find(@".video-item").find(@".video-title").first();
     
-    if (htmlString) {
-        OCGumboDocument *iosfeedDoc = [[OCGumboDocument alloc] initWithHTMLString:htmlString];
-        NSArray *rows = iosfeedDoc.body.Query(@"div.main-content").find(@"div.video-item");
-        YouJiVideoModel *array = [[YouJiVideoModel alloc]init];
-        for (OCGumboNode *row in rows) {
-            OCGumboNode *title = row.Query(@".video-title").first();
-            NSLog(@"title:[%@]", title.text());
-            OCGumboNode *link = row.Query(@".frame").first();
-            NSLog(@"from:(%@)",link.attr(@"href"));
-            OCGumboNode *time = row.Query(@".time").first();
-            NSLog(@"title:[%@]", time.text());
-            OCGumboNode *img = row.Query(@".img-responsive").first();
-            NSLog(@"title:[%@]", img.attr(@"data-original"));
-            //            NSLog(@"by %@ \n", row.Query(@"p.meta").children(@"a").get(1).text());
-            
-            VideoModel *model = [[VideoModel alloc]init];
-            model.url = link.attr(@"href");
-            model.title = title.text();
-            model.time = time.text();
-            model.img = img.attr(@"data-original");
-
-            
-            if (array.videoModel.count < 10) {
-                [array.videoModel addObject:model];
-            }else{
-                [self.videoModelArray addObject:array];
-                array = [[YouJiVideoModel alloc]init];
-            }
-        }
+    dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
+    
+    // 2.调用异步函数
+    dispatch_async(queue, ^{
+        // 1.下载图片
+        NSError *error = nil;
+        //    https://www.youjizz.com/most-popular/2.html
+        NSURL *xcfURL = [NSURL URLWithString:urlString];
+        NSString *htmlString = [NSString stringWithContentsOfURL:xcfURL encoding:NSUTF8StringEncoding error:&error];
         
-        if (array.videoModel.count != 10) {
-            [self.videoModelArray addObject:array];
-        }
-    }
-    [_collectionView.mj_footer endRefreshing];
-    [_collectionView.mj_header endRefreshing];
-    [_collectionView reloadData];
+        // 3.回到主线程更新UI
+        //        self.imageView.image = image;
+        /*
+         技巧:
+         如果想等UI更新完毕再执行后面的代码, 那么使用同步函数
+         如果不想等UI更新完毕就需要执行后面的代码, 那么使用异步函数
+         */
+        dispatch_sync(dispatch_get_main_queue(), ^{ // 会等block代码执行完毕后，执行后面最后一句的打印代码
+            NSLog(@"%@", htmlString);
+            
+            //    OCGumboElement *element = document.Query(@"body").find(@".video-item").find(@".video-title").first();
+            
+            if (htmlString) {
+                OCGumboDocument *iosfeedDoc = [[OCGumboDocument alloc] initWithHTMLString:htmlString];
+                NSArray *rows = iosfeedDoc.body.Query(@"div.main-content").find(@"div.video-item");
+                YouJiVideoModel *array = [[YouJiVideoModel alloc]init];
+                for (OCGumboNode *row in rows) {
+                    OCGumboNode *title = row.Query(@".video-title").first();
+                    NSLog(@"title:[%@]", title.text());
+                    OCGumboNode *link = row.Query(@".frame").first();
+                    NSLog(@"from:(%@)",link.attr(@"href"));
+                    OCGumboNode *time = row.Query(@".time").first();
+                    NSLog(@"title:[%@]", time.text());
+                    OCGumboNode *img = row.Query(@".img-responsive").first();
+                    NSLog(@"title:[%@]", img.attr(@"data-original"));
+                    //            NSLog(@"by %@ \n", row.Query(@"p.meta").children(@"a").get(1).text());
+                    
+                    VideoModel *model = [[VideoModel alloc]init];
+                    model.url = link.attr(@"href");
+                    model.title = title.text();
+                    model.time = time.text();
+                    model.img = img.attr(@"data-original");
+                    
+                    
+                    if (array.videoModel.count < 10) {
+                        [array.videoModel addObject:model];
+                    }else{
+                        [self.videoModelArray addObject:array];
+                        array = [[YouJiVideoModel alloc]init];
+                    }
+                }
+                
+                if (array.videoModel.count != 10) {
+                    [self.videoModelArray addObject:array];
+                }
+            }
+            _collectionView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadVideoModel)];
+            [_collectionView.mj_footer endRefreshing];
+            [_collectionView.mj_header endRefreshing];
+            [_collectionView reloadData];
+        });
+
+    });
+            
+            
+        
+        
+   
 }
 
 -(void)reFreshVideoModel {
-    _pageIndex = 1;
+    _pageIndex = (arc4random() % _model.vdieoMaxIndex)+1;
     [self.videoModelArray removeAllObjects];
-    NSString *urlString = [[NSString alloc]initWithFormat:@"%s%d.html",baseUrl,_pageIndex];
+    NSString *urlString = [[NSString alloc]initWithFormat:@"%@%d.html",_baseUrl,_pageIndex];
     [self OCGumboVideoModel:urlString];
+}
+
+-(void)setModel:(VideoPlayModel *)model{
+    _model = model;
+    self.baseUrl =  [AES128Util AES128Decrypt:_model.videoUrl key:[AppUnitl sharedManager].model.video.key];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.videoModelArray = [[NSMutableArray alloc]init];
-    self.pageIndex = 1;
+    self.indexArray = [[NSMutableArray alloc]init];
+    self.pageIndex = (arc4random() % _model.vdieoMaxIndex)+1;
     self.title = @"首页";
 
     self.view.backgroundColor = [UIColor whiteColor];
@@ -142,7 +176,7 @@ static NSString * const reuseIdentifier = @"collectionViewCell";
         make.edges.equalTo(self.view);
     }];
     
-     [self reFreshVideoModel];
+    [self reFreshVideoModel];
 }
 
 // 页面消失时候
@@ -212,15 +246,17 @@ static NSString * const reuseIdentifier = @"collectionViewCell";
     
     YouJiVideoModel *array = [self.videoModelArray objectAtIndex:indexPath.section];
     
-    __block VideoModel *model        = array.videoModel[indexPath.row];
+    __block VideoModel *vmodel        = array.videoModel[indexPath.row];
     // 赋值model
-    cell.model                         = model;
+    cell.model                         = vmodel;
     __block NSIndexPath *weakIndexPath = indexPath;
     __block ZFCollectionViewCell *weakCell = cell;
     __weak typeof(self)  weakSelf      = self;
     // 点击播放的回调
     cell.playBlock = ^(UIButton *btn){
         
+        if (![AppUnitl sharedManager].isVip) {
+            
         
         
         dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
@@ -229,8 +265,8 @@ static NSString * const reuseIdentifier = @"collectionViewCell";
         dispatch_async(queue, ^{
             [weakSelf.playerView shutDownPlayer];
             
-            
-            NSString *urlString = [[NSString alloc]initWithFormat:@"%s%@",youjizz,model.url];
+           NSString *base = [AES128Util AES128Decrypt:[AppUnitl sharedManager].model.video.baseUrl key:[AppUnitl sharedManager].model.video.key];
+            NSString *urlString = [[NSString alloc]initWithFormat:@"%@%@",base,vmodel.url];
             NSError *error = nil;
             NSURL *xcfURL = [NSURL URLWithString:urlString];
             NSString *htmlString = [NSString stringWithContentsOfURL:xcfURL encoding:NSUTF8StringEncoding error:&error];
@@ -277,9 +313,9 @@ static NSString * const reuseIdentifier = @"collectionViewCell";
                         }
                         
                         ZFPlayerModel *playerModel = [[ZFPlayerModel alloc] init];
-                        playerModel.title            = model.title;
+                        playerModel.title            = vmodel.title;
                         playerModel.videoURL         = [[NSURL alloc]initWithString:video];
-                        NSString *image = [[NSString alloc]initWithFormat:@"https:%@",model.img];
+                        NSString *image = [[NSString alloc]initWithFormat:@"https:%@",vmodel.img];
                         playerModel.placeholderImageURLString = image;
                         playerModel.scrollView       = weakSelf.collectionView;
                         playerModel.indexPath        = weakIndexPath;
@@ -307,7 +343,64 @@ static NSString * const reuseIdentifier = @"collectionViewCell";
         });
  
         
+        }else{
         
+        
+            dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
+            
+            // 2.调用异步函数
+            dispatch_async(queue, ^{
+                [weakSelf.playerView shutDownPlayer];
+                
+                NSString *base = [AES128Util AES128Decrypt:[AppUnitl sharedManager].model.video.baseUrl key:[AppUnitl sharedManager].model.video.key];
+                NSString *urlString = [[NSString alloc]initWithFormat:@"%@%@",base,vmodel.url];
+                NSError *error = nil;
+                NSURL *xcfURL = [NSURL URLWithString:urlString];
+                NSString *htmlString = [NSString stringWithContentsOfURL:xcfURL encoding:NSUTF8StringEncoding error:&error];
+                __block NSString *video = nil;
+                
+                
+                if (htmlString) {
+                    OCGumboDocument *iosfeedDoc = [[OCGumboDocument alloc] initWithHTMLString:htmlString];
+                    NSArray *array = iosfeedDoc.body.Query(@"div.main-content").find(@"#yj-video");
+                    
+                    
+                    for (OCGumboNode *row in array) {
+                        OCGumboNode *videoStr = row.Query(@"source").last();
+                        NSLog(@"from:(%@)",videoStr.attr(@"src"));
+                        video = [[NSString alloc]initWithFormat:@"https:%@",videoStr.attr(@"src")];
+                    }
+                    
+                }
+                dispatch_sync(dispatch_get_main_queue(), ^{ // 会等block代码执行完毕后，执行后面最后一句的打印代码
+            
+                            
+                            ZFPlayerModel *playerModel = [[ZFPlayerModel alloc] init];
+                            playerModel.title            = vmodel.title;
+                            playerModel.videoURL         = [[NSURL alloc]initWithString:video];
+                            NSString *image = [[NSString alloc]initWithFormat:@"https:%@",vmodel.img];
+                            playerModel.placeholderImageURLString = image;
+                            playerModel.scrollView       = weakSelf.collectionView;
+                            playerModel.indexPath        = weakIndexPath;
+                            // 赋值分辨率字典
+                            //        playerModel.resolutionDic    = dic;
+                            // player的父视图tag
+                            playerModel.fatherViewTag    = weakCell.topicImageView.tag;
+                            
+                            // 设置播放控制层和model
+                            [weakSelf.playerView playerControlView:nil playerModel:playerModel];
+                            // 下载功能
+                            weakSelf.playerView.hasDownload = YES;
+                            // 自动播放
+                            [weakSelf.playerView autoPlayTheVideo];
+                            
+                    });
+                
+            });
+            
+        
+        
+        }
 
         
         
@@ -338,7 +431,7 @@ static NSString * const reuseIdentifier = @"collectionViewCell";
     
     [reusableview addSubview:bannerView];
     
-    reusableview.backgroundColor = [UIColor whiteColor];
+    reusableview.backgroundColor = [UIColor redColor];
     
     return reusableview;
 }

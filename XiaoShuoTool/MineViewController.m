@@ -11,6 +11,8 @@
 #import "UMVideoAd.h"
 #import "ZFDownloadViewController.h"
 #import "DaiLuViewController.h"
+#import "NewDateCodeViewController.h"
+#import "SDImageCache.h"
 
 @interface MineViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -55,6 +57,10 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [_tableView reloadData];
+}
 /*
 #pragma mark - Navigation
 
@@ -98,7 +104,7 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
-
+    
     
     if ([AppUnitl sharedManager].model.wetchat.isShow) {
         if (indexPath.section == 0) {
@@ -122,7 +128,13 @@
                 }
             }else{
                 if (indexPath.row == 0) {
-                    cell.textLabel.text = @"清除缓存";
+                    
+                    float tmpSize = [[SDImageCache sharedImageCache]getSize];
+                    
+                    NSLog(@"%f",tmpSize);
+//                    cell.detailTextLabel.textAlignment = NSTextAlignmentRight;
+//                    cell.detailTextLabel.font = [UIFont systemFontOfSize:13];
+                    cell.textLabel.text = [NSString stringWithFormat:@"清除缓存      %.2fM",tmpSize/1024/1024];
                 }else{
                     cell.textLabel.text = @"赏个好评";
                     UIView *line = [[UIView alloc]init];
@@ -153,7 +165,17 @@
             }
         }else{
             if (indexPath.row == 1) {
-                cell.textLabel.text = @"清除缓存";
+       
+                
+                float tmpSize = [[SDImageCache sharedImageCache]getSize];
+                
+                NSLog(@"%f",tmpSize);
+//                cell.detailTextLabel.textAlignment = NSTextAlignmentRight;
+//                cell.detailTextLabel.font = [UIFont systemFontOfSize:13];
+                cell.textLabel.text = [NSString stringWithFormat:@"清除缓存      %.2fM",tmpSize/1024/1024];
+                
+
+                
             }else{
                 cell.textLabel.text = @"赏个好评";
                 UIView *line = [[UIView alloc]init];
@@ -193,8 +215,14 @@
             }else{
                 if (indexPath.row == 0) {
 //                    cell.textLabel.text = @"清楚缓存";
+                     [[SDImageCache sharedImageCache] clearDiskOnCompletion:^{
+                         [tableView reloadData];
+                     }];
+                    
                 }else{
 //                    cell.textLabel.text = @"赏个好评";
+                    NewDateCodeViewController *vc = [[NewDateCodeViewController alloc]init];
+                    [self.navigationController pushViewController:vc animated:YES];
                 }
             }
         }
@@ -210,8 +238,13 @@
         }else{
             if (indexPath.row == 1) {
 //                cell.textLabel.text = @"清楚缓存";
+                [[SDImageCache sharedImageCache] clearDiskOnCompletion:^{
+                    [tableView reloadData];
+                }];
             }else{
 //                cell.textLabel.text = @"赏个好评";
+                NewDateCodeViewController *vc = [[NewDateCodeViewController alloc]init];
+                [self.navigationController pushViewController:vc animated:YES];
             }
         }
     }

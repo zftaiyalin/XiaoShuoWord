@@ -30,6 +30,18 @@
     return currentDateString;
 }
 
+-(NSDate *)getDateToString:(NSString *)date{
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    //设置格式：zzz表示时区
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+    //NSDate转NSString
+    NSDate *currentDateString = [dateFormatter dateFromString:date];
+    
+    return currentDateString;
+}
+
+
 +(int)compareOneDay:(NSDate *)oneDay withAnotherDay:(NSDate *)anotherDay
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -51,6 +63,40 @@
     //NSLog(@"Both dates are the same");
     return 0;
     
+}
+
+
++ (BOOL)dateTimeDifferenceWithStartTime:(NSString *)startTime endTime:(NSString *)endTime{
+    NSDateFormatter *date = [[NSDateFormatter alloc]init];
+    [date setDateFormat:@"yyyy-MM-dd HH:mm"];
+    NSDate *startD =[date dateFromString:startTime];
+    NSDate *endD = [date dateFromString:endTime];
+    NSTimeInterval start = [startD timeIntervalSince1970]*1;
+    NSTimeInterval end = [endD timeIntervalSince1970]*1;
+    NSTimeInterval value = end - start;
+    int second = (int)value %60;//秒
+    int minute = (int)value /60%60;
+    int house = (int)value / (24 * 3600)%3600;
+    int day = (int)value / (24 * 3600);
+    NSString *str;
+    if (day != 0) {
+        str = [NSString stringWithFormat:@"耗时%d天%d小时%d分%d秒",day,house,minute,second];
+        return NO;
+    }else if (day==0 && house != 0) {
+        str = [NSString stringWithFormat:@"耗时%d小时%d分%d秒",house,minute,second];
+        return NO;
+    }else if (day== 0 && house== 0 && minute!=0) {
+        str = [NSString stringWithFormat:@"耗时%d分%d秒",minute,second];
+        
+        if (minute > 15) {
+            return NO;
+        }else{
+            return YES;
+        }
+    }else{
+        str = [NSString stringWithFormat:@"耗时%d秒",second];
+        return YES;
+    }
 }
 
 /**

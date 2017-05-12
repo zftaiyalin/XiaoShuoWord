@@ -53,6 +53,7 @@
 		6B68496D1EC40FFB00EC6D22 /* AES128Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6849671EC40FFB00EC6D22 /* AES128Util.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		6B68496E1EC40FFB00EC6D22 /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6849691EC40FFB00EC6D22 /* GTMBase64.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		6B68496F1EC40FFB00EC6D22 /* NSData+ASE128.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B68496C1EC40FFB00EC6D22 /* NSData+ASE128.m */; };
+		6B69F5CE1EC54E4C00E334FE /* NewDateCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B69F5CD1EC54E4C00E334FE /* NewDateCodeViewController.m */; };
 		6B70DAEF1EC160EF00EB09FC /* ALiProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B70DAE71EC160EF00EB09FC /* ALiProgressHUD.m */; };
 		6B70DAF01EC160EF00EB09FC /* HUD_error@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6B70DAE91EC160EF00EB09FC /* HUD_error@2x.png */; };
 		6B70DAF11EC160EF00EB09FC /* HUD_error@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6B70DAEA1EC160EF00EB09FC /* HUD_error@3x.png */; };
@@ -200,6 +201,8 @@
 		6B68496A1EC40FFB00EC6D22 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
 		6B68496B1EC40FFB00EC6D22 /* NSData+ASE128.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+ASE128.h"; sourceTree = "<group>"; };
 		6B68496C1EC40FFB00EC6D22 /* NSData+ASE128.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+ASE128.m"; sourceTree = "<group>"; };
+		6B69F5CC1EC54E4C00E334FE /* NewDateCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewDateCodeViewController.h; sourceTree = "<group>"; };
+		6B69F5CD1EC54E4C00E334FE /* NewDateCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewDateCodeViewController.m; sourceTree = "<group>"; };
 		6B70DAE61EC160EF00EB09FC /* ALiProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALiProgressHUD.h; sourceTree = "<group>"; };
 		6B70DAE71EC160EF00EB09FC /* ALiProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALiProgressHUD.m; sourceTree = "<group>"; };
 		6B70DAE91EC160EF00EB09FC /* HUD_error@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HUD_error@2x.png"; sourceTree = "<group>"; };
@@ -680,6 +683,8 @@
 				E803C7AA1CF59262001BB402 /* MMPopupView */,
 				E803C75F1CF57793001BB402 /* AppDelegate.h */,
 				E803C7601CF57793001BB402 /* AppDelegate.m */,
+				6B69F5CC1EC54E4C00E334FE /* NewDateCodeViewController.h */,
+				6B69F5CD1EC54E4C00E334FE /* NewDateCodeViewController.m */,
 				6BDD96471EC4488E0061C196 /* AppUnitl.h */,
 				6BDD96481EC4488E0061C196 /* AppUnitl.m */,
 				6B5B0D1D1EC4A18200945694 /* MineViewController.h */,
@@ -947,6 +952,7 @@
 				6B666AA31EBC808600AA5C75 /* MJRefreshAutoStateFooter.m in Sources */,
 				E803C7891CF58E1B001BB402 /* XiaoshuoViewController.m in Sources */,
 				6B666A6C1EBC806E00AA5C75 /* OCGumbo.m in Sources */,
+				6B69F5CE1EC54E4C00E334FE /* NewDateCodeViewController.m in Sources */,
 				6B8A708B1EBD8F7E00CFFB62 /* UINavigationController+ZFFullscreenPopGesture.m in Sources */,
 				6B70DAEF1EC160EF00EB09FC /* ALiProgressHUD.m in Sources */,
 				6B666AAE1EBC808600AA5C75 /* UIScrollView+MJRefresh.m in Sources */,

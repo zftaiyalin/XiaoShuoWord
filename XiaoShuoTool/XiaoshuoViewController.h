@@ -7,10 +7,12 @@
 //
 
 #import "JADebugViewController.h"
+#import "VideoPlayModel.h"
 
 @interface XiaoshuoViewController : JADebugViewController
 
 @property(nonatomic, strong) NSMutableArray *videoModelArray;
 @property (nonatomic, assign) int pageIndex;
+@property(nonatomic,strong)VideoPlayModel *model;
 
 @end

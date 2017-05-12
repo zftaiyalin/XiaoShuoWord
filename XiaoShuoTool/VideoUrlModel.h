@@ -12,5 +12,6 @@
 
 @property(nonatomic,strong) NSString *url;
 @property(nonatomic,strong) NSString *key;
+@property(nonatomic,strong) NSString *baseUrl;
 @property(nonatomic,strong) NSMutableArray *videoArray;
 @end

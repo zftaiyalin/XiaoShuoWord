@@ -40,10 +40,22 @@
     
     AppUnitl.sharedManager.model = model;
     
-    NSLog(@"%@", [AppUnitl.sharedManager getStringToDate:[AppUnitl.sharedManager getInternetDate]]);
     
+    NSString *datesString = [[NSUserDefaults standardUserDefaults] objectForKey:@"date"];
+    if (datesString == nil) {
+        [AppUnitl sharedManager].isVip = NO;
+    }else{
+
+        if ([AppUnitl compareOneDay:[[AppUnitl sharedManager]getDateToString:datesString] withAnotherDay:[[AppUnitl sharedManager]getInternetDate]] != -1) {
+            [AppUnitl sharedManager].isVip = YES;
+        }else{
+            [AppUnitl sharedManager].isVip = NO;
+        }
+        
+        
+    }
     
-//    NSString *plainText = @"https://www.youjizz.com/most-popular/";
+//    NSString *plainText = @"https://www.youjizz.com/";
 //    NSString *key = @"zftshishuaige";
 //    NSString *encryStr = [AES128Util AES128Encrypt:plainText key:key];
 //    NSLog(@"encryStr: %@", encryStr);
@@ -51,26 +63,10 @@
 //    NSLog(@"decryStr: %@", decryStr);
     
     
-    NSDateFormatter * dateFormatter = [[NSDateFormatter alloc]init];
     
-    NSDate*nowDate = [NSDate date];
-    NSTimeInterval  interval =24*60*60*30; //1:天数
-    NSDate*date1 = [nowDate initWithTimeIntervalSinceNow:+interval];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
 //    pLabDate.text  = [NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:date1]];
 
-    NSString *key = @"zftshishuaige";
-    NSString *encryStr = [AES128Util AES128Encrypt:[dateFormatter stringFromDate:date1] key:key];
-    NSLog(@"encryStr: %@", encryStr);
-    NSString *decryStr = [AES128Util AES128Decrypt:encryStr key:key];
-    NSLog(@"decryStr: %@", decryStr);
-    
-    
-    NSDateFormatter *formatter1 = [[NSDateFormatter alloc]init];
-    [formatter1 setDateFormat:@"yyyy-MM-dd HH:mm"];
-    
-    NSDate *resDate = [formatter1 dateFromString:decryStr];
-    NSLog(@"%@",resDate);
+   
     
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
