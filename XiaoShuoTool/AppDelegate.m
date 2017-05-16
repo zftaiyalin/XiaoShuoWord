@@ -32,7 +32,7 @@
     [UMVideoAd videoDownloadOnUNWifi:YES];
     
     NSError *error = nil;
-    NSURL *xcfURL = [NSURL URLWithString:@"http://opmams01o.bkt.clouddn.com/videoPlayer.json"];
+    NSURL *xcfURL = [NSURL URLWithString:@"http://opmams01o.bkt.clouddn.com/videoPlayer.json?v=22222"];
     NSString *htmlString = [NSString stringWithContentsOfURL:xcfURL encoding:NSUTF8StringEncoding error:&error];
     NSLog(@"%@", htmlString);
     AppModel *model = [AppModel yy_modelWithJSON:htmlString];
@@ -41,19 +41,19 @@
     AppUnitl.sharedManager.model = model;
     
     
-    NSString *datesString = [[NSUserDefaults standardUserDefaults] objectForKey:@"date"];
-    if (datesString == nil) {
-        [AppUnitl sharedManager].isVip = NO;
-    }else{
-
-        if ([AppUnitl compareOneDay:[[AppUnitl sharedManager]getDateToString:datesString] withAnotherDay:[[AppUnitl sharedManager]getInternetDate]] != -1) {
-            [AppUnitl sharedManager].isVip = YES;
-        }else{
-            [AppUnitl sharedManager].isVip = NO;
-        }
-        
-        
-    }
+//    NSString *datesString = [[NSUserDefaults standardUserDefaults] objectForKey:@"date"];
+//    if (datesString == nil) {
+//        [AppUnitl sharedManager].isVip = NO;
+//    }else{
+//
+//        if ([AppUnitl compareOneDay:[[AppUnitl sharedManager]getDateToString:datesString] withAnotherDay:[[AppUnitl sharedManager]getInternetDate]] != -1) {
+//            [AppUnitl sharedManager].isVip = YES;
+//        }else{
+//            [AppUnitl sharedManager].isVip = NO;
+//        }
+//        
+//        
+//    }
     
 //    NSString *plainText = @"https://www.youjizz.com/";
 //    NSString *key = @"zftshishuaige";
@@ -66,7 +66,14 @@
     
 //    pLabDate.text  = [NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:date1]];
 
-   
+    NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:@"mycollection"];
+    
+    if (data == nil) {
+        NSMutableArray *array = [NSMutableArray array];
+        NSData * tempArchive = [NSKeyedArchiver archivedDataWithRootObject:array];
+        [[NSUserDefaults standardUserDefaults]setObject:tempArchive forKey:@"mycollection"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
     
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -118,7 +125,7 @@
     
     [[UITabBarItem appearance]setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:10],NSForegroundColorAttributeName:[UIColor blackColor]} forState:UIControlStateSelected];
 
-    
+    [[UINavigationBar appearance] setTintColor:[UIColor blackColor]];
     UITabBar *tabBar = self.mainVC.tabBar;
     //修改字体颜色
     tabBar.tintColor = [UIColor redColor];

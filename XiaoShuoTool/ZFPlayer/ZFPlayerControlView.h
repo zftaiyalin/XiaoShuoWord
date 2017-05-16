@@ -24,7 +24,11 @@
 #import <UIKit/UIKit.h>
 #import "ASValueTrackingSlider.h"
 #import "ZFPlayer.h"
+#import "VideoModel.h"
 
 @interface ZFPlayerControlView : UIView 
-
+/** 收藏按钮*/
+@property (nonatomic, strong) UIButton                *collectBtn;
+@property (nonatomic, assign) BOOL                isCollect;
+@property (nonatomic, strong) VideoModel                *videoModel;
 @end

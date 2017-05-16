@@ -11,7 +11,7 @@
 @interface AppUnitl : NSObject
 
 @property(nonatomic,strong) AppModel *model;
-@property(nonatomic,assign) _Bool isVip;
+@property(nonatomic,assign) _Bool isDownLoad;
 + (AppUnitl *)sharedManager;
 - (NSDate *)getInternetDate;
 -(NSDate *)getDateToString:(NSString *)date;

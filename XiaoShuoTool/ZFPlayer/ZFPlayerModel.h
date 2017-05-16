@@ -22,11 +22,14 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "VideoModel.h"
 
 @interface ZFPlayerModel : NSObject
 
 /** 视频标题 */
 @property (nonatomic, copy  ) NSString     *title;
+
+@property (nonatomic,strong ) VideoModel *videoModel;
 /** 视频URL */
 @property (nonatomic, strong) NSURL        *videoURL;
 /** 视频封面本地图片 */

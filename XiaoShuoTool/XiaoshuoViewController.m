@@ -28,7 +28,7 @@ static NSString * const reuseIdentifier = @"collectionViewCell";
 
 @interface XiaoshuoViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,ZFPlayerDelegate>{
     
-
+    int adverIndex;
     
 }
 
@@ -182,6 +182,7 @@ static NSString * const reuseIdentifier = @"collectionViewCell";
 // 页面消失时候
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    [UMVideoAd videoCloseVideoPlayer];
     [self.playerView resetPlayer];
 }
 
@@ -254,10 +255,7 @@ static NSString * const reuseIdentifier = @"collectionViewCell";
     __weak typeof(self)  weakSelf      = self;
     // 点击播放的回调
     cell.playBlock = ^(UIButton *btn){
-        
-        if (![AppUnitl sharedManager].isVip) {
-            
-        
+
         
         dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
         
@@ -294,7 +292,7 @@ static NSString * const reuseIdentifier = @"collectionViewCell";
                         NSLog(@"中途退出");
 
                         [self showErrorText:@"需要广告播放完毕方可继续光看，天瞎啦，作者都要要饭了!"];
-                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                             [self dismissLoading];
                         });
                         
@@ -305,78 +303,19 @@ static NSString * const reuseIdentifier = @"collectionViewCell";
                     NSString *message = @"";
                     if (isLegal) {
                         message = @"此次播放有效";
-                        if (video == nil) {
-                            
-                            
-                            //
-                            return;
-                        }
-                        
-                        ZFPlayerModel *playerModel = [[ZFPlayerModel alloc] init];
-                        playerModel.title            = vmodel.title;
-                        playerModel.videoURL         = [[NSURL alloc]initWithString:video];
-                        NSString *image = [[NSString alloc]initWithFormat:@"https:%@",vmodel.img];
-                        playerModel.placeholderImageURLString = image;
-                        playerModel.scrollView       = weakSelf.collectionView;
-                        playerModel.indexPath        = weakIndexPath;
-                        // 赋值分辨率字典
-                        //        playerModel.resolutionDic    = dic;
-                        // player的父视图tag
-                        playerModel.fatherViewTag    = weakCell.topicImageView.tag;
-                        
-                        // 设置播放控制层和model
-                        [weakSelf.playerView playerControlView:nil playerModel:playerModel];
-                        // 下载功能
-                        weakSelf.playerView.hasDownload = YES;
-                        // 自动播放
-                        [weakSelf.playerView autoPlayTheVideo];
-                        
-                    }else{
-                        message = @"此次播放无效";
-                    }
-                    //                UIImage *image = [MobiVideoAd oWVideoImage];
-                    NSLog(@"是否有效：%@",message);
-           
-                }];
-            });
-         
-        });
- 
-        
-        }else{
-        
-        
-            dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
-            
-            // 2.调用异步函数
-            dispatch_async(queue, ^{
-                [weakSelf.playerView shutDownPlayer];
-                
-                NSString *base = [AES128Util AES128Decrypt:[AppUnitl sharedManager].model.video.baseUrl key:[AppUnitl sharedManager].model.video.key];
-                NSString *urlString = [[NSString alloc]initWithFormat:@"%@%@",base,vmodel.url];
-                NSError *error = nil;
-                NSURL *xcfURL = [NSURL URLWithString:urlString];
-                NSString *htmlString = [NSString stringWithContentsOfURL:xcfURL encoding:NSUTF8StringEncoding error:&error];
-                __block NSString *video = nil;
-                
-                
-                if (htmlString) {
-                    OCGumboDocument *iosfeedDoc = [[OCGumboDocument alloc] initWithHTMLString:htmlString];
-                    NSArray *array = iosfeedDoc.body.Query(@"div.main-content").find(@"#yj-video");
-                    
-                    
-                    for (OCGumboNode *row in array) {
-                        OCGumboNode *videoStr = row.Query(@"source").last();
-                        NSLog(@"from:(%@)",videoStr.attr(@"src"));
-                        video = [[NSString alloc]initWithFormat:@"https:%@",videoStr.attr(@"src")];
-                    }
-                    
-                }
-                dispatch_sync(dispatch_get_main_queue(), ^{ // 会等block代码执行完毕后，执行后面最后一句的打印代码
-            
-                            
+                        adverIndex +=1;
+                        if ([AppUnitl sharedManager].model.video.adverIndex <= adverIndex) {
+                            if (video == nil) {
+                                [self showErrorText:@"错误的视频链接"];
+                                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                    [self dismissLoading];
+                                });
+                                return;
+                            }
+                            adverIndex = 0;
                             ZFPlayerModel *playerModel = [[ZFPlayerModel alloc] init];
                             playerModel.title            = vmodel.title;
+                            playerModel.videoModel = vmodel;
                             playerModel.videoURL         = [[NSURL alloc]initWithString:video];
                             NSString *image = [[NSString alloc]initWithFormat:@"https:%@",vmodel.img];
                             playerModel.placeholderImageURLString = image;
@@ -393,16 +332,31 @@ static NSString * const reuseIdentifier = @"collectionViewCell";
                             weakSelf.playerView.hasDownload = YES;
                             // 自动播放
                             [weakSelf.playerView autoPlayTheVideo];
+                        }else{
                             
-                    });
-                
+                            NSString *string = [[NSString alloc]initWithFormat:@"每%d次广告收看可获取一次光看权限,您已收看%d次广告。",[AppUnitl sharedManager].model.video.adverIndex,adverIndex];
+                            [self showSuccessText:string];
+                            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                [self dismissLoading];
+                            });
+                            
+                        }
+                        
+                        
+                    }else{
+                       
+                        message = @"此次播放无效";
+                    }
+                    //                UIImage *image = [MobiVideoAd oWVideoImage];
+                    NSLog(@"是否有效：%@",message);
+           
+                }];
             });
-            
+         
+        });
+ 
         
-        
-        }
-
-        
+     
         
         
     };

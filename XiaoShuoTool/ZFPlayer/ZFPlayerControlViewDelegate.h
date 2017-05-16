@@ -34,6 +34,8 @@
 - (void)zf_controlView:(UIView *)controlView backAction:(UIButton *)sender;
 /** cell播放中小屏状态 关闭按钮事件 */
 - (void)zf_controlView:(UIView *)controlView closeAction:(UIButton *)sender;
+/** 收藏事件 */
+- (void)zf_controlView:(UIView *)controlView collectAction:(UIButton *)sender;
 /** 播放按钮事件 */
 - (void)zf_controlView:(UIView *)controlView playAction:(UIButton *)sender;
 /** 全屏按钮事件 */

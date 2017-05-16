@@ -11,6 +11,7 @@
 @interface VideoUrlModel : NSObject
 
 @property(nonatomic,strong) NSString *url;
+@property(nonatomic,assign) int adverIndex;
 @property(nonatomic,strong) NSString *key;
 @property(nonatomic,strong) NSString *baseUrl;
 @property(nonatomic,strong) NSMutableArray *videoArray;
