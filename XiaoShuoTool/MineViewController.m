@@ -7,7 +7,6 @@
 //
 
 #import "MineViewController.h"
-#import "Masonry.h"
 #import "UMVideoAd.h"
 #import "ZFDownloadViewController.h"
 #import "DaiLuViewController.h"

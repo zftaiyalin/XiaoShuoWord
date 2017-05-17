@@ -9,7 +9,6 @@
 #import "MoviePlayerViewController.h"
 #import <AVFoundation/AVFoundation.h>
 #import <MediaPlayer/MediaPlayer.h>
-#import "Masonry.h"
 #import "VideoModel.h"
 #import "ZFDownloadManager.h"
 #import "ZFPlayer.h"

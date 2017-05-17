@@ -16,6 +16,7 @@
 #import "AppModel.h"
 #import "AppUnitl.h"
 #import "MineViewController.h"
+#import "WifiViewController.h"
 @interface AppDelegate ()
 
 @end
@@ -31,10 +32,17 @@
     //开启非wifi预缓存视频文件
     [UMVideoAd videoDownloadOnUNWifi:YES];
     
+    
+    
+    
+    
     NSError *error = nil;
     NSURL *xcfURL = [NSURL URLWithString:@"http://opmams01o.bkt.clouddn.com/videoPlayer.json?v=22222"];
     NSString *htmlString = [NSString stringWithContentsOfURL:xcfURL encoding:NSUTF8StringEncoding error:&error];
     NSLog(@"%@", htmlString);
+    
+    
+    
     AppModel *model = [AppModel yy_modelWithJSON:htmlString];
     NSLog(@"%@", model);
     
@@ -84,7 +92,7 @@
     UINavigationController *firstNavigationController = [[UINavigationController alloc]
                                                          initWithRootViewController:firstViewController];
     
-    JACenterViewController *secondViewController =  [[JACenterViewController alloc]init];
+    WifiViewController *secondViewController =  [[WifiViewController alloc]init];
     secondViewController.hidesBottomBarWhenPushed = NO;
     UINavigationController *secondNavigationController = [[UINavigationController alloc]
                                                           initWithRootViewController:secondViewController];
@@ -103,12 +111,12 @@
     [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor]
                                                                                   ,NSForegroundColorAttributeName,[UIFont systemFontOfSize:26], NSFontAttributeName, nil]
                                              forState:UIControlStateSelected];
-    NSArray *titles = @[@"搜索", @"历史", @"更多"];
-    NSArray *images = @[@"souye", @"sousuo", @"wod"];
+    NSArray *titles = @[@"主页", @"搜索", @"更多"];
+    NSArray *images = @[@"souye", @"shousuo", @"wod"];
     
     self.mainVC = [[UITabBarController alloc] init];
     
-    self.mainVC.viewControllers = @[firstNavigationController, secondNavigationController, thirdNavigationController];
+    self.mainVC.viewControllers = @[secondNavigationController, firstNavigationController , thirdNavigationController];
     
     [self.mainVC.tabBar.items enumerateObjectsUsingBlock:^(UITabBarItem *item, NSUInteger idx, BOOL *stop) {
         UIImage *selectedimage = [UIImage imageNamed:[NSString stringWithFormat:@"%@_selected",

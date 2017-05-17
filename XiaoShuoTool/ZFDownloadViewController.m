@@ -12,7 +12,6 @@
 #import "ZFDownloadingCell.h"
 #import "ZFDownloadedCell.h"
 #import "ZFDownloadManager.h"
-#import "Masonry.h"
 #import "MoviePlayerViewController.h"
 
 #define  DownloadManager  [ZFDownloadManager sharedDownloadManager]

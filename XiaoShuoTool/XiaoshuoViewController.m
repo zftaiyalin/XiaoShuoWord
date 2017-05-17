@@ -12,7 +12,6 @@
 #import "OCGumbo+Query.h"
 #import "VideoModel.h"
 #import "MJRefresh.h"
-#import "Masonry.h"
 #import "ZFPlayer.h"
 #import "ZFCollectionViewCell.h"
 #import "ZFDownloadManager.h"
