@@ -11,4 +11,6 @@
 @interface MoviePlayerViewController : JADebugViewController
 /** 视频URL */
 @property (nonatomic, strong) NSURL *videoURL;
+@property (nonatomic, strong) NSString *titleSring;
+@property (nonatomic, assign) BOOL isShowCollect;
 @end

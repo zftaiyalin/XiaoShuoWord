@@ -235,17 +235,25 @@ typedef NS_ENUM(NSInteger, PanDirection){
     NSArray *arr = [NSKeyedUnarchiver unarchiveObjectWithData:data];
     ZFPlayerControlView *defaultControlView = (ZFPlayerControlView *)self.controlView;
     defaultControlView.videoModel = self.playerModel.videoModel;
-    if (arr.count > 0) {
-        for (VideoModel *model in arr) {
-            if ([model.url isEqualToString:self.playerModel.videoModel.url]) {
-                
-                [defaultControlView.collectBtn setImage:[UIImage imageNamed:@"soucang.png"] forState:UIControlStateNormal];
-                defaultControlView.isCollect = YES;
-                
-                break;
+    
+    if (self.playerModel.isShowCollect) {
+        defaultControlView.collectBtn.hidden = YES;
+    }else{
+        defaultControlView.collectBtn.hidden = NO;
+        if (arr.count > 0) {
+            for (VideoModel *model in arr) {
+                if ([model.url isEqualToString:self.playerModel.videoModel.url]) {
+                    
+                    [defaultControlView.collectBtn setImage:[UIImage imageNamed:@"soucang.png"] forState:UIControlStateNormal];
+                    defaultControlView.isCollect = YES;
+                    
+                    break;
+                }
             }
         }
     }
+    
+    
 }
 
 /**

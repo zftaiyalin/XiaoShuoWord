@@ -14,5 +14,5 @@
 @property(nonatomic,strong)NSString *time;
 @property(nonatomic,strong)UIImage *image;
 @property(nonatomic,strong)NSString *size;
-
+@property(nonatomic,strong)NSString *path;
 @end

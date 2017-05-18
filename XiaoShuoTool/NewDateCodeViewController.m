@@ -25,7 +25,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     
     textfield = [[UITextField alloc]init];
-    textfield.placeholder = @"输入天数";
+    textfield.placeholder = @"输入积分";
     textfield.backgroundColor = [UIColor colorWithHexString:@"#efeff5"];
     [self.view addSubview:textfield];
     
@@ -56,13 +56,13 @@
     
     
     NSDateFormatter * dateFormatter = [[NSDateFormatter alloc]init];
-    NSTimeInterval  interval =24*60*60*textfield.text.intValue; //1:天数
-    NSDate*date1 = [[AppUnitl.sharedManager getInternetDate] initWithTimeIntervalSinceNow:+interval];
+//    NSTimeInterval  interval =24*60*60*textfield.text.intValue; //1:天数
+//    NSDate*date1 = [[AppUnitl.sharedManager getInternetDate] initWithTimeIntervalSinceNow:+interval];
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
     NSDate*dateNow = [NSDate date];
     
 //    NSLog(@"%@", [AppUnitl.sharedManager getStringToDate:[AppUnitl.sharedManager getInternetDate]]);
-    NSString *jiami = [[NSString alloc]initWithFormat:@"%@create%@",[dateFormatter stringFromDate:dateNow],[dateFormatter stringFromDate:date1]];
+    NSString *jiami = [[NSString alloc]initWithFormat:@"%@jifen%@",[dateFormatter stringFromDate:dateNow],textfield.text];
     
     NSString *key = [AppUnitl sharedManager].model.video.key;
     NSString *encryStr = [AES128Util AES128Encrypt:jiami key:key];

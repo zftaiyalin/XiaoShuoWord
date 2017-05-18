@@ -122,6 +122,8 @@
 		6B8B53BA1ECBEA8F00EEDAA4 /* WebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B8B539F1ECBEA8F00EEDAA4 /* WebSocket.m */; };
 		6B8B53C21ECBEAAC00EEDAA4 /* MyHttpConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B8B53C11ECBEAAC00EEDAA4 /* MyHttpConnection.m */; };
 		6B8B53C51ECBEB2600EEDAA4 /* WifiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B8B53C41ECBEB2600EEDAA4 /* WifiViewController.m */; };
+		6B9CB0CC1ECD9C230030FCB3 /* AdvertisingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B9CB0CB1ECD9C230030FCB3 /* AdvertisingViewController.m */; };
+		6B9CB0CF1ECDA7BD0030FCB3 /* CollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B9CB0CE1ECDA7BD0030FCB3 /* CollectionViewController.m */; };
 		6BDD963B1EC440300061C196 /* VideoUrlModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BDD963A1EC440300061C196 /* VideoUrlModel.m */; };
 		6BDD963E1EC441AB0061C196 /* VideoPlayModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BDD963D1EC441AB0061C196 /* VideoPlayModel.m */; };
 		6BDD96411EC4420B0061C196 /* WechatModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BDD96401EC4420B0061C196 /* WechatModel.m */; };
@@ -367,6 +369,10 @@
 		6B8B53C11ECBEAAC00EEDAA4 /* MyHttpConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyHttpConnection.m; sourceTree = "<group>"; };
 		6B8B53C31ECBEB2600EEDAA4 /* WifiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WifiViewController.h; sourceTree = "<group>"; };
 		6B8B53C41ECBEB2600EEDAA4 /* WifiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WifiViewController.m; sourceTree = "<group>"; };
+		6B9CB0CA1ECD9C230030FCB3 /* AdvertisingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdvertisingViewController.h; sourceTree = "<group>"; };
+		6B9CB0CB1ECD9C230030FCB3 /* AdvertisingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdvertisingViewController.m; sourceTree = "<group>"; };
+		6B9CB0CD1ECDA7BD0030FCB3 /* CollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewController.h; sourceTree = "<group>"; };
+		6B9CB0CE1ECDA7BD0030FCB3 /* CollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionViewController.m; sourceTree = "<group>"; };
 		6BDD96391EC440300061C196 /* VideoUrlModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoUrlModel.h; sourceTree = "<group>"; };
 		6BDD963A1EC440300061C196 /* VideoUrlModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoUrlModel.m; sourceTree = "<group>"; };
 		6BDD963C1EC441AB0061C196 /* VideoPlayModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoPlayModel.h; sourceTree = "<group>"; };
@@ -919,6 +925,8 @@
 				6BDD96481EC4488E0061C196 /* AppUnitl.m */,
 				6B5B0D1D1EC4A18200945694 /* MineViewController.h */,
 				6B5B0D1E1EC4A18200945694 /* MineViewController.m */,
+				6B9CB0CD1ECDA7BD0030FCB3 /* CollectionViewController.h */,
+				6B9CB0CE1ECDA7BD0030FCB3 /* CollectionViewController.m */,
 				6B5B0D201EC4A66800945694 /* DaiLuViewController.h */,
 				6B5B0D211EC4A66800945694 /* DaiLuViewController.m */,
 				E803C77B1CF584EC001BB402 /* JADebugViewController.h */,
@@ -929,6 +937,8 @@
 				E803C77E1CF584EC001BB402 /* JACenterViewController.m */,
 				E803C7871CF58E1B001BB402 /* XiaoshuoViewController.h */,
 				E803C7881CF58E1B001BB402 /* XiaoshuoViewController.m */,
+				6B9CB0CA1ECD9C230030FCB3 /* AdvertisingViewController.h */,
+				6B9CB0CB1ECD9C230030FCB3 /* AdvertisingViewController.m */,
 				6B70DB071EC173A200EB09FC /* SearchViewController.h */,
 				6B70DB081EC173A200EB09FC /* SearchViewController.m */,
 				6B5E67DF1EC0A98800A4D59E /* YouJiVideoModel.h */,
@@ -1178,6 +1188,7 @@
 				6B8A70751EBD774000CFFB62 /* UIView+CustomControlView.m in Sources */,
 				6B666A9E1EBC808600AA5C75 /* MJRefreshComponent.m in Sources */,
 				6B2C9ADF1ECC23E3009A8C83 /* AppLocaVideoModel.m in Sources */,
+				6B9CB0CF1ECDA7BD0030FCB3 /* CollectionViewController.m in Sources */,
 				6BDD96491EC4488E0061C196 /* AppUnitl.m in Sources */,
 				6B666AA91EBC808600AA5C75 /* MJRefreshStateHeader.m in Sources */,
 				6B70DB091EC173A200EB09FC /* SearchViewController.m in Sources */,
@@ -1230,6 +1241,7 @@
 				6B8A70711EBD774000CFFB62 /* UIAlertController+ZFPlayerRotation.m in Sources */,
 				6B70DB021EC1610600EB09FC /* ZFFileModel.m in Sources */,
 				6B70DB011EC1610600EB09FC /* ZFDownloadManager.m in Sources */,
+				6B9CB0CC1ECD9C230030FCB3 /* AdvertisingViewController.m in Sources */,
 				6B8B53BA1ECBEA8F00EEDAA4 /* WebSocket.m in Sources */,
 				6B8B53C51ECBEB2600EEDAA4 /* WifiViewController.m in Sources */,
 				6B68496E1EC40FFB00EC6D22 /* GTMBase64.m in Sources */,

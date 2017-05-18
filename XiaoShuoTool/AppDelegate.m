@@ -17,6 +17,7 @@
 #import "AppUnitl.h"
 #import "MineViewController.h"
 #import "WifiViewController.h"
+
 @interface AppDelegate ()
 
 @end
@@ -28,16 +29,26 @@
     // Override point for customization after application launch.
     
     [UMVideoAd initAppID:@"452daca28d91e51a" appKey:@"300195c14eacd089" cacheVideo:YES];
-    
     //开启非wifi预缓存视频文件
     [UMVideoAd videoDownloadOnUNWifi:YES];
+    [UMVideoAd videoShowProgressTime:YES];
+    [UMVideoAd hideDetailViewReplayBtn:NO];
+    [UMVideoAd videoIsForceLandscape:NO];
+    [UMVideoAd videosetCloseAlertContent:@"中途退出没有积分奖励哦"];
     
+    UMConfigInstance.appKey = @"591d390d65b6d63c4c002623";
+    UMConfigInstance.channelId = @"App Store";
+    [MobClick startWithConfigure:UMConfigInstance];//配置以上参数后调用此方法初始化SDK！
     
-    
-    
-    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    //设置格式：zzz表示时区
+    [dateFormatter setDateFormat:@"yyyyMMddHHmmss"];
+    //NSDate转NSString
+    NSString *currentDateString = [dateFormatter stringFromDate:[NSDate date]];
     NSError *error = nil;
-    NSURL *xcfURL = [NSURL URLWithString:@"http://opmams01o.bkt.clouddn.com/videoPlayer.json?v=22222"];
+    
+    NSString *ss = [NSString stringWithFormat:@"http://opmams01o.bkt.clouddn.com/videoPlayer.json?v=%@",currentDateString];
+    NSURL *xcfURL = [NSURL URLWithString:ss];
     NSString *htmlString = [NSString stringWithContentsOfURL:xcfURL encoding:NSUTF8StringEncoding error:&error];
     NSLog(@"%@", htmlString);
     
@@ -49,26 +60,7 @@
     AppUnitl.sharedManager.model = model;
     
     
-//    NSString *datesString = [[NSUserDefaults standardUserDefaults] objectForKey:@"date"];
-//    if (datesString == nil) {
-//        [AppUnitl sharedManager].isVip = NO;
-//    }else{
-//
-//        if ([AppUnitl compareOneDay:[[AppUnitl sharedManager]getDateToString:datesString] withAnotherDay:[[AppUnitl sharedManager]getInternetDate]] != -1) {
-//            [AppUnitl sharedManager].isVip = YES;
-//        }else{
-//            [AppUnitl sharedManager].isVip = NO;
-//        }
-//        
-//        
-//    }
-    
-//    NSString *plainText = @"https://www.youjizz.com/";
-//    NSString *key = @"zftshishuaige";
-//    NSString *encryStr = [AES128Util AES128Encrypt:plainText key:key];
-//    NSLog(@"encryStr: %@", encryStr);
-//    NSString *decryStr = [AES128Util AES128Decrypt:encryStr key:key];
-//    NSLog(@"decryStr: %@", decryStr);
+
     
     
     
@@ -84,6 +76,13 @@
     }
     
     
+    
+    NSString *jifen = [[NSUserDefaults standardUserDefaults] objectForKey:@"myintegral"];
+    
+    if (jifen == nil) {
+        [[NSUserDefaults standardUserDefaults]setObject:@"0" forKey:@"myintegral"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
   

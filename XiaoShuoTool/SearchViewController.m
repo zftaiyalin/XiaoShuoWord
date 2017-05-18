@@ -296,6 +296,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     [searchBar resignFirstResponder];
+    [MobClick beginLogPageView:@"进入老司机页面"];
     XiaoshuoViewController *videoVC = [[XiaoshuoViewController alloc]init];
     videoVC.model =  [[AppUnitl sharedManager].model.video.videoArray objectAtIndex:indexPath.row];
     [self.navigationController pushViewController:videoVC animated:YES];

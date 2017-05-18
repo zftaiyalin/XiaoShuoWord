@@ -25,4 +25,5 @@
 #import "YYCategories.h"
 #import "AppUnitl.h"
 #import "Masonry.h"
+#import "UMMobClick/MobClick.h"
 #endif

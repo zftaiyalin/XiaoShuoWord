@@ -13,9 +13,9 @@
 @interface DaiLuViewController ()
 
 @property(nonatomic,strong) UIButton *wechatBtu;
-//@property(nonatomic,strong) UITextField *textField;
-//@property(nonatomic,strong) UIButton *tijiaoBtu;
-//@property(nonatomic,strong) UILabel *jgLabel;
+@property(nonatomic,strong) UITextField *textField;
+@property(nonatomic,strong) UIButton *tijiaoBtu;
+@property(nonatomic,strong) UILabel *jgLabel;
 @end
 
 @implementation DaiLuViewController
@@ -56,117 +56,113 @@
     }];
     
     
-//    UIView *textView = [[UIView alloc]init];
-//    textView.backgroundColor = [UIColor whiteColor];
-//    [self.view addSubview:textView];
-//    
-//    [textView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.and.right.equalTo(self.view);
-//        make.top.equalTo(_wechatBtu.mas_bottom).offset(15);
-//        make.height.mas_equalTo(44);
-//    }];
+    _jgLabel = [[UILabel alloc]init];
+    _jgLabel.text = [NSString stringWithFormat:@"我的积分：%d",[[AppUnitl sharedManager]getMyintegral]];
+    _jgLabel.numberOfLines = 0;
+    _jgLabel.textColor = [UIColor colorWithHexString:@"#888888"];
+    _jgLabel.font = [UIFont systemFontOfSize:15];
+    [self.view addSubview:_jgLabel];
     
-//    _textField = [[UITextField alloc]init];
-//    _textField.placeholder = @"老司机VIP码";
-//    [textView addSubview:_textField];
-//    
-//    [_textField mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.edges.equalTo(textView).insets(UIEdgeInsetsMake(0, 13, 0, 13));
-//    }];
-//    
-//    _tijiaoBtu = [UIButton buttonWithType:UIButtonTypeCustom];
-//    _tijiaoBtu.backgroundColor = [UIColor whiteColor];
-//    [_tijiaoBtu setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-//    [_tijiaoBtu setTitle:@"提交" forState:UIControlStateNormal];
-//    [_tijiaoBtu addTarget:self action:@selector(tijiaolaosiji) forControlEvents:UIControlEventTouchUpInside];
-//    [self.view addSubview:_tijiaoBtu];
-//    
-//    [_tijiaoBtu mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.and.right.equalTo(self.view);
-//        make.top.equalTo(textView).offset(65);
-//        make.height.mas_equalTo(44);
-//    }];
+    [_jgLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view).offset(13);
+        make.right.equalTo(self.view).offset(-13);
+        make.top.equalTo(_wechatBtu.mas_bottom).offset(15);
+    }];
+
     
     
-//    _jgLabel = [[UILabel alloc]init];
-//    _jgLabel.text = @"警告⚠️---千万不要删除客户端，不然VIP状态会丢失，如丢失，老司机概不负责!";
-//    _jgLabel.numberOfLines = 0;
-//    _jgLabel.textColor = [UIColor colorWithHexString:@"#888888"];
-//    _jgLabel.hidden = YES;
-//    _jgLabel.font = [UIFont systemFontOfSize:13];
-//    [self.view addSubview:_jgLabel];
-//    
-//    [_jgLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(self.view).offset(13);
-//        make.right.equalTo(self.view).offset(-13);
-//        make.top.equalTo(self.textField.mas_bottom).offset(6);
-//    }];
+    UIView *textView = [[UIView alloc]init];
+    textView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:textView];
     
-//    if ([AppUnitl sharedManager].isVip) {
-//        NSDateFormatter *formatter1 = [[NSDateFormatter alloc]init];
-//        [formatter1 setDateFormat:@"yyyy-MM-dd HH:mm"];
-//        
-//        NSString *datesString = [[NSUserDefaults standardUserDefaults] objectForKey:@"date"];
-//        _textField.text = [[NSString alloc]initWithFormat:@"VIP到期时间: %@",datesString];
-//        _textField.userInteractionEnabled = NO;
-//        _tijiaoBtu.hidden = YES;
-//        _jgLabel.hidden = NO;
-//    }else{
-//        _textField.userInteractionEnabled = YES;
-//        _tijiaoBtu.hidden = NO;
-//        _jgLabel.hidden = YES;
-//    }
+    [textView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.and.right.equalTo(self.view);
+        make.top.equalTo(_jgLabel.mas_bottom).offset(15);
+        make.height.mas_equalTo(44);
+    }];
+    
+    _textField = [[UITextField alloc]init];
+    _textField.placeholder = @"免广告积分码";
+    [textView addSubview:_textField];
+    
+    [_textField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(textView).insets(UIEdgeInsetsMake(0, 13, 0, 13));
+    }];
+    
+    _tijiaoBtu = [UIButton buttonWithType:UIButtonTypeCustom];
+    _tijiaoBtu.backgroundColor = [UIColor whiteColor];
+    [_tijiaoBtu setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [_tijiaoBtu setTitle:@"提交" forState:UIControlStateNormal];
+    [_tijiaoBtu addTarget:self action:@selector(tijiaolaosiji) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_tijiaoBtu];
+    
+    [_tijiaoBtu mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.and.right.equalTo(self.view);
+        make.top.equalTo(textView).offset(65);
+        make.height.mas_equalTo(44);
+    }];
+    
 }
 
-//-(void)tijiaolaosiji{
-//    NSString *decryStr = [AES128Util AES128Decrypt:_textField.text key:[AppUnitl sharedManager].model.video.key];
-//    NSLog(@"decryStr: %@", decryStr);
-//    
-//    if ([decryStr rangeOfString:@"create"].length > 0) {
-//        
-//        
-//        NSArray *dateArray = [decryStr componentsSeparatedByString:@"create"];
-//        
-//        NSString *dateNow= dateArray.firstObject;
-//        NSString *dqDate = dateArray.lastObject;
-//        
-//        
-//        NSDateFormatter *formatter1 = [[NSDateFormatter alloc]init];
-//        [formatter1 setDateFormat:@"yyyy-MM-dd HH:mm"];
-//        
-//        
-//        
-//        if ([AppUnitl dateTimeDifferenceWithStartTime:dateNow endTime:[formatter1 stringFromDate:[NSDate date]]]) {
-//                      
-//            
-//            NSDate *resDate = [formatter1 dateFromString:dqDate];
-//            NSLog(@"%@",resDate);
-//            
-//            _textField.text = [[NSString alloc]initWithFormat:@"VIP到期时间: %@",dqDate];
-//            NSLog(@"\n b: %@",dateArray);
-//            
-//            _textField.userInteractionEnabled = NO;
-//            _tijiaoBtu.hidden = YES;
-//            _jgLabel.hidden = NO;
-//            
-//            [[NSUserDefaults standardUserDefaults] setObject:dqDate forKey:@"date"];
-//            [[NSUserDefaults standardUserDefaults] synchronize];
-////            [AppUnitl sharedManager].isVip = YES;
-//            
-//        }else{
-//            
-//            [self showErrorText:@"验证码已过期"];
-//        
-//        }
-//        
-//  
-//        
-//    }else{
-//        
-//        [self showErrorText:@"错误的验证码"];
-//    }
-//    
-//}
+-(void)tijiaolaosiji{
+    if ([self IsChinese:_textField.text]) {
+        
+        [self showErrorText:@"错误的验证码"];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self dismissLoading];
+        });
+        return;
+    }
+    
+    
+    NSString *decryStr = [AES128Util AES128Decrypt:_textField.text key:[AppUnitl sharedManager].model.video.key];
+    NSLog(@"decryStr: %@", decryStr);
+    
+    if ([decryStr rangeOfString:@"jifen"].length > 0) {
+        
+        
+        NSArray *dateArray = [decryStr componentsSeparatedByString:@"jifen"];
+        
+        
+        BOOL flag = [AppUnitl addCodeToJifen:dateArray];
+        
+        if (flag) {
+            [self showSuccessText:@"获取积分码成功"];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self dismissLoading];
+                _jgLabel.text = [NSString stringWithFormat:@"我的积分：%d",[[AppUnitl sharedManager]getMyintegral]];
+            });
+        }else{
+            [self showErrorText:@"积分码已使用"];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self dismissLoading];
+            });
+        }
+
+        
+    }else{
+        
+        [self showErrorText:@"错误的验证码"];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self dismissLoading];
+        });
+    }
+    
+}
+
+-(BOOL)IsChinese:(NSString *)str
+{
+    for(int i=0; i< [str length];i++)
+    {
+        int a = [str characterAtIndex:i];
+        if( a > 0x4e00 && a < 0x9fff)//判断输入的是否是中文
+        {
+            return YES;
+        }
+    }
+    return NO;
+}
+
 
 -(void)copyWechat{
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
@@ -179,6 +175,8 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 1) {
+        [MobClick event:@"前往微信"];
+        
         NSString *str = @"weixin:/";
         
         [[UIApplication sharedApplication]openURL:[NSURL URLWithString:str]];

@@ -35,7 +35,7 @@
 }
 
 
-+(float)getTime:(NSString *)videoURL{
++(NSString *)getTime:(NSString *)videoURL{
     
     NSURL    *movieURL = [NSURL fileURLWithPath:videoURL];
     NSDictionary *opts = [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:NO]
@@ -44,7 +44,12 @@
     float second = 0;
     second = urlAsset.duration.value/urlAsset.duration.timescale;
     NSLog(@"movie duration : %f", second);
-    return second;
+    int ss = (int)second;
+    int seconds = ss % 60;
+    int minutes = (ss / 60) % 60;
+    int hours = ss / 3600;
+    
+    return [NSString stringWithFormat:@"%02d:%02d:%02d",hours, minutes, seconds];
 }
 + (long long) fileSizeAtPath:(NSString*) filePath{
     NSFileManager* manager = [NSFileManager defaultManager];
@@ -208,4 +213,87 @@
     
 }
 
+-(BOOL)getWatchQuanxian{
+    NSString *jifen = [[NSUserDefaults standardUserDefaults]objectForKey:@"myintegral"];
+    
+    int jj = jifen.intValue;
+    
+    
+    if (jj > self.model.video.wkintegral) {
+        jj -= self.model.video.wkintegral;
+        [[NSUserDefaults standardUserDefaults]setObject:[NSString stringWithFormat:@"%d",jj] forKey:@"myintegral"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        return YES;
+    }else{
+        return NO;
+    }
+}
+-(void)addMyintegral:(int) jifen{
+//    self.model.video.ggintegral
+    
+     NSString *jifens = [[NSUserDefaults standardUserDefaults]objectForKey:@"myintegral"];
+    
+    int jj = jifens.intValue;
+    
+    jj += jifen;
+    
+    [[NSUserDefaults standardUserDefaults]setObject:[NSString stringWithFormat:@"%d",jj] forKey:@"myintegral"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+
+}
+
+-(int)getMyintegral{
+    NSString *jifen = [[NSUserDefaults standardUserDefaults]objectForKey:@"myintegral"];
+    
+    return jifen.intValue;
+}
+
++(BOOL)addCodeToJifen:(NSArray *)dateArray{
+    NSString *dateNow= dateArray.firstObject;
+    NSString *jifenss = dateArray.lastObject;
+    
+    
+    NSData *dataa = [[NSUserDefaults standardUserDefaults] objectForKey:@"jifencode"];
+    
+    if (dataa == nil) {
+        NSMutableArray *array = [NSMutableArray array];
+        NSData * tempArchive = [NSKeyedArchiver archivedDataWithRootObject:array];
+        [[NSUserDefaults standardUserDefaults]setObject:tempArchive forKey:@"jifencode"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+    
+    NSData *data = [[NSUserDefaults standardUserDefaults]objectForKey:@"jifencode"];
+    NSArray *array = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    NSMutableArray *arr = [NSMutableArray arrayWithArray:array];
+    BOOL isGuoqi = NO;
+    for (NSString *string in arr) {
+        if ([dateNow isEqualToString:string]) {
+            isGuoqi = YES;
+            break;
+        }
+    }
+    
+    if (isGuoqi) {
+        return NO;
+    }else{
+        [arr addObject:dateNow];
+        NSData * tempArchive = [NSKeyedArchiver archivedDataWithRootObject:arr];
+        [[NSUserDefaults standardUserDefaults]setObject:tempArchive forKey:@"jifencode"];
+        
+        NSString *jifen = [[NSUserDefaults standardUserDefaults]objectForKey:@"myintegral"];
+        
+        int jj = jifen.intValue;
+        
+        jj += jifenss.intValue;
+        
+        [[NSUserDefaults standardUserDefaults]setObject:[NSString stringWithFormat:@"%d",jj] forKey:@"myintegral"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+    
+        return YES;
+    }
+
+    
+    
+}
 @end

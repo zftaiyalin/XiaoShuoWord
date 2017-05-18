@@ -12,6 +12,7 @@
 #import "DaiLuViewController.h"
 #import "NewDateCodeViewController.h"
 #import "SDImageCache.h"
+#import "CollectionViewController.h"
 
 @interface MineViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -206,6 +207,10 @@
             if (indexPath.section == 1) {
                 if (indexPath.row == 0) {
 //                    cell.textLabel.text = @"收藏";
+                    
+                    
+                    CollectionViewController *vc = [[CollectionViewController alloc]init];
+                    [self.navigationController pushViewController:vc animated:YES];
                 }else{
 //                    cell.textLabel.text = @"下载";
                     ZFDownloadViewController *vc = [[ZFDownloadViewController alloc]init];
@@ -229,6 +234,8 @@
         if (indexPath.section == 0) {
             if (indexPath.row == 0) {
 //                cell.textLabel.text = @"收藏";
+                CollectionViewController *vc = [[CollectionViewController alloc]init];
+                [self.navigationController pushViewController:vc animated:YES];
             }else{
 //                cell.textLabel.text = @"下载";
                 ZFDownloadViewController *vc = [[ZFDownloadViewController alloc]init];

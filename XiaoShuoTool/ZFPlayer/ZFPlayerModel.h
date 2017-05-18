@@ -29,6 +29,8 @@
 /** 视频标题 */
 @property (nonatomic, copy  ) NSString     *title;
 
+@property (nonatomic, assign  ) BOOL isShowCollect;
+
 @property (nonatomic,strong ) VideoModel *videoModel;
 /** 视频URL */
 @property (nonatomic, strong) NSURL        *videoURL;

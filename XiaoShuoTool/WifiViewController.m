@@ -21,7 +21,9 @@
 //#import "wwanconnect.h//frome apple 你可能没有哦
 #import <SystemConfiguration/SystemConfiguration.h>
 #import "UploadViewController.h"
-
+#import "AppLocaVideoModel.h"
+#import "WifiVideoTableViewCell.h"
+#import "MoviePlayerViewController.h"
 
 static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
@@ -30,6 +32,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
    	HTTPServer *httpServer;
     UITableView *_tableView;
     UILabel *label;
+    NSMutableArray *videoArray;
 }
 
 @end
@@ -60,6 +63,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"本地资源";
+    videoArray = [NSMutableArray array];
     self.view.backgroundColor = [UIColor whiteColor];
     UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"wifi.png"] style:UIBarButtonItemStylePlain target:self action:@selector(pushWifi)];
     
@@ -105,7 +109,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     _tableView.delegate = self;
     _tableView.hidden = YES;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
+    [_tableView registerClass:[WifiVideoTableViewCell class] forCellReuseIdentifier:@"cell"];
     [self.view addSubview:_tableView];
     
     [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -149,12 +153,11 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     [self getVideoArrayToPhone];
 }
 
--(NSMutableArray *)getVideoArrayToPhone{
-
-//    NSString *docRoot = [[[NSBundle mainBundle] pathForResource:@"index" ofType:@"html"] stringByDeletingLastPathComponent];
-//    NSString* path = [docRoot stringByAppendingPathComponent: @"/resourse"];
+-(void)getVideoArrayToPhone{
+    
+    [videoArray removeAllObjects];
     NSString* path = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"resourse"];
-//    NSString* path = [http getUploadPath];   // 要列出来的目录
+
     
     NSFileManager *myFileManager=[NSFileManager defaultManager];
     
@@ -166,6 +169,8 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     
     NSLog(@"用enumeratorAtPath:显示目录%@的内容：",path);
     
+    NSString *resPath = [NSString stringWithFormat:@"%@",path];
+    
     while((path=[myDirectoryEnumerator nextObject])!=nil)
         
     {
@@ -175,11 +180,38 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
         
         if ([[path pathExtension] isEqualToString:@"mp4"] || [[path pathExtension] isEqualToString:@"MP4"] || [[path pathExtension] isEqualToString:@"MPG"] || [[path pathExtension] isEqualToString:@"mpg"] || [[path pathExtension] isEqualToString:@"3GP"] || [[path pathExtension] isEqualToString:@"3gp"] || [[path pathExtension] isEqualToString:@"XVID"] || [[path pathExtension] isEqualToString:@"xvid"] || [[path pathExtension] isEqualToString:@"RM"] || [[path pathExtension] isEqualToString:@"rm"] || [[path pathExtension] isEqualToString:@"RMVB"] || [[path pathExtension] isEqualToString:@"rmvb"] || [[path pathExtension] isEqualToString:@"MKV"] || [[path pathExtension] isEqualToString:@"mkv"] || [[path pathExtension] isEqualToString:@"AVI"] || [[path pathExtension] isEqualToString:@"avi"] || [[path pathExtension] isEqualToString:@"WMV"] || [[path pathExtension] isEqualToString:@"wmv"] ) {
             
+            
+            AppLocaVideoModel *loacModel = [[AppLocaVideoModel alloc]init];
+            
+            NSString *videoPath = [resPath stringByAppendingPathComponent:path];
+            loacModel.image = [AppUnitl getImage:videoPath];
+            loacModel.time = [AppUnitl getTime:videoPath];
+            NSString *fileSizeStr = [NSByteCountFormatter stringFromByteCount:[AppUnitl fileSizeAtPath:videoPath]
+                                                                   countStyle:NSByteCountFormatterCountStyleFile];
+            
+            loacModel.size = fileSizeStr;
+            loacModel.title = path;
+            loacModel.path = videoPath;
+            
+            [videoArray addObject:loacModel];
+            
+            
+            
         }
+        
         
     }
     
-    return [NSMutableArray array];
+    if (videoArray.count > 0) {
+        _tableView.hidden = NO;
+        label.hidden = YES;
+         [_tableView reloadData];
+    }else{
+        _tableView.hidden = YES;
+        label.hidden = NO;
+    }
+    
+   
 }
 /*
 #pragma mark - Navigation
@@ -192,39 +224,50 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 */
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1;
+    return videoArray.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 44;
+    return 80;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-    
-//    VideoPlayModel *model = [[AppUnitl sharedManager].model.video.videoArray objectAtIndex:indexPath.row];
-//    
-//    cell.textLabel.text = [NSString stringWithFormat:@"%@", model.videoTitle];
-//    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-//    UIView *line = [[UIView alloc]init];
-//    line.backgroundColor = [UIColor colorWithHexString:@"#d9d9d9"];
-//    [cell addSubview:line];
-//    
-//    [line mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.and.right.and.top.equalTo(cell);
-//        make.height.mas_equalTo(0.25);
-//    }];
+    WifiVideoTableViewCell *cell =(WifiVideoTableViewCell *) [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    AppLocaVideoModel *model = [videoArray objectAtIndex:indexPath.row];
+    [cell loadData:model];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    AppLocaVideoModel *model = [videoArray objectAtIndex:indexPath.row];
+    MoviePlayerViewController *movie = [[MoviePlayerViewController alloc]init];
+    movie.videoURL                   = [NSURL fileURLWithPath:model.path isDirectory:YES];
+    movie.titleSring = model.title;
+    movie.isShowCollect = YES;
+    [self.navigationController pushViewController:movie animated:NO];
+}
+
+
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return @"删除";
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    AppLocaVideoModel *model = [videoArray objectAtIndex:indexPath.row];
+    if ([[NSFileManager defaultManager] removeItemAtPath:model.path error:NULL]) {
+        NSLog(@"Removed successfully");
+//        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationBottom];
+        [self getVideoArrayToPhone];
+    }
     
-//    [searchBar resignFirstResponder];
-//    XiaoshuoViewController *videoVC = [[XiaoshuoViewController alloc]init];
-//    videoVC.model =  [[AppUnitl sharedManager].model.video.videoArray objectAtIndex:indexPath.row];
-//    [self.navigationController pushViewController:videoVC animated:YES];
+    
 }
 
 @end

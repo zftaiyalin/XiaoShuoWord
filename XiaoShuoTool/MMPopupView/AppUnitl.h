@@ -15,10 +15,14 @@
 + (AppUnitl *)sharedManager;
 - (NSDate *)getInternetDate;
 +(UIImage *)getImage:(NSString *)videoURL;
-+(float)getTime:(NSString *)videoURL;
++(NSString *)getTime:(NSString *)videoURL;
 -(NSString *)getStringToDate:(NSDate *)date;
 -(NSDate *)getDateToString:(NSString *)date;
++ (long long) fileSizeAtPath:(NSString*) filePath;
 +(int)compareOneDay:(NSDate *)oneDay withAnotherDay:(NSDate *)anotherDay;
--(NSString *)getStringToDate:(NSDate *)date;
 + (BOOL)dateTimeDifferenceWithStartTime:(NSString *)startTime endTime:(NSString *)endTime;
+-(BOOL)getWatchQuanxian;
+-(void)addMyintegral:(int) jifen;
+-(int)getMyintegral;
++(BOOL)addCodeToJifen:(NSArray *)dateArray;
 @end

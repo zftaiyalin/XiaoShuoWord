@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "AppLocaVideoModel.h"
+#import "VideoModel.h"
 @interface WifiVideoTableViewCell : UITableViewCell
 
+-(void)loadData:(AppLocaVideoModel *)model;
+-(void)loadVideoData:(VideoModel *)model;
 @end
