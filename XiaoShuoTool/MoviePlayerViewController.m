@@ -50,6 +50,13 @@
         //        [self.playerView pause];
         self.playerView.playerPushedOrPresented = YES;
     }
+    
+
+    [self.playerView resetPlayer];
+    self.playerView.delegate = nil;
+    self.playerView = nil;
+
+
 }
 
 
@@ -130,8 +137,8 @@
         _playerModel.placeholderImage = [UIImage imageNamed:@"loading_bgView1"];
         _playerModel.fatherView       = self.playerFatherView;
         _playerModel.isShowCollect    = self.isShowCollect;
-        //        _playerModel.resolutionDic = @{@"高清" : self.videoURL.absoluteString,
-        //                                       @"标清" : self.videoURL.absoluteString};
+        _playerModel.videoModel = self.videoModel;
+
     }
     return _playerModel;
 }

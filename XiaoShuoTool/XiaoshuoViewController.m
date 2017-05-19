@@ -48,6 +48,10 @@ static NSString * const reuseIdentifier = @"collectionViewCell";
     [self OCGumboVideoModel:urlString];
 }
 
+-(void)dealloc{
+    NSLog(@"释放控制器");
+}
+
 -(void)OCGumboVideoModel:(NSString *)urlString  {
    
     
@@ -78,6 +82,7 @@ static NSString * const reuseIdentifier = @"collectionViewCell";
                 OCGumboDocument *iosfeedDoc = [[OCGumboDocument alloc] initWithHTMLString:htmlString];
                 NSArray *rows = iosfeedDoc.body.Query(@"div.main-content").find(@"div.video-item");
                 YouJiVideoModel *array = [[YouJiVideoModel alloc]init];
+                 [self.videoModelArray removeAllObjects];
                 for (OCGumboNode *row in rows) {
                     OCGumboNode *title = row.Query(@".video-title").first();
                     NSLog(@"title:[%@]", title.text());
@@ -124,7 +129,7 @@ static NSString * const reuseIdentifier = @"collectionViewCell";
 
 -(void)reFreshVideoModel {
     _pageIndex = (arc4random() % _model.vdieoMaxIndex)+1;
-    [self.videoModelArray removeAllObjects];
+   
     NSString *urlString = [[NSString alloc]initWithFormat:@"%@%d.html",_baseUrl,_pageIndex];
     [self OCGumboVideoModel:urlString];
 }
@@ -214,6 +219,8 @@ static NSString * const reuseIdentifier = @"collectionViewCell";
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [self.playerView resetPlayer];
+    self.playerView.delegate = nil;
+    self.playerView = nil;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -295,10 +302,10 @@ static NSString * const reuseIdentifier = @"collectionViewCell";
         if ([[AppUnitl sharedManager] getWatchQuanxian]) {
             
             NSString *string = [[NSString alloc]initWithFormat:@"使用%d积分,剩余%d积分!",[AppUnitl sharedManager].model.video.wkintegral,[[AppUnitl sharedManager] getMyintegral]];
-            [self showSuccessText:string];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self dismissLoading];
-            });
+            [weakSelf showSuccessText:string];
+       
+           
+        
             
             dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
             
@@ -328,14 +335,14 @@ static NSString * const reuseIdentifier = @"collectionViewCell";
                 }
                 dispatch_sync(dispatch_get_main_queue(), ^{ // 会等block代码执行完毕后，执行后面最后一句的打印代码
                     if (video == nil) {
-                        [self showErrorText:@"错误的视频链接,已返还积分!"];
+                        [weakSelf showErrorText:@"错误的视频链接,已返还积分!"];
                         [[AppUnitl sharedManager] addMyintegral:[AppUnitl sharedManager].model.video.wkintegral];
                         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                            [self dismissLoading];
+                            [weakSelf dismissLoading];
                         });
                         return;
                     }
-                    
+                    [weakSelf dismissLoading];
                     ZFPlayerModel *playerModel = [[ZFPlayerModel alloc] init];
                     playerModel.title            = vmodel.title;
                     playerModel.videoModel = vmodel;
@@ -362,9 +369,9 @@ static NSString * const reuseIdentifier = @"collectionViewCell";
         }else{
             
             NSString *string = [[NSString alloc]initWithFormat:@"当前%d积分不足,观看所需积分%d!",[[AppUnitl sharedManager] getMyintegral],[AppUnitl sharedManager].model.video.wkintegral];
-            [self showErrorText:string];
+            [weakSelf showErrorText:string];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self dismissLoading];
+                [weakSelf dismissLoading];
             });
         }
         

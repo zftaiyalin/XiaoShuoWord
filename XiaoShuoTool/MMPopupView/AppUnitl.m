@@ -219,7 +219,7 @@
     int jj = jifen.intValue;
     
     
-    if (jj > self.model.video.wkintegral) {
+    if (jj >= self.model.video.wkintegral) {
         jj -= self.model.video.wkintegral;
         [[NSUserDefaults standardUserDefaults]setObject:[NSString stringWithFormat:@"%d",jj] forKey:@"myintegral"];
         [[NSUserDefaults standardUserDefaults] synchronize];
@@ -247,7 +247,36 @@
     
     return jifen.intValue;
 }
++(BOOL)getBoolMiMa{
+    NSString *jifen = [[NSUserDefaults standardUserDefaults] objectForKey:@"mymima"];
+    
+    if (jifen == nil) {
+        [[NSUserDefaults standardUserDefaults]setObject:@"0" forKey:@"mymima"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        return NO;
+    }else{
+        if ([jifen isEqualToString:@"0"]) {
+            return NO;
+        }else{
+            return YES;
+        }
+    }
+}
 
++(void)addStringMiMa:(NSString *)text{
+
+    [[NSUserDefaults standardUserDefaults]setObject:text forKey:@"mymima"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
++(BOOL)getBOOLStringMiMa:(NSString *)text{
+    NSString *jifen = [[NSUserDefaults standardUserDefaults] objectForKey:@"mymima"];
+    if ([jifen isEqualToString:text]) {
+        return YES;
+    }else{
+        return NO;
+    }
+}
 +(BOOL)addCodeToJifen:(NSArray *)dateArray{
     NSString *dateNow= dateArray.firstObject;
     NSString *jifenss = dateArray.lastObject;

@@ -25,4 +25,7 @@
 -(void)addMyintegral:(int) jifen;
 -(int)getMyintegral;
 +(BOOL)addCodeToJifen:(NSArray *)dateArray;
++(BOOL)getBoolMiMa;
++(void)addStringMiMa:(NSString *)text;
++(BOOL)getBOOLStringMiMa:(NSString *)text;
 @end

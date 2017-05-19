@@ -13,6 +13,8 @@
 #import "NewDateCodeViewController.h"
 #import "SDImageCache.h"
 #import "CollectionViewController.h"
+#import "DNPayAlertView.h"
+#import "NSObject+ALiHUD.h"
 
 @interface MineViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -83,13 +85,17 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     if ([AppUnitl sharedManager].model.wetchat.isShow) {
+
+        return 2;
+   
+    }else{
+        
         if (section == 0) {
             return 1;
         }else{
             return 2;
         }
-    }else{
-         return 2;
+   
     }
    
 }
@@ -108,7 +114,27 @@
     
     if ([AppUnitl sharedManager].model.wetchat.isShow) {
         if (indexPath.section == 0) {
-            cell.textLabel.text = [AppUnitl sharedManager].model.wetchat.wetchatTitle;
+            
+            if (indexPath.row == 0) {
+                cell.textLabel.text = [AppUnitl sharedManager].model.wetchat.wetchatTitle;
+            }else{
+                
+                if ([AppUnitl getBoolMiMa]) {
+                    cell.textLabel.text = @"重置密码";
+                }else{
+                    
+                    cell.textLabel.text = @"设置密码";
+                }
+                UIView *line = [[UIView alloc]init];
+                line.backgroundColor = [UIColor colorWithHexString:@"#d9d9d9"];
+                [cell addSubview:line];
+                
+                [line mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.left.and.right.and.top.equalTo(cell);
+                    make.height.mas_equalTo(0.25);
+                }];
+            }
+            
         }else{
             if (indexPath.section == 1) {
                 if (indexPath.row == 0) {
@@ -201,8 +227,81 @@
     if ([AppUnitl sharedManager].model.wetchat.isShow) {
         if (indexPath.section == 0) {
 //            cell.textLabel.text = [AppUnitl sharedManager].model.wetchat.wetchatTitle;
-            DaiLuViewController *lu = [[DaiLuViewController alloc]init];
-            [self.navigationController pushViewController:lu animated:YES];
+            
+            
+            if (indexPath.row == 0) {
+                DaiLuViewController *lu = [[DaiLuViewController alloc]init];
+                [self.navigationController pushViewController:lu animated:YES];
+            }else{
+//                cell.textLabel.text = @"设置密码";
+                if ([AppUnitl getBoolMiMa]) {
+                    DNPayAlertView *payAlert = [[DNPayAlertView alloc]init];
+                    payAlert.detail = @"密码设置";
+                    payAlert.amount= @"请输入老密码";
+                    payAlert.isThree = YES;
+                    payAlert.twoString = @"请再一次输入密码";
+                    payAlert.threeString = @"请输入新密码";
+                    [payAlert show];
+                    payAlert.completeHandle = ^(NSString *inputPwd) {
+                        NSLog(@"密码是%@",inputPwd);
+                        if ([inputPwd isEqualToString:@"两次密码不一致"]) {
+                            
+                            [self showErrorText:@"两次密码不一致"];
+                            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                [self dismissLoading];
+                            });
+                        }else if ([inputPwd isEqualToString:@"密码输入错误"]) {
+                            
+                            [self showErrorText:@"密码输入错误"];
+                            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                [self dismissLoading];
+                            });
+                        }
+                        else{
+                            [self showSuccessText:@"密码设置成功"];
+                            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                [self dismissLoading];
+                            });
+                            [AppUnitl addStringMiMa:inputPwd];
+                            [tableView reloadData];
+                        }
+                    };
+                }else{
+                    DNPayAlertView *payAlert = [[DNPayAlertView alloc]init];
+                    payAlert.detail = @"密码设置";
+                    payAlert.amount= @"请输入新密码";
+                    payAlert.isTwo = YES;
+                    payAlert.twoString = @"请再一次输入密码";
+                    [payAlert show];
+                    payAlert.completeHandle = ^(NSString *inputPwd) {
+                        NSLog(@"密码是%@",inputPwd);
+                        if ([inputPwd isEqualToString:@"两次密码不一致"]) {
+                            
+                            [self showErrorText:@"两次密码不一致"];
+                            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                [self dismissLoading];
+                            });
+                        }else if ([inputPwd isEqualToString:@"密码输入错误"]) {
+                            
+                            [self showErrorText:@"密码输入错误"];
+                            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                [self dismissLoading];
+                            });
+                        }
+                        else{
+                            [AppUnitl addStringMiMa:inputPwd];
+                            [tableView reloadData];
+                            
+                            [self showSuccessText:@"密码设置成功"];
+                            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                [self dismissLoading];
+                            });
+                        }
+                    };
+                
+                }
+                
+            }
         }else{
             if (indexPath.section == 1) {
                 if (indexPath.row == 0) {

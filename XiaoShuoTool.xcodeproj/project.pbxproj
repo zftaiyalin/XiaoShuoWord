@@ -72,6 +72,7 @@
 		6B70DB031EC1610600EB09FC /* ZFHttpRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B70DAFF1EC1610600EB09FC /* ZFHttpRequest.m */; };
 		6B70DB061EC1732000EB09FC /* NSObject+ALiHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B70DB051EC1732000EB09FC /* NSObject+ALiHUD.m */; };
 		6B70DB091EC173A200EB09FC /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B70DB081EC173A200EB09FC /* SearchViewController.m */; };
+		6B7ECFFA1ECEC57D00FDBA14 /* DNPayAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B7ECFF91ECEC57D00FDBA14 /* DNPayAlertView.m */; };
 		6B8A706F1EBD774000CFFB62 /* ASValuePopUpView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B8A70501EBD774000CFFB62 /* ASValuePopUpView.m */; };
 		6B8A70701EBD774000CFFB62 /* ASValueTrackingSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B8A70521EBD774000CFFB62 /* ASValueTrackingSlider.m */; };
 		6B8A70711EBD774000CFFB62 /* UIAlertController+ZFPlayerRotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B8A70551EBD774000CFFB62 /* UIAlertController+ZFPlayerRotation.m */; };
@@ -268,6 +269,8 @@
 		6B70DB051EC1732000EB09FC /* NSObject+ALiHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+ALiHUD.m"; sourceTree = "<group>"; };
 		6B70DB071EC173A200EB09FC /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
 		6B70DB081EC173A200EB09FC /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
+		6B7ECFF81ECEC57D00FDBA14 /* DNPayAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNPayAlertView.h; sourceTree = "<group>"; };
+		6B7ECFF91ECEC57D00FDBA14 /* DNPayAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DNPayAlertView.m; sourceTree = "<group>"; };
 		6B8A704F1EBD774000CFFB62 /* ASValuePopUpView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASValuePopUpView.h; sourceTree = "<group>"; };
 		6B8A70501EBD774000CFFB62 /* ASValuePopUpView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASValuePopUpView.m; sourceTree = "<group>"; };
 		6B8A70511EBD774000CFFB62 /* ASValueTrackingSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASValueTrackingSlider.h; sourceTree = "<group>"; };
@@ -673,6 +676,15 @@
 			path = ZFDownload;
 			sourceTree = "<group>";
 		};
+		6B7ECFF71ECEC57D00FDBA14 /* DNPayAlertView */ = {
+			isa = PBXGroup;
+			children = (
+				6B7ECFF81ECEC57D00FDBA14 /* DNPayAlertView.h */,
+				6B7ECFF91ECEC57D00FDBA14 /* DNPayAlertView.m */,
+			);
+			path = DNPayAlertView;
+			sourceTree = "<group>";
+		};
 		6B8A704E1EBD774000CFFB62 /* ZFPlayer */ = {
 			isa = PBXGroup;
 			children = (
@@ -901,6 +913,7 @@
 		E803C75B1CF57793001BB402 /* XiaoShuoTool */ = {
 			isa = PBXGroup;
 			children = (
+				6B7ECFF71ECEC57D00FDBA14 /* DNPayAlertView */,
 				6B2C9AE91ECC3D6E009A8C83 /* web */,
 				6B8B53631ECBEA8F00EEDAA4 /* Core */,
 				6B6849651EC40FFB00EC6D22 /* ASE128 */,
@@ -1215,6 +1228,7 @@
 				6B666A9D1EBC808600AA5C75 /* MJRefreshBackFooter.m in Sources */,
 				6B8B53B11ECBEA8F00EEDAA4 /* MultipartFormDataParser.m in Sources */,
 				6BDD963E1EC441AB0061C196 /* VideoPlayModel.m in Sources */,
+				6B7ECFFA1ECEC57D00FDBA14 /* DNPayAlertView.m in Sources */,
 				6B666AAC1EBC808600AA5C75 /* NSBundle+MJRefresh.m in Sources */,
 				6B70DB001EC1610600EB09FC /* ZFCommonHelper.m in Sources */,
 				6B8B53B51ECBEA8F00EEDAA4 /* HTTPDataResponse.m in Sources */,

@@ -20,12 +20,54 @@
 
 @implementation DaiLuViewController
 
+-(void)huoqujifen{
+    [UMVideoAd videoPlay:self videoPlayFinishCallBackBlock:^(BOOL isFinishPlay){
+        if (isFinishPlay) {
+            NSLog(@"视频播放结束");
+            
+        }else{
+            NSLog(@"中途退出");
+            [MobClick event:@"中途关闭广告"];
+        }
+        
+    } videoPlayConfigCallBackBlock:^(BOOL isLegal){
+        NSString *message = @"";
+        if (isLegal) {
+            message = @"此次播放有效";
+            [MobClick event:@"有效播放广告"];
+            [[AppUnitl sharedManager] addMyintegral:[AppUnitl sharedManager].model.video.ggintegral];
+            NSString *string = [[NSString alloc]initWithFormat:@"获取%d积分,当前积分%d",[AppUnitl sharedManager].model.video.ggintegral,[[AppUnitl sharedManager] getMyintegral]];
+            [self showSuccessText:string];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self dismissLoading];
+            });
+            
+        }else{
+            
+            message = @"此次播放无效";
+            [self showErrorText:message];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self dismissLoading];
+            });
+        }
+        //                UIImage *image = [MobiVideoAd oWVideoImage];
+        NSLog(@"是否有效：%@",message);
+    }];
+    
+}
+-(void)dealloc{
+    NSLog(@"释放控制器");
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
     self.title = @"带路党";
     self.view.backgroundColor = [UIColor colorWithHexString:@"#efeff5"];
+    
+    UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithTitle:@"获取积分" style:UIBarButtonItemStylePlain target:self action:@selector(huoqujifen)];
+    
+    self.navigationItem.rightBarButtonItem = item;
     
     UMBannerView *bannerView = [UMVideoAd videoBannerPlayerFrame:CGRectMake(0, 64, self.view.frame.size.width, 50) videoBannerPlayCloseCallBackBlock:^(BOOL isLegal){
         NSLog(@"关闭banner");

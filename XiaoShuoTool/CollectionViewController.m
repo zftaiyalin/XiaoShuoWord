@@ -12,6 +12,11 @@
 #import "VideoModel.h"
 #import "NSObject+ALiHUD.h"
 #import "UMVideoAd.h"
+#import "OCGumbo.h"
+#import "OCGumbo+Query.h"
+#import "AES128Util.h"
+
+
 @interface CollectionViewController ()<UITableViewDelegate,UITableViewDataSource>{
     UITableView *_tableView;
     UILabel *label;
@@ -92,15 +97,15 @@
         make.center.equalTo(self.view);
         make.width.equalTo(self.view);
     }];
-    
-    [self getVideoArrayToPhone];
+  
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
+    [self getVideoArrayToPhone];
     
 }
+
 
 -(void)getVideoArrayToPhone{
     NSData *data = [[NSUserDefaults standardUserDefaults]objectForKey:@"mycollection"];
@@ -121,7 +126,9 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+-(void)dealloc{
+    NSLog(@"释放控制器");
+}
 /*
 #pragma mark - Navigation
 
@@ -151,12 +158,73 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    AppLocaVideoModel *model = [videoArray objectAtIndex:indexPath.row];
-    MoviePlayerViewController *movie = [[MoviePlayerViewController alloc]init];
-    movie.videoURL                   = [NSURL fileURLWithPath:model.path isDirectory:YES];
-    movie.titleSring = model.title;
-    movie.isShowCollect = YES;
-    [self.navigationController pushViewController:movie animated:NO];
+    
+    
+    
+    if ([[AppUnitl sharedManager] getWatchQuanxian]) {
+        
+        NSString *string = [[NSString alloc]initWithFormat:@"使用%d积分,剩余%d积分!",[AppUnitl sharedManager].model.video.wkintegral,[[AppUnitl sharedManager] getMyintegral]];
+        [self showSuccessText:string];
+        
+      
+  
+        
+        dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
+         VideoModel *model = [videoArray objectAtIndex:indexPath.row];
+        // 2.调用异步函数
+        dispatch_async(queue, ^{
+            //                [weakSelf.playerView shutDownPlayer];
+            
+            NSString *base = [AES128Util AES128Decrypt:[AppUnitl sharedManager].model.video.baseUrl key:[AppUnitl sharedManager].model.video.key];
+            NSString *urlString = [[NSString alloc]initWithFormat:@"%@%@",base,model.url];
+            NSError *error = nil;
+            NSURL *xcfURL = [NSURL URLWithString:urlString];
+            NSString *htmlString = [NSString stringWithContentsOfURL:xcfURL encoding:NSUTF8StringEncoding error:&error];
+            __block NSString *video = nil;
+            
+            
+            if (htmlString) {
+                OCGumboDocument *iosfeedDoc = [[OCGumboDocument alloc] initWithHTMLString:htmlString];
+                NSArray *array = iosfeedDoc.body.Query(@"div.main-content").find(@"#yj-video");
+                
+                
+                for (OCGumboNode *row in array) {
+                    OCGumboNode *videoStr = row.Query(@"source").last();
+                    NSLog(@"from:(%@)",videoStr.attr(@"src"));
+                    video = [[NSString alloc]initWithFormat:@"https:%@",videoStr.attr(@"src")];
+                }
+                
+            }
+            dispatch_sync(dispatch_get_main_queue(), ^{ // 会等block代码执行完毕后，执行后面最后一句的打印代码
+                if (video == nil) {
+                    [self showErrorText:@"错误的视频链接,已返还积分!"];
+                    [[AppUnitl sharedManager] addMyintegral:[AppUnitl sharedManager].model.video.wkintegral];
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [self dismissLoading];
+                    });
+                    return;
+                }
+                
+                [self dismissLoading];
+                MoviePlayerViewController *movie = [[MoviePlayerViewController alloc]init];
+                movie.videoURL                   = [[NSURL alloc]initWithString:video];
+                movie.titleSring = model.title;
+                movie.videoModel = model;
+                [self.navigationController pushViewController:movie animated:NO];
+                
+                [MobClick event:@"播放视频"];
+            });
+            
+        });
+    }else{
+        
+        NSString *string = [[NSString alloc]initWithFormat:@"当前%d积分不足,观看所需积分%d!",[[AppUnitl sharedManager] getMyintegral],[AppUnitl sharedManager].model.video.wkintegral];
+        [self showErrorText:string];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self dismissLoading];
+        });
+    }
+    
 }
 
 
