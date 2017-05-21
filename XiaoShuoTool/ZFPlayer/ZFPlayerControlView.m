@@ -57,6 +57,7 @@ static const CGFloat ZFPlayerControlBarAutoFadeOutTimeInterval = 0.35f;
 @property (nonatomic, strong) UIButton                *backBtn;
 /** 关闭按钮*/
 @property (nonatomic, strong) UIButton                *closeBtn;
+
 /** 重播按钮 */
 @property (nonatomic, strong) UIButton                *repeatBtn;
 /** bottomView*/
@@ -122,6 +123,7 @@ static const CGFloat ZFPlayerControlBarAutoFadeOutTimeInterval = 0.35f;
         [self.bottomImageView addSubview:self.totalTimeLabel];
         
         [self.topImageView addSubview:self.downLoadBtn];
+        [self.topImageView addSubview:self.collectBtn];
         [self addSubview:self.lockBtn];
         [self.topImageView addSubview:self.backBtn];
         [self addSubview:self.activity];
@@ -188,6 +190,13 @@ static const CGFloat ZFPlayerControlBarAutoFadeOutTimeInterval = 0.35f;
         make.width.mas_equalTo(40);
         make.height.mas_equalTo(49);
         make.trailing.equalTo(self.topImageView.mas_trailing).offset(-10);
+        make.centerY.equalTo(self.backBtn.mas_centerY);
+    }];
+    
+    [self.collectBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(40);
+        make.height.mas_equalTo(49);
+        make.right.equalTo(self.downLoadBtn.mas_left).offset(-10);
         make.centerY.equalTo(self.backBtn.mas_centerY);
     }];
 
@@ -394,6 +403,34 @@ static const CGFloat ZFPlayerControlBarAutoFadeOutTimeInterval = 0.35f;
     }
 }
 
+-(void)collectBtnClick:(UIButton *)sender {
+//    if ([self.delegate respondsToSelector:@selector(zf_controlView:collectAction:)]) {
+//        [self.delegate zf_controlView:self collectAction:sender];
+//    }
+    NSData *data = [[NSUserDefaults standardUserDefaults]objectForKey:@"mycollection"];
+    NSArray *array = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    NSMutableArray *arr = [NSMutableArray arrayWithArray:array];
+    if (self.isCollect) {
+        int index = 0;
+        for (VideoModel *model in arr) {
+            if ([model.url isEqualToString:self.videoModel.url]) {
+                break;
+            }
+            index ++;
+        }
+        
+        [arr removeObjectAtIndex:index];
+        [self.collectBtn setImage:[UIImage imageNamed:@"unsoucang.png"] forState:UIControlStateNormal];
+    }else{
+        [arr addObject:self.videoModel];
+        [self.collectBtn setImage:[UIImage imageNamed:@"soucang.png"] forState:UIControlStateNormal];
+    }
+    
+    NSData * tempArchive = [NSKeyedArchiver archivedDataWithRootObject:arr];
+    [[NSUserDefaults standardUserDefaults]setObject:tempArchive forKey:@"mycollection"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 - (void)fullScreenBtnClick:(UIButton *)sender {
     sender.selected = !sender.selected;
     if ([self.delegate respondsToSelector:@selector(zf_controlView:fullScreenAction:)]) {
@@ -411,11 +448,26 @@ static const CGFloat ZFPlayerControlBarAutoFadeOutTimeInterval = 0.35f;
 }
 
 - (void)downloadBtnClick:(UIButton *)sender {
-    if ([self.delegate respondsToSelector:@selector(zf_controlView:downloadVideoAction:)]) {
-        [self.delegate zf_controlView:self downloadVideoAction:sender];
+    
+    if (AppUnitl.sharedManager.isDownLoad) {
+        if ([self.delegate respondsToSelector:@selector(zf_controlView:downloadVideoAction:)]) {
+            [self.delegate zf_controlView:self downloadVideoAction:sender];
+        }
+    }else{
+        UIAlertView *infoAlert = [[UIAlertView alloc] initWithTitle:@"提示"message:@"您的版本不是VIP版本，下载VIP版可提供下载功能，尽享免广告观看!" delegate:self   cancelButtonTitle:@"取消" otherButtonTitles:@"下载",nil];
+        [infoAlert show];
+    }
+    
+}
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 1) {
+        [MobClick event:@"前往微信"];
+        
+        NSString *str = @"weixin:/";
+        
+        [[UIApplication sharedApplication]openURL:[NSURL URLWithString:str]];
     }
 }
-
 - (void)resolutionBtnClick:(UIButton *)sender {
     sender.selected = !sender.selected;
     // 显示隐藏分辨率View
@@ -666,9 +718,18 @@ static const CGFloat ZFPlayerControlBarAutoFadeOutTimeInterval = 0.35f;
         _closeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_closeBtn setImage:ZFPlayerImage(@"ZFPlayer_close") forState:UIControlStateNormal];
         [_closeBtn addTarget:self action:@selector(closeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-        _closeBtn.hidden = YES;
     }
     return _closeBtn;
+}
+
+
+- (UIButton *)collectBtn {
+    if (!_collectBtn) {
+        _collectBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_collectBtn setImage:[UIImage imageNamed:@"unsoucang.png"] forState:UIControlStateNormal];
+        [_collectBtn addTarget:self action:@selector(collectBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _collectBtn;
 }
 
 - (UILabel *)currentTimeLabel {
@@ -884,6 +945,7 @@ static const CGFloat ZFPlayerControlBarAutoFadeOutTimeInterval = 0.35f;
     self.failBtn.hidden              = YES;
     self.backgroundColor             = [UIColor clearColor];
     self.downLoadBtn.enabled         = YES;
+    self.collectBtn.enabled         = YES;
     self.shrink                      = NO;
     self.showing                     = NO;
     self.playeEnd                    = NO;
@@ -899,6 +961,7 @@ static const CGFloat ZFPlayerControlBarAutoFadeOutTimeInterval = 0.35f;
     self.resolutionView.hidden  = YES;
     self.playeBtn.hidden        = YES;
     self.downLoadBtn.enabled    = YES;
+    self.collectBtn.enabled         = YES;
     self.failBtn.hidden         = YES;
     self.backgroundColor        = [UIColor clearColor];
     self.shrink                 = NO;

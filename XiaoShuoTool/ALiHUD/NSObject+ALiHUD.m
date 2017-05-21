@@ -20,12 +20,15 @@
 
 - (void)showErrorText:(NSString *)aText
 {
+    [ALiProgressHUD setForegroundColor:[UIColor whiteColor]];
     [ALiProgressHUD showErrorWithStatus:aText];
 }
 
 - (void)showSuccessText:(NSString *)aText
 {
+    [ALiProgressHUD setForegroundColor:[UIColor whiteColor]];
     [ALiProgressHUD showSuccessWithStatus:aText];
+    
 }
 
 - (void)showLoading

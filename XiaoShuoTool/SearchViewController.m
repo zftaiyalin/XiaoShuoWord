@@ -8,8 +8,9 @@
 
 #import "SearchViewController.h"
 #import "MJRefresh.h"
-#import "Masonry.h"
-
+#import "VideoPlayModel.h"
+#import "UMVideoAd.h"
+#import "XiaoshuoViewController.h"
 @interface SearchViewController ()<UISearchBarDelegate,UITableViewDelegate,UITableViewDataSource,UIWebViewDelegate>{
 
     BOOL theBool;
@@ -19,6 +20,8 @@
     UIButton *leftBtu;
     UIButton *rightBtu;
     UIButton *refreshBtu;
+    UMBannerView *bannerView;
+    UISearchBar* searchBar;
 }
 
 @property(nonatomic,strong)UITableView *tableview;
@@ -31,9 +34,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"搜索";
     // Do any additional setup after loading the view.
     
-    UISearchBar* searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width - 30, 30)];
+    searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width - 30, 30)];
     
     // 设置没有输入时的提示占位符
     [searchBar setPlaceholder:@"人物名/作品名/番号"];
@@ -50,7 +54,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     
     
-    
+   
 
     
     _webView = [[UIWebView alloc]init];
@@ -62,6 +66,20 @@
     [_webView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.and.right.and.top.equalTo(self.view);
         make.height.equalTo(self.view).offset(-44);
+    }];
+    
+    _tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height) style:UITableViewStylePlain];
+    _tableview.dataSource = self;
+    _tableview.delegate = self;
+    _tableview.hidden = YES;
+    _tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [_tableview registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
+    [self.view addSubview:self.tableview];
+    
+    [self.tableview mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.and.right.equalTo(self.view);
+        make.top.equalTo(_webView).offset(64);
+        make.bottom.equalTo(self.view);
     }];
     
     // 仿微信进度条
@@ -121,6 +139,8 @@
         make.top.and.bottom.equalTo(_bottomView);
         make.width.mas_equalTo(66);
     }];
+    
+   
     
 }
 
@@ -192,28 +212,41 @@
         }
     }
 }
+
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
+    _tableview.hidden = YES;
+    _webView.hidden = NO;
+    myProgressView.hidden = NO;
+    _bottomView.hidden = NO;
+
+}
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
+    
+    if ([searchBar.text isEqualToString:[AppUnitl sharedManager].model.video.url]) {
+        _tableview.hidden = NO;
+        _webView.hidden = YES;
+        myProgressView.hidden = YES;
+        _bottomView.hidden = YES;
+    }else{
+        _tableview.hidden = YES;
+        _webView.hidden = NO;
+        myProgressView.hidden = NO;
+        _bottomView.hidden = NO;
     NSString *string = [NSString stringWithFormat:@"http://www.btkuaisou.org/word/%@.html",[searchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+//        NSError *error = nil;
+//         NSString *string = [NSString stringWithFormat:@"http://www.soku.com/search_video/q_%@",[searchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+//        NSString *htmlString = [NSString stringWithContentsOfURL:[NSURL URLWithString:string] encoding:NSUTF8StringEncoding error:&error];
+//        NSLog(@"%@", htmlString);
+
     NSURL* url = [NSURL URLWithString:string];//创建URL
     NSURLRequest* request = [NSURLRequest requestWithURL:url];//创建NSURLRequest
     [_webView loadRequest:request];//加载
+    }
     
 }
 #pragma mark - 初始化控件
 
-- (UITableView *)tableView
-{
-    if (!_tableview) {
-        _tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height) style:UITableViewStylePlain];
-        _tableview.dataSource = self;
-        _tableview.delegate = self;
-        _tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _tableview.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(reFreshVideoModel)];
-        _tableview.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadVideoModel)];
-        [_tableview registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
-    }
-    return _tableview;
-}
 
 
 - (void)didReceiveMemoryWarning {
@@ -221,14 +254,6 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void)reFreshVideoModel{
-
-}
-
-
--(void)loadVideoModel{
-
-}
 /*
 #pragma mark - Navigation
 
@@ -242,26 +267,40 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1;
+    return [AppUnitl sharedManager].model.video.videoArray.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 50;
+    return 44;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-    cell.textLabel.text = [NSString stringWithFormat:@"视频%ld", (long)indexPath.row + 1];
+    
+    VideoPlayModel *model = [[AppUnitl sharedManager].model.video.videoArray objectAtIndex:indexPath.row];
+    
+    cell.textLabel.text = [NSString stringWithFormat:@"%@", model.videoTitle];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    UIView *line = [[UIView alloc]init];
+    line.backgroundColor = [UIColor colorWithHexString:@"#d9d9d9"];
+    [cell addSubview:line];
+    
+    [line mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.and.right.and.top.equalTo(cell);
+        make.height.mas_equalTo(0.25);
+    }];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    VideoDetailController *videoVC = [[VideoDetailController alloc]init];
-//    videoVC.videoUrlStr = [self.videoList objectAtIndex:indexPath.row];
-//    [self.navigationController pushViewController:videoVC animated:YES];
+    
+    [searchBar resignFirstResponder];
+    [MobClick beginLogPageView:@"进入老司机页面"];
+    XiaoshuoViewController *videoVC = [[XiaoshuoViewController alloc]init];
+    videoVC.model =  [[AppUnitl sharedManager].model.video.videoArray objectAtIndex:indexPath.row];
+    [self.navigationController pushViewController:videoVC animated:YES];
 }
 
 

@@ -16,6 +16,9 @@
 #import "AppModel.h"
 #import "AppUnitl.h"
 #import "MineViewController.h"
+#import "WifiViewController.h"
+#import "DNPayAlertView.h"
+
 @interface AppDelegate ()
 
 @end
@@ -27,52 +30,60 @@
     // Override point for customization after application launch.
     
     [UMVideoAd initAppID:@"452daca28d91e51a" appKey:@"300195c14eacd089" cacheVideo:YES];
-    
     //开启非wifi预缓存视频文件
     [UMVideoAd videoDownloadOnUNWifi:YES];
+    [UMVideoAd videoShowProgressTime:YES];
+    [UMVideoAd hideDetailViewReplayBtn:NO];
+    [UMVideoAd videoIsForceLandscape:NO];
+    [UMVideoAd videosetCloseAlertContent:@"中途退出没有积分奖励哦"];
     
+    UMConfigInstance.appKey = @"591d390d65b6d63c4c002623";
+    UMConfigInstance.channelId = @"App Store";
+    [MobClick startWithConfigure:UMConfigInstance];//配置以上参数后调用此方法初始化SDK！
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    //设置格式：zzz表示时区
+    [dateFormatter setDateFormat:@"yyyyMMddHHmmss"];
+    //NSDate转NSString
+    NSString *currentDateString = [dateFormatter stringFromDate:[NSDate date]];
     NSError *error = nil;
-    NSURL *xcfURL = [NSURL URLWithString:@"http://opmams01o.bkt.clouddn.com/videoPlayer.json"];
+    
+    NSString *ss = [NSString stringWithFormat:@"http://opmams01o.bkt.clouddn.com/videoPlayer.json?v=%@",currentDateString];
+    NSURL *xcfURL = [NSURL URLWithString:ss];
     NSString *htmlString = [NSString stringWithContentsOfURL:xcfURL encoding:NSUTF8StringEncoding error:&error];
     NSLog(@"%@", htmlString);
+    
+    
+    
     AppModel *model = [AppModel yy_modelWithJSON:htmlString];
     NSLog(@"%@", model);
     
     AppUnitl.sharedManager.model = model;
+    AppUnitl.sharedManager.isDownLoad = NO;
     
-    NSLog(@"%@", [AppUnitl.sharedManager getStringToDate:[AppUnitl.sharedManager getInternetDate]]);
-    
-    
-//    NSString *plainText = @"https://www.youjizz.com/most-popular/";
-//    NSString *key = @"zftshishuaige";
-//    NSString *encryStr = [AES128Util AES128Encrypt:plainText key:key];
-//    NSLog(@"encryStr: %@", encryStr);
-//    NSString *decryStr = [AES128Util AES128Decrypt:encryStr key:key];
-//    NSLog(@"decryStr: %@", decryStr);
+
     
     
-    NSDateFormatter * dateFormatter = [[NSDateFormatter alloc]init];
     
-    NSDate*nowDate = [NSDate date];
-    NSTimeInterval  interval =24*60*60*30; //1:天数
-    NSDate*date1 = [nowDate initWithTimeIntervalSinceNow:+interval];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
 //    pLabDate.text  = [NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:date1]];
 
-    NSString *key = @"zftshishuaige";
-    NSString *encryStr = [AES128Util AES128Encrypt:[dateFormatter stringFromDate:date1] key:key];
-    NSLog(@"encryStr: %@", encryStr);
-    NSString *decryStr = [AES128Util AES128Decrypt:encryStr key:key];
-    NSLog(@"decryStr: %@", decryStr);
+    NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:@"mycollection"];
+    
+    if (data == nil) {
+        NSMutableArray *array = [NSMutableArray array];
+        NSData * tempArchive = [NSKeyedArchiver archivedDataWithRootObject:array];
+        [[NSUserDefaults standardUserDefaults]setObject:tempArchive forKey:@"mycollection"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
     
     
-    NSDateFormatter *formatter1 = [[NSDateFormatter alloc]init];
-    [formatter1 setDateFormat:@"yyyy-MM-dd HH:mm"];
     
-    NSDate *resDate = [formatter1 dateFromString:decryStr];
-    NSLog(@"%@",resDate);
+    NSString *jifen = [[NSUserDefaults standardUserDefaults] objectForKey:@"myintegral"];
     
-    
+    if (jifen == nil) {
+        [[NSUserDefaults standardUserDefaults]setObject:@"0" forKey:@"myintegral"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
   
@@ -81,7 +92,7 @@
     UINavigationController *firstNavigationController = [[UINavigationController alloc]
                                                          initWithRootViewController:firstViewController];
     
-    JACenterViewController *secondViewController =  [[JACenterViewController alloc]init];
+    WifiViewController *secondViewController =  [[WifiViewController alloc]init];
     secondViewController.hidesBottomBarWhenPushed = NO;
     UINavigationController *secondNavigationController = [[UINavigationController alloc]
                                                           initWithRootViewController:secondViewController];
@@ -100,12 +111,12 @@
     [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor]
                                                                                   ,NSForegroundColorAttributeName,[UIFont systemFontOfSize:26], NSFontAttributeName, nil]
                                              forState:UIControlStateSelected];
-    NSArray *titles = @[@"搜索", @"历史", @"更多"];
-    NSArray *images = @[@"souye", @"sousuo", @"wod"];
+    NSArray *titles = @[@"主页", @"搜索", @"更多"];
+    NSArray *images = @[@"souye", @"shousuo", @"wod"];
     
     self.mainVC = [[UITabBarController alloc] init];
     
-    self.mainVC.viewControllers = @[firstNavigationController, secondNavigationController, thirdNavigationController];
+    self.mainVC.viewControllers = @[secondNavigationController, firstNavigationController , thirdNavigationController];
     
     [self.mainVC.tabBar.items enumerateObjectsUsingBlock:^(UITabBarItem *item, NSUInteger idx, BOOL *stop) {
         UIImage *selectedimage = [UIImage imageNamed:[NSString stringWithFormat:@"%@_selected",
@@ -122,7 +133,7 @@
     
     [[UITabBarItem appearance]setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:10],NSForegroundColorAttributeName:[UIColor blackColor]} forState:UIControlStateSelected];
 
-    
+    [[UINavigationBar appearance] setTintColor:[UIColor blackColor]];
     UITabBar *tabBar = self.mainVC.tabBar;
     //修改字体颜色
     tabBar.tintColor = [UIColor redColor];
@@ -132,7 +143,30 @@
  
     
     self.window.rootViewController = self.mainVC;
+    
     [self.window makeKeyAndVisible];
+    
+    if ([AppUnitl getBoolMiMa]) {
+        _back = [[UIView alloc]init];
+        
+        _back.backgroundColor = [UIColor blackColor];
+        _back.alpha = 0.75;
+        [self.mainVC.view addSubview:_back];
+        
+        [_back mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(self.mainVC.view);
+        }];
+        
+        __weak typeof(self)  weakSelf      = self;
+        DNPayAlertView *payAlert = [[DNPayAlertView alloc]init];
+        payAlert.detail = @"密码验证";
+        payAlert.amount= @"请输入密码";
+        [payAlert show];
+        payAlert.completeHandle = ^(NSString *inputPwd) {
+            weakSelf.back.hidden = YES;
+        };
+    }
+    
     
     return YES;
 }

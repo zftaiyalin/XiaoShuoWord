@@ -9,7 +9,6 @@
 #import "ZFCollectionViewCell.h"
 #import "UIImageView+WebCache.h"
 #import "VideoModel.h"
-#import "Masonry.h"
 @implementation ZFCollectionViewCell
 
 - (id)initWithFrame:(CGRect)frame

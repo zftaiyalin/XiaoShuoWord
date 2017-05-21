@@ -9,5 +9,20 @@
 #import "VideoModel.h"
 
 @implementation VideoModel
-
+-(instancetype)initWithCoder:(NSCoder *)aDecoder{
+    self = [super init];
+    if (self) {
+        self.title = [aDecoder decodeObjectForKey:@"title"];
+        self.time = [aDecoder decodeObjectForKey:@"time"];
+        self.url = [aDecoder decodeObjectForKey:@"url"];
+        self.img = [aDecoder decodeObjectForKey:@"img"];
+    }
+    return self;
+}
+-(void)encodeWithCoder:(NSCoder *)aCoder{
+    [aCoder encodeObject:self.title forKey:@"title"];
+    [aCoder encodeObject:self.time forKey:@"time"];
+    [aCoder encodeObject:self.url forKey:@"url"];
+    [aCoder encodeObject:self.img forKey:@"img"];
+}
 @end

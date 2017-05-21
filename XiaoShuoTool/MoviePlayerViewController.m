@@ -9,7 +9,6 @@
 #import "MoviePlayerViewController.h"
 #import <AVFoundation/AVFoundation.h>
 #import <MediaPlayer/MediaPlayer.h>
-#import "Masonry.h"
 #import "VideoModel.h"
 #import "ZFDownloadManager.h"
 #import "ZFPlayer.h"
@@ -23,7 +22,7 @@
 @property (nonatomic, assign) BOOL isPlaying;
 @property (nonatomic, strong) ZFPlayerModel *playerModel;
 @property (nonatomic, strong) UIView *bottomView;
-@property (strong, nonatomic) UIButton *backBtn;
+//@property (strong, nonatomic) UIButton *backBtn;
 
 @end
 
@@ -51,6 +50,13 @@
         //        [self.playerView pause];
         self.playerView.playerPushedOrPresented = YES;
     }
+    
+
+    [self.playerView resetPlayer];
+    self.playerView.delegate = nil;
+    self.playerView = nil;
+
+
 }
 
 
@@ -68,16 +74,7 @@
         make.width.equalTo(self.view);
         make.height.mas_equalTo(ScreenWidth*9/16);
     }];
-    
-    self.backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.backBtn setImage:[UIImage imageNamed:@"menu_pause"] forState:UIControlStateNormal];
-    [self.backBtn addTarget:self action:@selector(backClick) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:self.backBtn];
-    [self.backBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view);
-        make.top.equalTo(self.playerFatherView);
-        make.width.height.mas_equalTo(40);
-    }];
+
     
     // 自动播放，默认不自动播放
     [self.playerView autoPlayTheVideo];
@@ -109,7 +106,7 @@
 #pragma mark - ZFPlayerDelegate
 
 - (void)zf_playerBackAction {
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:NO];
 }
 
 - (void)zf_playerDownload:(NSString *)url {
@@ -122,16 +119,12 @@
 
 - (void)zf_playerControlViewWillShow:(UIView *)controlView isFullscreen:(BOOL)fullscreen {
     //    self.backBtn.hidden = YES;
-    [UIView animateWithDuration:0.25 animations:^{
-        self.backBtn.alpha = 0;
-    }];
+
 }
 
 - (void)zf_playerControlViewWillHidden:(UIView *)controlView isFullscreen:(BOOL)fullscreen {
     //    self.backBtn.hidden = fullscreen;
-    [UIView animateWithDuration:0.25 animations:^{
-        self.backBtn.alpha = !fullscreen;
-    }];
+ 
 }
 
 #pragma mark - Getter
@@ -139,12 +132,13 @@
 - (ZFPlayerModel *)playerModel {
     if (!_playerModel) {
         _playerModel                  = [[ZFPlayerModel alloc] init];
-        _playerModel.title            = @"这里设置视频标题";
+        _playerModel.title            = self.titleSring;
         _playerModel.videoURL         = self.videoURL;
         _playerModel.placeholderImage = [UIImage imageNamed:@"loading_bgView1"];
         _playerModel.fatherView       = self.playerFatherView;
-        //        _playerModel.resolutionDic = @{@"高清" : self.videoURL.absoluteString,
-        //                                       @"标清" : self.videoURL.absoluteString};
+        _playerModel.isShowCollect    = self.isShowCollect;
+        _playerModel.videoModel = self.videoModel;
+
     }
     return _playerModel;
 }
@@ -180,9 +174,6 @@
 
 #pragma mark - Action
 
-- (void)backClick {
-    [self.navigationController popViewControllerAnimated:NO];
-}
 
 
 

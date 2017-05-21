@@ -22,7 +22,6 @@
 // THE SOFTWARE.
 
 #import "ZFDownloadingCell.h"
-#import "Masonry.h"
 @interface ZFDownloadingCell ()
 
 @end

@@ -15,7 +15,7 @@
 
 @property (strong, nonatomic) UIWindow *window;
 @property (nonatomic, strong) UITabBarController *mainVC;
-
+@property (nonatomic, strong) UIView *back;
 
 @end
 

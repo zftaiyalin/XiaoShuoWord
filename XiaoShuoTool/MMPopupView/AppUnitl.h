@@ -11,9 +11,21 @@
 @interface AppUnitl : NSObject
 
 @property(nonatomic,strong) AppModel *model;
-
+@property(nonatomic,assign) _Bool isDownLoad;
 + (AppUnitl *)sharedManager;
 - (NSDate *)getInternetDate;
-+(int)compareOneDay:(NSDate *)oneDay withAnotherDay:(NSDate *)anotherDay;
++(UIImage *)getImage:(NSString *)videoURL;
++(NSString *)getTime:(NSString *)videoURL;
 -(NSString *)getStringToDate:(NSDate *)date;
+-(NSDate *)getDateToString:(NSString *)date;
++ (long long) fileSizeAtPath:(NSString*) filePath;
++(int)compareOneDay:(NSDate *)oneDay withAnotherDay:(NSDate *)anotherDay;
++ (BOOL)dateTimeDifferenceWithStartTime:(NSString *)startTime endTime:(NSString *)endTime;
+-(BOOL)getWatchQuanxian;
+-(void)addMyintegral:(int) jifen;
+-(int)getMyintegral;
++(BOOL)addCodeToJifen:(NSArray *)dateArray;
++(BOOL)getBoolMiMa;
++(void)addStringMiMa:(NSString *)text;
++(BOOL)getBOOLStringMiMa:(NSString *)text;
 @end

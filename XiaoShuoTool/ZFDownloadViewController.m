@@ -12,7 +12,6 @@
 #import "ZFDownloadingCell.h"
 #import "ZFDownloadedCell.h"
 #import "ZFDownloadManager.h"
-#import "Masonry.h"
 #import "MoviePlayerViewController.h"
 
 #define  DownloadManager  [ZFDownloadManager sharedDownloadManager]
@@ -21,7 +20,9 @@ static NSString * const downloadingCell = @"ZFDownloadingCell";
 
 static NSString * const dwnloadedCell = @"ZFDownloadedCell";
 
-@interface ZFDownloadViewController ()<UITableViewDataSource,UITableViewDelegate,ZFDownloadDelegate>
+@interface ZFDownloadViewController ()<UITableViewDataSource,UITableViewDelegate,ZFDownloadDelegate,UIGestureRecognizerDelegate>{
+    UIBarButtonItem *item;
+}
 @property (atomic, strong ) NSMutableArray *downloadObjectArr;
 @property (strong, nonatomic) UITableView    *tableView;
 @end
@@ -36,8 +37,23 @@ static NSString * const dwnloadedCell = @"ZFDownloadedCell";
     [self initData];
 }
 
+-(void)huoqujifen{
+    self.tableView.editing = !self.tableView.editing;
+    if (self.tableView.editing) {
+        item.title = @"完成";
+    }else{
+        item.title = @"编辑";
+    }
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    item = [[UIBarButtonItem alloc]initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(huoqujifen)];
+    
+    self.navigationItem.rightBarButtonItem = item;
+    
+
         self.title = @"下载器";
         self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
         self.tableView.dataSource = self;
@@ -52,6 +68,11 @@ static NSString * const dwnloadedCell = @"ZFDownloadedCell";
     [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
+    
+
+//     mainScrollView.panGestureRecognizer.requireGestureRecognizerToFail(navigationController!.interactivePopGestureRecognizer!)
+    
+//    [self.tableView.panGestureRecognizer requireGestureRecognizerToFail:self.navigationController.interactivePopGestureRecognizer];
 
     
 //    self.tableView.tableFooterView = [UIView new];
@@ -74,6 +95,8 @@ static NSString * const dwnloadedCell = @"ZFDownloadedCell";
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
 
 /*
 #pragma mark - Navigation

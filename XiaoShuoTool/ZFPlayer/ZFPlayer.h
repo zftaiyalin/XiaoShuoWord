@@ -43,8 +43,8 @@
 
 #define ZFPlayerOrientationIsPortrait       UIDeviceOrientationIsPortrait([UIDevice currentDevice].orientation)
 
-#define baseUrl "https://www.youjizz.com/search/japanese-"
-#define youjizz "https://www.youjizz.com/"
+//#define baseUrl "https://www.youjizz.com/search/japanese-"
+//#define youjizz "https://www.youjizz.com/"
 
 
 
@@ -58,4 +58,3 @@
 #import "UIImageView+ZFCache.h"
 #import "UIWindow+CurrentViewController.h"
 #import "ZFPlayerControlViewDelegate.h"
-#import "Masonry.h"
