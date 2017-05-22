@@ -59,7 +59,7 @@
     NSLog(@"%@", model);
     
     AppUnitl.sharedManager.model = model;
-    AppUnitl.sharedManager.isDownLoad = NO;
+    AppUnitl.sharedManager.isDownLoad = YES;
     AppUnitl.sharedManager.model.wetchat.isShow = YES;
 
     

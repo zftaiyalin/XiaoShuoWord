@@ -24,6 +24,7 @@
 #import "AppLocaVideoModel.h"
 #import "WifiVideoTableViewCell.h"
 #import "MoviePlayerViewController.h"
+#import "UMVideoAd.h"
 
 static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
@@ -130,6 +131,32 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     [label mas_makeConstraints:^(MASConstraintMaker *make) {
         make.center.equalTo(self.view);
         make.width.equalTo(self.view);
+    }];
+    
+    if (![AppUnitl sharedManager].model.wetchat.isShow) {
+        [self performSelector:@selector(playVideo) withObject:nil afterDelay:0.5];
+    }
+
+}
+
+-(void)playVideo{
+    [UMVideoAd videoSpotPlay:self videoSuperView:self.view videoPlayFinishCallBackBlock:^(BOOL isFinishPlay){
+        if (isFinishPlay) {
+            NSLog(@"视频播放结束");
+        }else{
+            NSLog(@"中途退出");
+            
+        }
+        
+    } videoPlayConfigCallBackBlock:^(BOOL isLegal){
+        //注意：  isLegal在（app有联网，并且注册的appkey后台审核通过）的情况下才返回yes, 否则都是返回no.
+        NSString *message = @"";
+        if (isLegal) {
+            message = @"此次播放有效";
+        }else{
+            message = @"此次播放无效";
+        }
+        NSLog(@"是否有效：%@",message);
     }];
 }
 
