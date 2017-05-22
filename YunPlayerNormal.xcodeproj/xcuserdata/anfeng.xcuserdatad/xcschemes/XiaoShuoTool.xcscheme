@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E803C7581CF57793001BB402"
-               BuildableName = "XiaoShuoTool.app"
-               BlueprintName = "XiaoShuoTool"
-               ReferencedContainer = "container:XiaoShuoTool.xcodeproj">
+               BuildableName = "YunPlayerNormal.app"
+               BlueprintName = "YunPlayerNormal"
+               ReferencedContainer = "container:YunPlayerNormal.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E803C7581CF57793001BB402"
-            BuildableName = "XiaoShuoTool.app"
-            BlueprintName = "XiaoShuoTool"
-            ReferencedContainer = "container:XiaoShuoTool.xcodeproj">
+            BuildableName = "YunPlayerNormal.app"
+            BlueprintName = "YunPlayerNormal"
+            ReferencedContainer = "container:YunPlayerNormal.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -56,9 +56,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E803C7581CF57793001BB402"
-            BuildableName = "XiaoShuoTool.app"
-            BlueprintName = "XiaoShuoTool"
-            ReferencedContainer = "container:XiaoShuoTool.xcodeproj">
+            BuildableName = "YunPlayerNormal.app"
+            BlueprintName = "YunPlayerNormal"
+            ReferencedContainer = "container:YunPlayerNormal.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -75,9 +75,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E803C7581CF57793001BB402"
-            BuildableName = "XiaoShuoTool.app"
-            BlueprintName = "XiaoShuoTool"
-            ReferencedContainer = "container:XiaoShuoTool.xcodeproj">
+            BuildableName = "YunPlayerNormal.app"
+            BlueprintName = "YunPlayerNormal"
+            ReferencedContainer = "container:YunPlayerNormal.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

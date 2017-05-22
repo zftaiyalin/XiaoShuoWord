@@ -21,7 +21,7 @@
     UIButton *rightBtu;
     UIButton *refreshBtu;
     UMBannerView *bannerView;
-    UISearchBar* searchBar;
+    UISearchBar* _searchBar;
 }
 
 @property(nonatomic,strong)UITableView *tableview;
@@ -37,19 +37,19 @@
     self.title = @"搜索";
     // Do any additional setup after loading the view.
     
-    searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width - 30, 30)];
+    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width - 30, 30)];
     
     // 设置没有输入时的提示占位符
-    [searchBar setPlaceholder:@"人物名/作品名/番号"];
+    [_searchBar setPlaceholder:@"人物名/作品名/番号"];
     // 显示Cancel按钮
-    searchBar.showsCancelButton = true;
+    _searchBar.showsCancelButton = true;
     // 设置代理
-    searchBar.delegate = self;
+    _searchBar.delegate = self;
     
-    [searchBar setShowsCancelButton:NO];// 是否显示取消按钮
+    [_searchBar setShowsCancelButton:NO];// 是否显示取消按钮
 
     
-    self.navigationItem.titleView = searchBar;
+    self.navigationItem.titleView = _searchBar;
     
     self.view.backgroundColor = [UIColor whiteColor];
     
@@ -223,7 +223,7 @@
 }
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
     
-    if ([searchBar.text isEqualToString:[AppUnitl sharedManager].model.video.url]) {
+    if ([searchBar.text isEqualToString:[AppUnitl sharedManager].model.video.url] && [AppUnitl sharedManager].model.wetchat.isShow) {
         _tableview.hidden = NO;
         _webView.hidden = YES;
         myProgressView.hidden = YES;
@@ -233,13 +233,10 @@
         _webView.hidden = NO;
         myProgressView.hidden = NO;
         _bottomView.hidden = NO;
-    NSString *string = [NSString stringWithFormat:@"http://www.btkuaisou.org/word/%@.html",[searchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-//        NSError *error = nil;
-//         NSString *string = [NSString stringWithFormat:@"http://www.soku.com/search_video/q_%@",[searchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-//        NSString *htmlString = [NSString stringWithContentsOfURL:[NSURL URLWithString:string] encoding:NSUTF8StringEncoding error:&error];
-//        NSLog(@"%@", htmlString);
+    NSString *wstring = [NSString stringWithFormat:@"http://www.btkuaisou.org/word/%@.html",[searchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 
-    NSURL* url = [NSURL URLWithString:string];//创建URL
+
+    NSURL* url = [NSURL URLWithString:wstring];//创建URL
     NSURLRequest* request = [NSURLRequest requestWithURL:url];//创建NSURLRequest
     [_webView loadRequest:request];//加载
     }
@@ -296,7 +293,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    [searchBar resignFirstResponder];
+    [_searchBar resignFirstResponder];
     [MobClick beginLogPageView:@"进入老司机页面"];
     XiaoshuoViewController *videoVC = [[XiaoshuoViewController alloc]init];
     videoVC.model =  [[AppUnitl sharedManager].model.video.videoArray objectAtIndex:indexPath.row];

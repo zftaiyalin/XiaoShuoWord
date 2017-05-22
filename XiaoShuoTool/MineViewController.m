@@ -89,13 +89,8 @@
         return 2;
    
     }else{
+        return 1;
         
-        if (section == 0) {
-            return 1;
-        }else{
-            return 2;
-        }
-   
     }
    
 }
@@ -176,33 +171,12 @@
         }
     }else{
         if (indexPath.section == 0) {
-            if (indexPath.row == 0) {
-                cell.textLabel.text = @"收藏";
-            }else{
-                cell.textLabel.text = @"下载";
-                UIView *line = [[UIView alloc]init];
-                line.backgroundColor = [UIColor colorWithHexString:@"#d9d9d9"];
-                [cell addSubview:line];
-                
-                [line mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.left.and.right.and.top.equalTo(cell);
-                    make.height.mas_equalTo(0.25);
-                }];
-            }
+            float tmpSize = [[SDImageCache sharedImageCache]getSize];
+            
+            NSLog(@"%f",tmpSize);
+            cell.textLabel.text = [NSString stringWithFormat:@"清除缓存      %.2fM",tmpSize/1024/1024];
         }else{
-            if (indexPath.row == 1) {
-       
-                
-                float tmpSize = [[SDImageCache sharedImageCache]getSize];
-                
-                NSLog(@"%f",tmpSize);
-//                cell.detailTextLabel.textAlignment = NSTextAlignmentRight;
-//                cell.detailTextLabel.font = [UIFont systemFontOfSize:13];
-                cell.textLabel.text = [NSString stringWithFormat:@"清除缓存      %.2fM",tmpSize/1024/1024];
-                
-
-                
-            }else{
+  
                 cell.textLabel.text = @"赏个好评";
                 UIView *line = [[UIView alloc]init];
                 line.backgroundColor = [UIColor colorWithHexString:@"#d9d9d9"];
@@ -212,7 +186,7 @@
                     make.left.and.right.and.top.equalTo(cell);
                     make.height.mas_equalTo(0.25);
                 }];
-            }
+            
         }
     }
     
@@ -323,11 +297,11 @@
                 }
             }else{
                 if (indexPath.row == 0) {
-//                    cell.textLabel.text = @"清楚缓存";
-                     [[SDImageCache sharedImageCache] clearDiskOnCompletion:^{
-                         [tableView reloadData];
-                     }];
-                    
+
+                    //                cell.textLabel.text = @"清楚缓存";
+                    [[SDImageCache sharedImageCache] clearDiskOnCompletion:^{
+                        [tableView reloadData];
+                    }]; 
                 }else{
 //                    cell.textLabel.text = @"赏个好评";
                     NewDateCodeViewController *vc = [[NewDateCodeViewController alloc]init];
@@ -337,33 +311,16 @@
         }
     }else{
         if (indexPath.section == 0) {
-            if (indexPath.row == 0) {
-//                cell.textLabel.text = @"收藏";
-                CollectionViewController *vc = [[CollectionViewController alloc]init];
-                [self.navigationController pushViewController:vc animated:YES];
-            }else{
-//                cell.textLabel.text = @"下载";
-                if (AppUnitl.sharedManager.isDownLoad) {
-                    ZFDownloadViewController *vc = [[ZFDownloadViewController alloc]init];
-                    [self.navigationController pushViewController:vc animated:YES];
-                }else{
-                    UIAlertView *infoAlert = [[UIAlertView alloc] initWithTitle:@"提示"message:@"您的版本不是VIP版本，下载VIP版可提供下载功能，尽享免广告观看!" delegate:self   cancelButtonTitle:@"取消" otherButtonTitles:@"下载",nil];
-                    [infoAlert show];
-
-                }
-                
-            }
+            //                cell.textLabel.text = @"清楚缓存";
+            [[SDImageCache sharedImageCache] clearDiskOnCompletion:^{
+                [tableView reloadData];
+            }];
         }else{
-            if (indexPath.row == 1) {
-//                cell.textLabel.text = @"清楚缓存";
-                [[SDImageCache sharedImageCache] clearDiskOnCompletion:^{
-                    [tableView reloadData];
-                }];
-            }else{
+
 //                cell.textLabel.text = @"赏个好评";
                 NewDateCodeViewController *vc = [[NewDateCodeViewController alloc]init];
                 [self.navigationController pushViewController:vc animated:YES];
-            }
+            
         }
     }
 }

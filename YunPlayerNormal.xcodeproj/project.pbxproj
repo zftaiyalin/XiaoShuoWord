@@ -388,7 +388,7 @@
 		6BDD96481EC4488E0061C196 /* AppUnitl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppUnitl.m; path = MMPopupView/AppUnitl.m; sourceTree = "<group>"; };
 		BDE428C665560CAD0D731550 /* Pods-XiaoShuoTool.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XiaoShuoTool.release.xcconfig"; path = "Pods/Target Support Files/Pods-XiaoShuoTool/Pods-XiaoShuoTool.release.xcconfig"; sourceTree = "<group>"; };
 		D69760388ECFE20A5DD42C8B /* libPods-XiaoShuoTool.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-XiaoShuoTool.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		E803C7591CF57793001BB402 /* XiaoShuoTool.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XiaoShuoTool.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E803C7591CF57793001BB402 /* YunPlayerNormal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YunPlayerNormal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E803C75D1CF57793001BB402 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E803C75F1CF57793001BB402 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E803C7601CF57793001BB402 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -905,7 +905,7 @@
 		E803C75A1CF57793001BB402 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E803C7591CF57793001BB402 /* XiaoShuoTool.app */,
+				E803C7591CF57793001BB402 /* YunPlayerNormal.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1050,9 +1050,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E803C7581CF57793001BB402 /* XiaoShuoTool */ = {
+		E803C7581CF57793001BB402 /* YunPlayerNormal */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E803C7701CF57793001BB402 /* Build configuration list for PBXNativeTarget "XiaoShuoTool" */;
+			buildConfigurationList = E803C7701CF57793001BB402 /* Build configuration list for PBXNativeTarget "YunPlayerNormal" */;
 			buildPhases = (
 				C9FFE857DEF3398544F2B1F4 /* [CP] Check Pods Manifest.lock */,
 				E803C7551CF57793001BB402 /* Sources */,
@@ -1066,9 +1066,9 @@
 			);
 			dependencies = (
 			);
-			name = XiaoShuoTool;
+			name = YunPlayerNormal;
 			productName = XiaoShuoTool;
-			productReference = E803C7591CF57793001BB402 /* XiaoShuoTool.app */;
+			productReference = E803C7591CF57793001BB402 /* YunPlayerNormal.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1086,7 +1086,7 @@
 					};
 				};
 			};
-			buildConfigurationList = E803C7541CF57793001BB402 /* Build configuration list for PBXProject "XiaoShuoTool" */;
+			buildConfigurationList = E803C7541CF57793001BB402 /* Build configuration list for PBXProject "YunPlayerNormal" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -1099,7 +1099,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E803C7581CF57793001BB402 /* XiaoShuoTool */,
+				E803C7581CF57793001BB402 /* YunPlayerNormal */,
 			);
 		};
 /* End PBXProject section */
@@ -1468,7 +1468,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		E803C7541CF57793001BB402 /* Build configuration list for PBXProject "XiaoShuoTool" */ = {
+		E803C7541CF57793001BB402 /* Build configuration list for PBXProject "YunPlayerNormal" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E803C76E1CF57793001BB402 /* Debug */,
@@ -1477,7 +1477,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E803C7701CF57793001BB402 /* Build configuration list for PBXNativeTarget "XiaoShuoTool" */ = {
+		E803C7701CF57793001BB402 /* Build configuration list for PBXNativeTarget "YunPlayerNormal" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E803C7711CF57793001BB402 /* Debug */,

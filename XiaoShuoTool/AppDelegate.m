@@ -60,7 +60,7 @@
     
     AppUnitl.sharedManager.model = model;
     AppUnitl.sharedManager.isDownLoad = NO;
-    
+    AppUnitl.sharedManager.model.wetchat.isShow = YES;
 
     
     
