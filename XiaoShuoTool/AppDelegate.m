@@ -19,7 +19,8 @@
 #import "WifiViewController.h"
 #import "DNPayAlertView.h"
 
-@interface AppDelegate ()
+@interface AppDelegate ()<BaiduMobAdSplashDelegate>
+@property (nonatomic, strong) BaiduMobAdSplash *splash;
 
 @end
 
@@ -36,6 +37,14 @@
     [UMVideoAd hideDetailViewReplayBtn:NO];
     [UMVideoAd videoIsForceLandscape:NO];
     [UMVideoAd videosetCloseAlertContent:@"中途退出没有积分奖励哦"];
+    
+    BaiduMobAdSplash *splash = [[BaiduMobAdSplash alloc] init];
+    splash.delegate = self;
+    splash.AdUnitTag = @"2058492";
+    splash.canSplashClick = YES;
+    self.splash = splash;
+
+    
     
     UMConfigInstance.appKey = @"591d390d65b6d63c4c002623";
     UMConfigInstance.channelId = @"App Store";

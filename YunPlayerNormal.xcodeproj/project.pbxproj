@@ -7,14 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		686202C496DA91917D5E6155 /* libPods-XiaoShuoTool.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D69760388ECFE20A5DD42C8B /* libPods-XiaoShuoTool.a */; };
 		6B2C9AD91ECC0285009A8C83 /* UploadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B2C9AD81ECC0285009A8C83 /* UploadViewController.m */; };
 		6B2C9ADC1ECC21A2009A8C83 /* WifiVideoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B2C9ADB1ECC21A2009A8C83 /* WifiVideoTableViewCell.m */; };
 		6B2C9ADF1ECC23E3009A8C83 /* AppLocaVideoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B2C9ADE1ECC23E3009A8C83 /* AppLocaVideoModel.m */; };
 		6B2C9AEC1ECC3D6E009A8C83 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 6B2C9AEA1ECC3D6E009A8C83 /* index.html */; };
 		6B2C9AED1ECC3D6E009A8C83 /* upload.html in Resources */ = {isa = PBXBuildFile; fileRef = 6B2C9AEB1ECC3D6E009A8C83 /* upload.html */; };
+		6B428FCB1ED5A816000E607A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B428FCA1ED5A816000E607A /* CoreLocation.framework */; };
 		6B5B0D1F1EC4A18200945694 /* MineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B5B0D1E1EC4A18200945694 /* MineViewController.m */; };
 		6B5B0D221EC4A66800945694 /* DaiLuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B5B0D211EC4A66800945694 /* DaiLuViewController.m */; };
+		6B5CF8E51ED48709008484CB /* baidumobadsdk.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6B5CF8E41ED48709008484CB /* baidumobadsdk.bundle */; };
+		6B5CF8E71ED48786008484CB /* BaiduMobAdSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B5CF8E61ED48786008484CB /* BaiduMobAdSDK.framework */; };
 		6B5E67C11EC098B200A4D59E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B5E67C01EC098B200A4D59E /* SystemConfiguration.framework */; };
 		6B5E67C31EC098BB00A4D59E /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B5E67C21EC098BB00A4D59E /* CFNetwork.framework */; };
 		6B5E67C51EC098C400A4D59E /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B5E67C41EC098C400A4D59E /* MediaPlayer.framework */; };
@@ -130,6 +132,7 @@
 		6BDD96411EC4420B0061C196 /* WechatModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BDD96401EC4420B0061C196 /* WechatModel.m */; };
 		6BDD96441EC442B50061C196 /* AppModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BDD96431EC442B50061C196 /* AppModel.m */; };
 		6BDD96491EC4488E0061C196 /* AppUnitl.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BDD96481EC4488E0061C196 /* AppUnitl.m */; };
+		832C69552ECF7962D408986A /* libPods-YunPlayerNormal.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46B6F5A85A563A187E624819 /* libPods-YunPlayerNormal.a */; };
 		E803C75E1CF57793001BB402 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E803C75D1CF57793001BB402 /* main.m */; };
 		E803C7611CF57793001BB402 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E803C7601CF57793001BB402 /* AppDelegate.m */; };
 		E803C7671CF57793001BB402 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E803C7651CF57793001BB402 /* Main.storyboard */; };
@@ -157,7 +160,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		36BF3FD6CB5596B00F42B16D /* Pods-XiaoShuoTool.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XiaoShuoTool.debug.xcconfig"; path = "Pods/Target Support Files/Pods-XiaoShuoTool/Pods-XiaoShuoTool.debug.xcconfig"; sourceTree = "<group>"; };
+		46B6F5A85A563A187E624819 /* libPods-YunPlayerNormal.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-YunPlayerNormal.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B2C9AD71ECC0285009A8C83 /* UploadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadViewController.h; sourceTree = "<group>"; };
 		6B2C9AD81ECC0285009A8C83 /* UploadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadViewController.m; sourceTree = "<group>"; };
 		6B2C9ADA1ECC21A2009A8C83 /* WifiVideoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WifiVideoTableViewCell.h; sourceTree = "<group>"; };
@@ -166,10 +169,14 @@
 		6B2C9ADE1ECC23E3009A8C83 /* AppLocaVideoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppLocaVideoModel.m; sourceTree = "<group>"; };
 		6B2C9AEA1ECC3D6E009A8C83 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		6B2C9AEB1ECC3D6E009A8C83 /* upload.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = upload.html; sourceTree = "<group>"; };
+		6B428FC81ED5A7DA000E607A /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		6B428FCA1ED5A816000E607A /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		6B5B0D1D1EC4A18200945694 /* MineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineViewController.h; sourceTree = "<group>"; };
 		6B5B0D1E1EC4A18200945694 /* MineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineViewController.m; sourceTree = "<group>"; };
 		6B5B0D201EC4A66800945694 /* DaiLuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DaiLuViewController.h; sourceTree = "<group>"; };
 		6B5B0D211EC4A66800945694 /* DaiLuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DaiLuViewController.m; sourceTree = "<group>"; };
+		6B5CF8E41ED48709008484CB /* baidumobadsdk.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = baidumobadsdk.bundle; sourceTree = "<group>"; };
+		6B5CF8E61ED48786008484CB /* BaiduMobAdSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BaiduMobAdSDK.framework; sourceTree = "<group>"; };
 		6B5E67C01EC098B200A4D59E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		6B5E67C21EC098BB00A4D59E /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		6B5E67C41EC098C400A4D59E /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
@@ -386,8 +393,8 @@
 		6BDD96431EC442B50061C196 /* AppModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppModel.m; sourceTree = "<group>"; };
 		6BDD96471EC4488E0061C196 /* AppUnitl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppUnitl.h; path = MMPopupView/AppUnitl.h; sourceTree = "<group>"; };
 		6BDD96481EC4488E0061C196 /* AppUnitl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppUnitl.m; path = MMPopupView/AppUnitl.m; sourceTree = "<group>"; };
-		BDE428C665560CAD0D731550 /* Pods-XiaoShuoTool.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XiaoShuoTool.release.xcconfig"; path = "Pods/Target Support Files/Pods-XiaoShuoTool/Pods-XiaoShuoTool.release.xcconfig"; sourceTree = "<group>"; };
-		D69760388ECFE20A5DD42C8B /* libPods-XiaoShuoTool.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-XiaoShuoTool.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9E1D124728D1CBAB9B60C321 /* Pods-YunPlayerNormal.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YunPlayerNormal.debug.xcconfig"; path = "Pods/Target Support Files/Pods-YunPlayerNormal/Pods-YunPlayerNormal.debug.xcconfig"; sourceTree = "<group>"; };
+		DD22287A6AA3E527A13C0F5C /* Pods-YunPlayerNormal.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YunPlayerNormal.release.xcconfig"; path = "Pods/Target Support Files/Pods-YunPlayerNormal/Pods-YunPlayerNormal.release.xcconfig"; sourceTree = "<group>"; };
 		E803C7591CF57793001BB402 /* YunPlayerNormal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YunPlayerNormal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E803C75D1CF57793001BB402 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E803C75F1CF57793001BB402 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -448,6 +455,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6B428FCB1ED5A816000E607A /* CoreLocation.framework in Frameworks */,
 				6B5E67D71EC0995800A4D59E /* WebKit.framework in Frameworks */,
 				6B5E67D51EC0995000A4D59E /* Security.framework in Frameworks */,
 				6B5E67D31EC0993B00A4D59E /* CoreTelephony.framework in Frameworks */,
@@ -461,8 +469,9 @@
 				6B5E67C31EC098BB00A4D59E /* CFNetwork.framework in Frameworks */,
 				6B5E67C11EC098B200A4D59E /* SystemConfiguration.framework in Frameworks */,
 				6B666A6A1EBC806E00AA5C75 /* libGumbo.a in Frameworks */,
+				6B5CF8E71ED48786008484CB /* BaiduMobAdSDK.framework in Frameworks */,
 				6B5E67DE1EC0999E00A4D59E /* UMVideoSDK.a in Frameworks */,
-				686202C496DA91917D5E6155 /* libPods-XiaoShuoTool.a in Frameworks */,
+				832C69552ECF7962D408986A /* libPods-YunPlayerNormal.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -875,6 +884,8 @@
 		8332FC0B2A2460BD29CA29BF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6B428FCA1ED5A816000E607A /* CoreLocation.framework */,
+				6B428FC81ED5A7DA000E607A /* MapKit.framework */,
 				6B5E67D61EC0995800A4D59E /* WebKit.framework */,
 				6B5E67D41EC0995000A4D59E /* Security.framework */,
 				6B5E67D21EC0993B00A4D59E /* CoreTelephony.framework */,
@@ -887,7 +898,7 @@
 				6B5E67C41EC098C400A4D59E /* MediaPlayer.framework */,
 				6B5E67C21EC098BB00A4D59E /* CFNetwork.framework */,
 				6B5E67C01EC098B200A4D59E /* SystemConfiguration.framework */,
-				D69760388ECFE20A5DD42C8B /* libPods-XiaoShuoTool.a */,
+				46B6F5A85A563A187E624819 /* libPods-YunPlayerNormal.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -913,6 +924,8 @@
 		E803C75B1CF57793001BB402 /* XiaoShuoTool */ = {
 			isa = PBXGroup;
 			children = (
+				6B5CF8E61ED48786008484CB /* BaiduMobAdSDK.framework */,
+				6B5CF8E41ED48709008484CB /* baidumobadsdk.bundle */,
 				6B7ECFF71ECEC57D00FDBA14 /* DNPayAlertView */,
 				6B2C9AE91ECC3D6E009A8C83 /* web */,
 				6B8B53631ECBEA8F00EEDAA4 /* Core */,
@@ -1041,8 +1054,8 @@
 		F82496718C877CAFFDBBDD2C /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				36BF3FD6CB5596B00F42B16D /* Pods-XiaoShuoTool.debug.xcconfig */,
-				BDE428C665560CAD0D731550 /* Pods-XiaoShuoTool.release.xcconfig */,
+				9E1D124728D1CBAB9B60C321 /* Pods-YunPlayerNormal.debug.xcconfig */,
+				DD22287A6AA3E527A13C0F5C /* Pods-YunPlayerNormal.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -1126,6 +1139,7 @@
 				6B8B53A41ECBEA8F00EEDAA4 /* About.txt in Resources */,
 				6B8B53AC1ECBEA8F00EEDAA4 /* README.txt in Resources */,
 				6B70DAF31EC160EF00EB09FC /* HUD_info@3x.png in Resources */,
+				6B5CF8E51ED48709008484CB /* baidumobadsdk.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1144,7 +1158,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-XiaoShuoTool/Pods-XiaoShuoTool-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-YunPlayerNormal/Pods-YunPlayerNormal-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		362106DDA7966B01A16B3CD0 /* [CP] Embed Pods Frameworks */ = {
@@ -1159,7 +1173,8 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-XiaoShuoTool/Pods-XiaoShuoTool-frameworks.sh\"\n";
+			shellScript = "
+";
 			showEnvVarsInLog = 0;
 		};
 		798BC49CDB82FBCC00DB67A0 /* Embed Pods Frameworks */ = {
@@ -1174,7 +1189,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-XiaoShuoTool/Pods-XiaoShuoTool-frameworks.sh\"\n";
+			shellScript = "";
 			showEnvVarsInLog = 0;
 		};
 		C9FFE857DEF3398544F2B1F4 /* [CP] Check Pods Manifest.lock */ = {
@@ -1424,12 +1439,16 @@
 		};
 		E803C7711CF57793001BB402 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 36BF3FD6CB5596B00F42B16D /* Pods-XiaoShuoTool.debug.xcconfig */;
+			baseConfigurationReference = 9E1D124728D1CBAB9B60C321 /* Pods-YunPlayerNormal.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = WD9BF79VSR;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/XiaoShuoTool",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/XiaoShuoTool/PrefixHeader.pch";
 				INFOPLIST_FILE = XiaoShuoTool/Info.plist;
@@ -1449,12 +1468,16 @@
 		};
 		E803C7721CF57793001BB402 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BDE428C665560CAD0D731550 /* Pods-XiaoShuoTool.release.xcconfig */;
+			baseConfigurationReference = DD22287A6AA3E527A13C0F5C /* Pods-YunPlayerNormal.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = WD9BF79VSR;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/XiaoShuoTool",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/XiaoShuoTool/PrefixHeader.pch";
 				INFOPLIST_FILE = XiaoShuoTool/Info.plist;

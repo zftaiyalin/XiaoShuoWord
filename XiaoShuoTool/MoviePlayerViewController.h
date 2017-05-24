@@ -8,11 +8,14 @@
 
 #import "JADebugViewController.h"
 #import "VideoModel.h"
+@import GoogleMobileAds;
+
+
 @interface MoviePlayerViewController : JADebugViewController
 /** 视频URL */
 @property (nonatomic, strong) NSURL *videoURL;
 @property (nonatomic, strong) NSString *titleSring;
 @property (nonatomic, assign) BOOL isShowCollect;
 @property (nonatomic, strong) VideoModel *videoModel;
-
+@property(nonatomic, strong) GADInterstitial *interstitial;
 @end

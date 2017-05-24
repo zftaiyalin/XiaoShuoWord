@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "UMVideoAd.h"
-
+#import "BaiduMobAdSDK/BaiduMobAdSplash.h"
+#import "BaiduMobAdSDK/BaiduMobAdSetting.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 

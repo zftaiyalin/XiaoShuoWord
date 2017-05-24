@@ -5,7 +5,7 @@
 //  Created by AnFeng on 16/5/25.
 //  Copyright © 2016年 TheLastCode. All rights reserved.
 //
-
+@import GoogleMobileAds;
 #import "XiaoshuoViewController.h"
 #import "MMAlertView.h"
 #import "OCGumbo.h"
@@ -19,22 +19,24 @@
 #import "YouJiVideoModel.h"
 #import "NSObject+ALiHUD.h"
 #import "AES128Util.h"
+#import "WifiVideoTableViewCell.h"
+#import "MoviePlayerViewController.h"
 
 
 //#define baseUrl "https://www.youjizz.com/most-popular/"
 
 static NSString * const reuseIdentifier = @"collectionViewCell";
 
-@interface XiaoshuoViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,ZFPlayerDelegate>{
-    
+@interface XiaoshuoViewController ()<ZFPlayerDelegate,GADRewardBasedVideoAdDelegate,UITableViewDelegate,UITableViewDataSource>{
+    UITableView *_tableView;
     BOOL isRefresh;
+    int index;
 }
 
 @property (nonatomic,strong) UICollectionView *collectionView;
 @property (nonatomic, strong) ZFPlayerView        *playerView;
 @property (nonatomic, strong) ZFPlayerControlView *controlView;
 @property (nonatomic, strong) NSString *baseUrl;
-@property (nonatomic,strong) NSMutableArray *indexArray;
 
 @end
 
@@ -45,7 +47,10 @@ static NSString * const reuseIdentifier = @"collectionViewCell";
     _pageIndex = (arc4random() % _model.vdieoMaxIndex)+1;
     NSString *urlString = [[NSString alloc]initWithFormat:@"%@%d.html",_baseUrl,_pageIndex];
     isRefresh =NO;
-    [self OCGumboVideoModel:urlString];
+    if ([self reloadVideoArray]) {
+        [self OCGumboVideoModel:urlString];
+    }
+    
 }
 
 -(void)dealloc{
@@ -60,6 +65,7 @@ static NSString * const reuseIdentifier = @"collectionViewCell";
     
     // 2.调用异步函数
     dispatch_async(queue, ^{
+        
         // 1.下载图片
         NSError *error = nil;
         //    https://www.youjizz.com/most-popular/2.html
@@ -77,13 +83,16 @@ static NSString * const reuseIdentifier = @"collectionViewCell";
             NSLog(@"%@", htmlString);
             
             //    OCGumboElement *element = document.Query(@"body").find(@".video-item").find(@".video-title").first();
-            
+            if (![[GADRewardBasedVideoAd sharedInstance] isReady]) {
+                [self requestRewardedVideo];
+            }
             if (htmlString) {
                 OCGumboDocument *iosfeedDoc = [[OCGumboDocument alloc] initWithHTMLString:htmlString];
                 NSArray *rows = iosfeedDoc.body.Query(@"div.main-content").find(@"div.video-item");
                 YouJiVideoModel *array = [[YouJiVideoModel alloc]init];
                 
                 if (isRefresh) {
+                    index = 0;
                     [self.videoModelArray removeAllObjects];
                 }
                 
@@ -104,40 +113,53 @@ static NSString * const reuseIdentifier = @"collectionViewCell";
                     model.time = time.text();
                     model.img = img.attr(@"data-original");
                     
-                    
-                    if (array.videoModel.count < 10) {
-                        [array.videoModel addObject:model];
-                    }else{
+                    [array.videoModel addObject:model];
+                    if (array.videoModel.count == 5) {
+                 
                         [self.videoModelArray addObject:array];
                         array = [[YouJiVideoModel alloc]init];
                     }
                 }
                 
-                if (array.videoModel.count != 10) {
+                if (array.videoModel.count != 5) {
                     [self.videoModelArray addObject:array];
                 }
             }
-            _collectionView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadVideoModel)];
-            [_collectionView.mj_footer endRefreshing];
-            [_collectionView.mj_header endRefreshing];
-            [_collectionView reloadData];
+            
+    
+            [self reloadVideoArray];
+            
+            
         });
 
     });
-            
-            
-        
-        
-   
+
+}
+
+-(BOOL)reloadVideoArray{
+    
+    if (self.videoModelArray.count > index) {
+        [self.tableModelArray addObject:[self.videoModelArray objectAtIndex:index]];
+        [_tableView reloadData];
+        [_tableView.mj_footer endRefreshing];
+        [_tableView.mj_header endRefreshing];
+        index ++;
+        return NO;
+    }else{
+        return YES;
+    }
 }
 
 -(void)reFreshVideoModel {
     _pageIndex = (arc4random() % _model.vdieoMaxIndex)+1;
    
     NSString *urlString = [[NSString alloc]initWithFormat:@"%@%d.html",_baseUrl,_pageIndex];
-    
+  
     isRefresh = YES;
     [self OCGumboVideoModel:urlString];
+    
+    
+    
 }
 
 -(void)setModel:(VideoPlayModel *)model{
@@ -145,20 +167,25 @@ static NSString * const reuseIdentifier = @"collectionViewCell";
     self.baseUrl =  [AES128Util AES128Decrypt:_model.videoUrl key:[AppUnitl sharedManager].model.video.key];
 }
 -(void)huoqujifen{
+    
+    if ([[GADRewardBasedVideoAd sharedInstance] isReady]) {
+        [[GADRewardBasedVideoAd sharedInstance] presentFromRootViewController:self];
+    }else{
+    
     [UMVideoAd videoPlay:self videoPlayFinishCallBackBlock:^(BOOL isFinishPlay){
         if (isFinishPlay) {
             NSLog(@"视频播放结束");
             
         }else{
             NSLog(@"中途退出");
-            [MobClick event:@"中途关闭广告"];
+            [MobClick event:@"中途关闭有米视频"];
         }
 
     } videoPlayConfigCallBackBlock:^(BOOL isLegal){
         NSString *message = @"";
         if (isLegal) {
             message = @"此次播放有效";
-            [MobClick event:@"有效播放广告"];
+            [MobClick event:@"有效播放有米视频广告"];
             [[AppUnitl sharedManager] addMyintegral:[AppUnitl sharedManager].model.video.ggintegral];
             NSString *string = [[NSString alloc]initWithFormat:@"获取%d积分,当前积分%d",[AppUnitl sharedManager].model.video.ggintegral,[[AppUnitl sharedManager] getMyintegral]];
             [self showSuccessText:string];
@@ -177,13 +204,15 @@ static NSString * const reuseIdentifier = @"collectionViewCell";
         //                UIImage *image = [MobiVideoAd oWVideoImage];
         NSLog(@"是否有效：%@",message);
     }];
+    }
 
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [GADRewardBasedVideoAd sharedInstance].delegate = self;
     self.videoModelArray = [[NSMutableArray alloc]init];
-    self.indexArray = [[NSMutableArray alloc]init];
+    self.tableModelArray = [[NSMutableArray alloc]init];
     self.pageIndex = (arc4random() % _model.vdieoMaxIndex)+1;
 //    self.title = @"首页";
     UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithTitle:@"获取积分" style:UIBarButtonItemStylePlain target:self action:@selector(huoqujifen)];
@@ -191,35 +220,53 @@ static NSString * const reuseIdentifier = @"collectionViewCell";
     self.navigationItem.rightBarButtonItem = item;
     self.view.backgroundColor = [UIColor whiteColor];
 
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    CGFloat margin = 5;
-    CGFloat itemWidth = ScreenWidth/2 - 2*margin;
-    CGFloat itemHeight = itemWidth*9/16 + 30;
-    layout.itemSize = CGSizeMake(itemWidth, itemHeight);
-    layout.sectionInset = UIEdgeInsetsMake(10, margin, 10, margin);
-    layout.minimumLineSpacing = 5;
-    layout.minimumInteritemSpacing = 5;
-
-    _collectionView=[[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, 375, 667) collectionViewLayout:layout];
-    _collectionView.backgroundColor=[UIColor whiteColor];
-   
-    _collectionView.delegate=self;
-    _collectionView.dataSource=self;
     
-    _collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(reFreshVideoModel)];
-    _collectionView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadVideoModel)];
-
-    [_collectionView registerClass:[ZFCollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
-
-    [self.view addSubview:_collectionView];
-
+    _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height) style:UITableViewStylePlain];
+    _tableView.dataSource = self;
+    _tableView.delegate = self;
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [_tableView registerClass:[WifiVideoTableViewCell class] forCellReuseIdentifier:@"cell"];
+    _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(reFreshVideoModel)];
+    _tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadVideoModel)];
     
-    [_collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.view);
+    GADBannerView *ban = [[GADBannerView alloc]initWithFrame:CGRectMake(0, 64, self.view.width, 50)];
+    ban.adUnitID = @"ca-app-pub-3676267735536366/4976488930";
+    ban.rootViewController = self;
+    
+    GADRequest *request = [GADRequest request];
+    // Requests test ads on devices you specify. Your test device ID is printed to the console when
+    // an ad request is made. GADBannerView automatically returns test ads when running on a
+    // simulator.
+    request.testDevices = @[
+                            @"fe9239b402756b9539e3beb3a686378d"  // Eric's iPod Touch
+                            ];
+    [ban loadRequest:request];
+    
+    [self.view addSubview:ban];
+
+    [self.view addSubview:_tableView];
+    
+    [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.and.right.equalTo(self.view);
+        make.top.equalTo(ban.mas_bottom);
+        make.bottom.equalTo(self.view);
     }];
+
+    
     
     [self reFreshVideoModel];
+    
+    if (![[GADRewardBasedVideoAd sharedInstance] isReady]) {
+        [self requestRewardedVideo];
+    }
 }
+
+- (void)requestRewardedVideo {
+    GADRequest *request = [GADRequest request];
+    [[GADRewardBasedVideoAd sharedInstance] loadRequest:request
+                                           withAdUnitID:@"ca-app-pub-3676267735536366/6453222138"];
+}
+
 
 // 页面消失时候
 - (void)viewWillDisappear:(BOOL)animated {
@@ -231,6 +278,9 @@ static NSString * const reuseIdentifier = @"collectionViewCell";
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    if (![[GADRewardBasedVideoAd sharedInstance] isReady]) {
+        [self requestRewardedVideo];
+    }
     [MobClick beginLogPageView:@"进入老司机页面"];
 }
 
@@ -265,162 +315,161 @@ static NSString * const reuseIdentifier = @"collectionViewCell";
     return NO;
 }
 
-#pragma mark <UICollectionViewDataSource>
 
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    
-    YouJiVideoModel *model = [self.videoModelArray objectAtIndex:section];
-    
-    return model.videoModel.count;
+
+
+
+
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return self.tableModelArray.count;
 }
 
-//一共有多少个组
--(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
-    return self.videoModelArray.count;
-}
-
-//定义每一个cell的大小
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    CGFloat margin = 5;
-    CGFloat itemWidth = ScreenWidth/2 - 2*margin;
-    CGFloat itemHeight = itemWidth*9/16 + 30;
-    return CGSizeMake(itemWidth, itemHeight);
+    
+    YouJiVideoModel *array = [self.videoModelArray objectAtIndex:section];
+
+    return array.videoModel.count;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 80;
+}
 
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    ZFCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
-    // 取到对应cell的model
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    WifiVideoTableViewCell *cell =(WifiVideoTableViewCell *) [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     YouJiVideoModel *array = [self.videoModelArray objectAtIndex:indexPath.section];
     
-    __block VideoModel *vmodel        = array.videoModel[indexPath.row];
-    // 赋值model
-    cell.model                         = vmodel;
-    __block NSIndexPath *weakIndexPath = indexPath;
-    __block ZFCollectionViewCell *weakCell = cell;
-    __weak typeof(self)  weakSelf      = self;
-    // 点击播放的回调
-    cell.playBlock = ^(UIButton *btn){
-
-        
-        if ([[AppUnitl sharedManager] getWatchQuanxian]) {
-            
-            NSString *string = [[NSString alloc]initWithFormat:@"使用%d积分,剩余%d积分!",[AppUnitl sharedManager].model.video.wkintegral,[[AppUnitl sharedManager] getMyintegral]];
-            [weakSelf showSuccessText:string];
-       
-           
-        
-            
-            dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
-            
-            // 2.调用异步函数
-            dispatch_async(queue, ^{
-//                [weakSelf.playerView shutDownPlayer];
-                
-                NSString *base = [AES128Util AES128Decrypt:[AppUnitl sharedManager].model.video.baseUrl key:[AppUnitl sharedManager].model.video.key];
-                NSString *urlString = [[NSString alloc]initWithFormat:@"%@%@",base,vmodel.url];
-                NSError *error = nil;
-                NSURL *xcfURL = [NSURL URLWithString:urlString];
-                NSString *htmlString = [NSString stringWithContentsOfURL:xcfURL encoding:NSUTF8StringEncoding error:&error];
-                __block NSString *video = nil;
-                
-                
-                if (htmlString) {
-                    OCGumboDocument *iosfeedDoc = [[OCGumboDocument alloc] initWithHTMLString:htmlString];
-                    NSArray *array = iosfeedDoc.body.Query(@"div.main-content").find(@"#yj-video");
-                    
-                    
-                    for (OCGumboNode *row in array) {
-                        OCGumboNode *videoStr = row.Query(@"source").last();
-                        NSLog(@"from:(%@)",videoStr.attr(@"src"));
-                        video = [[NSString alloc]initWithFormat:@"https:%@",videoStr.attr(@"src")];
-                    }
-                    
-                }
-                dispatch_sync(dispatch_get_main_queue(), ^{ // 会等block代码执行完毕后，执行后面最后一句的打印代码
-                    if (video == nil) {
-                        [weakSelf showErrorText:@"错误的视频链接,已返还积分!"];
-                        [[AppUnitl sharedManager] addMyintegral:[AppUnitl sharedManager].model.video.wkintegral];
-                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                            [weakSelf dismissLoading];
-                        });
-                        return;
-                    }
-                    [weakSelf dismissLoading];
-                    ZFPlayerModel *playerModel = [[ZFPlayerModel alloc] init];
-                    playerModel.title            = vmodel.title;
-                    playerModel.videoModel = vmodel;
-                    playerModel.videoURL         = [[NSURL alloc]initWithString:video];
-                    NSString *image = [[NSString alloc]initWithFormat:@"https:%@",vmodel.img];
-                    playerModel.placeholderImageURLString = image;
-                    playerModel.scrollView       = weakSelf.collectionView;
-                    playerModel.indexPath        = weakIndexPath;
-                    // 赋值分辨率字典
-                    //        playerModel.resolutionDic    = dic;
-                    // player的父视图tag
-                    playerModel.fatherViewTag    = weakCell.topicImageView.tag;
-                    
-                    // 设置播放控制层和model
-                    [weakSelf.playerView playerControlView:nil playerModel:playerModel];
-                    // 下载功能
-                    weakSelf.playerView.hasDownload = YES;
-                    // 自动播放
-                    [weakSelf.playerView autoPlayTheVideo];
-                    [MobClick event:@"播放视频"];
-                });
-                
-            });
-        }else{
-            
-            NSString *string = [[NSString alloc]initWithFormat:@"当前%d积分不足,观看所需积分%d!",[[AppUnitl sharedManager] getMyintegral],[AppUnitl sharedManager].model.video.wkintegral];
-            [weakSelf showErrorText:string];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [weakSelf dismissLoading];
-            });
-        }
-        
-    };
+    VideoModel *vmodel        = array.videoModel[indexPath.row];
     
+    [cell loadVideoData:vmodel];
     return cell;
 }
 
-
-
-- (ZFPlayerView *)playerView {
-    if (!_playerView) {
-        _playerView = [ZFPlayerView sharedPlayerView];
-        _playerView.delegate = self;
-        // 当cell播放视频由全屏变为小屏时候，不回到中间位置
-        _playerView.cellPlayerOnCenter = NO;
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    
+    
+    if ([[AppUnitl sharedManager] getWatchQuanxian]) {
         
-        // 当cell划出屏幕的时候停止播放
-        // _playerView.stopPlayWhileCellNotVisable = YES;
-        //（可选设置）可以设置视频的填充模式，默认为（等比例填充，直到一个维度到达区域边界）
-        // _playerView.playerLayerGravity = ZFPlayerLayerGravityResizeAspect;
-        // 静音
-        // _playerView.mute = YES;
+        NSString *string = [[NSString alloc]initWithFormat:@"使用%d积分,剩余%d积分!",[AppUnitl sharedManager].model.video.wkintegral,[[AppUnitl sharedManager] getMyintegral]];
+        [self showSuccessText:string];
+        
+        
+        
+        
+        dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
+        YouJiVideoModel *array = [self.videoModelArray objectAtIndex:indexPath.section];
+        
+        VideoModel *model        = array.videoModel[indexPath.row];
+
+        // 2.调用异步函数
+        dispatch_async(queue, ^{
+            //                [weakSelf.playerView shutDownPlayer];
+            
+            NSString *base = [AES128Util AES128Decrypt:[AppUnitl sharedManager].model.video.baseUrl key:[AppUnitl sharedManager].model.video.key];
+            NSString *urlString = [[NSString alloc]initWithFormat:@"%@%@",base,model.url];
+            NSError *error = nil;
+            NSURL *xcfURL = [NSURL URLWithString:urlString];
+            NSString *htmlString = [NSString stringWithContentsOfURL:xcfURL encoding:NSUTF8StringEncoding error:&error];
+            __block NSString *video = nil;
+            
+            
+            if (htmlString) {
+                OCGumboDocument *iosfeedDoc = [[OCGumboDocument alloc] initWithHTMLString:htmlString];
+                NSArray *array = iosfeedDoc.body.Query(@"div.main-content").find(@"#yj-video");
+                
+                
+                for (OCGumboNode *row in array) {
+                    OCGumboNode *videoStr = row.Query(@"source").last();
+                    NSLog(@"from:(%@)",videoStr.attr(@"src"));
+                    video = [[NSString alloc]initWithFormat:@"https:%@",videoStr.attr(@"src")];
+                }
+                
+            }
+            dispatch_sync(dispatch_get_main_queue(), ^{ // 会等block代码执行完毕后，执行后面最后一句的打印代码
+                if (video == nil) {
+                    [self showErrorText:@"错误的视频链接,已返还积分!"];
+                    [[AppUnitl sharedManager] addMyintegral:[AppUnitl sharedManager].model.video.wkintegral];
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [self dismissLoading];
+                    });
+                    return;
+                }
+                
+                [self dismissLoading];
+                MoviePlayerViewController *movie = [[MoviePlayerViewController alloc]init];
+                movie.videoURL                   = [[NSURL alloc]initWithString:video];
+                movie.titleSring = model.title;
+                movie.videoModel = model;
+                [self.navigationController pushViewController:movie animated:NO];
+                
+                [MobClick event:@"播放视频"];
+            });
+            
+        });
+    }else{
+        
+        NSString *string = [[NSString alloc]initWithFormat:@"当前%d积分不足,观看所需积分%d!",[[AppUnitl sharedManager] getMyintegral],[AppUnitl sharedManager].model.video.wkintegral];
+        [self showErrorText:string];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self dismissLoading];
+        });
     }
-    return _playerView;
+    
 }
 
-- (ZFPlayerControlView *)controlView {
-    if (!_controlView) {
-        _controlView = [[ZFPlayerControlView alloc] init];
-    }
-    return _controlView;
+
+
+
+#pragma mark GADRewardBasedVideoAdDelegate implementation
+
+- (void)rewardBasedVideoAdDidReceiveAd:(GADRewardBasedVideoAd *)rewardBasedVideoAd {
+    NSLog(@"Reward based video ad is received.");
 }
 
-#pragma mark - ZFPlayerDelegate
-
-- (void)zf_playerDownload:(NSString *)url {
-    // 此处是截取的下载地址，可以自己根据服务器的视频名称来赋值
-    NSString *name = [url lastPathComponent];
-    [[ZFDownloadManager sharedDownloadManager] downFileUrl:url filename:name fileimage:nil];
-    // 设置最多同时下载个数（默认是3）
-    [ZFDownloadManager sharedDownloadManager].maxCount = 4;
+- (void)rewardBasedVideoAdDidOpen:(GADRewardBasedVideoAd *)rewardBasedVideoAd {
+    NSLog(@"Opened reward based video ad.");
 }
+
+- (void)rewardBasedVideoAdDidStartPlaying:(GADRewardBasedVideoAd *)rewardBasedVideoAd {
+    NSLog(@"Reward based video ad started playing.");
+    NSLog(@"admob奖励视频开始播放");
+}
+
+- (void)rewardBasedVideoAdDidClose:(GADRewardBasedVideoAd *)rewardBasedVideoAd {
+    NSLog(@"Reward based video ad is closed.");
+    NSLog(@"中途关闭admob奖励视频");
+}
+
+- (void)rewardBasedVideoAd:(GADRewardBasedVideoAd *)rewardBasedVideoAd
+   didRewardUserWithReward:(GADAdReward *)reward {
+    NSLog(@"有效的播放admob奖励视频");
+    
+    [[AppUnitl sharedManager] addMyintegral:[AppUnitl sharedManager].model.video.ggintegral];
+    NSString *string = [[NSString alloc]initWithFormat:@"获取%d积分,当前积分%d",[AppUnitl sharedManager].model.video.ggintegral,[[AppUnitl sharedManager] getMyintegral]];
+    [self showSuccessText:string];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self dismissLoading];
+    });
+}
+
+- (void)rewardBasedVideoAdWillLeaveApplication:(GADRewardBasedVideoAd *)rewardBasedVideoAd {
+    NSLog(@"Reward based video ad will leave application.");
+    NSLog(@"点击admo奖励视频准备离开app");
+}
+
+- (void)rewardBasedVideoAd:(GADRewardBasedVideoAd *)rewardBasedVideoAd
+    didFailToLoadWithError:(NSError *)error {
+    NSLog(@"Reward based video ad failed to load.");
+    NSLog(@"admob奖励视频加载失败");
+}
+
 
 
 @end
