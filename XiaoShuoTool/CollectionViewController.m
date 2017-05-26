@@ -175,7 +175,7 @@
         dispatch_async(queue, ^{
             //                [weakSelf.playerView shutDownPlayer];
             
-            NSString *base = [AES128Util AES128Decrypt:[AppUnitl sharedManager].model.video.baseUrl key:[AppUnitl sharedManager].model.video.key];
+            NSString *base = [AES128Util AES128Decrypt:model.baseUrl key:[AppUnitl sharedManager].model.video.key];
             NSString *urlString = [[NSString alloc]initWithFormat:@"%@%@",base,model.url];
             NSError *error = nil;
             NSURL *xcfURL = [NSURL URLWithString:urlString];

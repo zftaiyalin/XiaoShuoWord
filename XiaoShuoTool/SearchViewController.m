@@ -52,9 +52,17 @@
     self.navigationItem.titleView = _searchBar;
     
     self.view.backgroundColor = [UIColor whiteColor];
+    NSError *error = nil;
     
+    NSURL* xcfURL = [NSURL URLWithString:@"https://www.pornhub.com/video/search?search=japan"];
+    NSString * htmlString = [NSString stringWithContentsOfURL:xcfURL encoding:NSUTF8StringEncoding error:&error];
+    NSLog(@"%@", htmlString);
     
-   
+//    NSData *htmlData = [[NSData alloc] initWithContentsOfURL:xcfURL];
+//    
+//    NSString *ssss = [[NSString alloc]initWithData:htmlData encoding:NSUTF8StringEncoding];
+//    
+//    NSLog(@"=========%@", ssss);
 
     
     _webView = [[UIWebView alloc]init];
@@ -62,6 +70,8 @@
     _webView.delegate = self;
     _webView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_webView];
+    
+    [_webView loadHTMLString:htmlString baseURL:[NSURL URLWithString:@"www.baidu.com"]];
 
     [_webView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.and.right.and.top.equalTo(self.view);

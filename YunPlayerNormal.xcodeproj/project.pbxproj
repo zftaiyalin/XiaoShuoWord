@@ -12,6 +12,7 @@
 		6B2C9ADF1ECC23E3009A8C83 /* AppLocaVideoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B2C9ADE1ECC23E3009A8C83 /* AppLocaVideoModel.m */; };
 		6B2C9AEC1ECC3D6E009A8C83 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 6B2C9AEA1ECC3D6E009A8C83 /* index.html */; };
 		6B2C9AED1ECC3D6E009A8C83 /* upload.html in Resources */ = {isa = PBXBuildFile; fileRef = 6B2C9AEB1ECC3D6E009A8C83 /* upload.html */; };
+		6B3FB3B91ED87DC000D07050 /* AdmobModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B3FB3B81ED87DC000D07050 /* AdmobModel.m */; };
 		6B428FCB1ED5A816000E607A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B428FCA1ED5A816000E607A /* CoreLocation.framework */; };
 		6B5B0D1F1EC4A18200945694 /* MineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B5B0D1E1EC4A18200945694 /* MineViewController.m */; };
 		6B5B0D221EC4A66800945694 /* DaiLuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B5B0D211EC4A66800945694 /* DaiLuViewController.m */; };
@@ -169,6 +170,8 @@
 		6B2C9ADE1ECC23E3009A8C83 /* AppLocaVideoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppLocaVideoModel.m; sourceTree = "<group>"; };
 		6B2C9AEA1ECC3D6E009A8C83 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		6B2C9AEB1ECC3D6E009A8C83 /* upload.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = upload.html; sourceTree = "<group>"; };
+		6B3FB3B71ED87DC000D07050 /* AdmobModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdmobModel.h; sourceTree = "<group>"; };
+		6B3FB3B81ED87DC000D07050 /* AdmobModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdmobModel.m; sourceTree = "<group>"; };
 		6B428FC81ED5A7DA000E607A /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		6B428FCA1ED5A816000E607A /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		6B5B0D1D1EC4A18200945694 /* MineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineViewController.h; sourceTree = "<group>"; };
@@ -867,6 +870,8 @@
 			children = (
 				6BDD96421EC442B50061C196 /* AppModel.h */,
 				6BDD96431EC442B50061C196 /* AppModel.m */,
+				6B3FB3B71ED87DC000D07050 /* AdmobModel.h */,
+				6B3FB3B81ED87DC000D07050 /* AdmobModel.m */,
 				6B666AB01EBC80CF00AA5C75 /* VideoModel.h */,
 				6B666AB11EBC80CF00AA5C75 /* VideoModel.m */,
 				6BDD96391EC440300061C196 /* VideoUrlModel.h */,
@@ -1216,6 +1221,7 @@
 			files = (
 				6B8A70751EBD774000CFFB62 /* UIView+CustomControlView.m in Sources */,
 				6B666A9E1EBC808600AA5C75 /* MJRefreshComponent.m in Sources */,
+				6B3FB3B91ED87DC000D07050 /* AdmobModel.m in Sources */,
 				6B2C9ADF1ECC23E3009A8C83 /* AppLocaVideoModel.m in Sources */,
 				6B9CB0CF1ECDA7BD0030FCB3 /* CollectionViewController.m in Sources */,
 				6BDD96491EC4488E0061C196 /* AppUnitl.m in Sources */,

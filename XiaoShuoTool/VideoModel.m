@@ -16,6 +16,7 @@
         self.time = [aDecoder decodeObjectForKey:@"time"];
         self.url = [aDecoder decodeObjectForKey:@"url"];
         self.img = [aDecoder decodeObjectForKey:@"img"];
+        self.baseUrl = [aDecoder decodeObjectForKey:@"baseUrl"];
     }
     return self;
 }
@@ -24,5 +25,6 @@
     [aCoder encodeObject:self.time forKey:@"time"];
     [aCoder encodeObject:self.url forKey:@"url"];
     [aCoder encodeObject:self.img forKey:@"img"];
+    [aCoder encodeObject:self.baseUrl forKey:@"baseUrl"];
 }
 @end

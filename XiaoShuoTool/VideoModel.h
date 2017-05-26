@@ -14,4 +14,5 @@
 @property (nonatomic, strong) NSString *time;
 @property (nonatomic, strong) NSString *url;
 @property (nonatomic, strong) NSString *img;
+@property (nonatomic, strong) NSString *baseUrl;
 @end

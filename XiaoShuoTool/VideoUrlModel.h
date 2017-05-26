@@ -17,6 +17,5 @@
 @property(nonatomic,assign) int downloadintegral;
 @property(nonatomic,assign) int collectintegral;
 @property(nonatomic,strong) NSString *key;
-@property(nonatomic,strong) NSString *baseUrl;
 @property(nonatomic,strong) NSMutableArray *videoArray;
 @end

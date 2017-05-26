@@ -9,9 +9,9 @@
 #import <Foundation/Foundation.h>
 
 @interface VideoPlayModel : NSObject
-
+@property(nonatomic,strong) NSString *baseUrl;
 @property(nonatomic,strong) NSString *videoTitle;
 @property(nonatomic,strong) NSString *videoUrl;
 @property(nonatomic,assign) int vdieoMaxIndex;
-
+@property(nonatomic,assign) BOOL isPron;
 @end
