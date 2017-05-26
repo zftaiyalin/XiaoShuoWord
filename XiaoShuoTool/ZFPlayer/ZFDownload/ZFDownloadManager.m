@@ -20,7 +20,7 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
-
+#import "AppUnitl.h"
 #import "ZFDownloadManager.h"
 
 static ZFDownloadManager *sharedDownloadManager = nil;
@@ -125,22 +125,39 @@ static ZFDownloadManager *sharedDownloadManager = nil;
         return;
     }
     
-    // 若不存在文件和临时文件，则是新的下载
-    [self.filelist addObject:_fileInfo];
-    // 开始下载
-    [self startLoad];
-    
-    if (self.VCdelegate && [self.VCdelegate respondsToSelector:@selector(allowNextRequest)]) {
-        [self.VCdelegate allowNextRequest];
-    } else {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示" message:@"该文件成功添加到下载队列" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+    if ([[AppUnitl sharedManager] getWatchQuanxian:[AppUnitl sharedManager].model.video.downloadintegral]) {
+        // 若不存在文件和临时文件，则是新的下载
+        [self.filelist addObject:_fileInfo];
+        // 开始下载
+        [self startLoad];
+        
+        if (self.VCdelegate && [self.VCdelegate respondsToSelector:@selector(allowNextRequest)]) {
+            [self.VCdelegate allowNextRequest];
+        } else {
+            NSString *message =[NSString stringWithFormat:@"添加下载成功，扣除%d积分",[AppUnitl sharedManager].model.video.downloadintegral];
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示" message:message delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [alert show];
+            });
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)( 0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [alert dismissWithClickedButtonIndex:0 animated:YES];
+            });
+        }
+    }else{
+        NSString *message =[NSString stringWithFormat:@"添加下载失败，需要%d积分",[AppUnitl sharedManager].model.video.downloadintegral];
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示" message:message delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         dispatch_async(dispatch_get_main_queue(), ^{
             [alert show];
         });
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)( 0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [alert dismissWithClickedButtonIndex:0 animated:YES];
         });
+    
     }
+    
+   
     return;
     
 }

@@ -26,6 +26,7 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import "UIView+CustomControlView.h"
 #import "MMMaterialDesignSpinner.h"
+#import "NSObject+ALiHUD.h"
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored"-Wdeprecated-declarations"
@@ -407,28 +408,44 @@ static const CGFloat ZFPlayerControlBarAutoFadeOutTimeInterval = 0.35f;
 //    if ([self.delegate respondsToSelector:@selector(zf_controlView:collectAction:)]) {
 //        [self.delegate zf_controlView:self collectAction:sender];
 //    }
-    NSData *data = [[NSUserDefaults standardUserDefaults]objectForKey:@"mycollection"];
-    NSArray *array = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-    NSMutableArray *arr = [NSMutableArray arrayWithArray:array];
-    if (self.isCollect) {
-        int index = 0;
-        for (VideoModel *model in arr) {
-            if ([model.url isEqualToString:self.videoModel.url]) {
-                break;
+    
+    if ([[AppUnitl sharedManager] getWatchQuanxian:[AppUnitl sharedManager].model.video.collectintegral]) {
+        NSData *data = [[NSUserDefaults standardUserDefaults]objectForKey:@"mycollection"];
+        NSArray *array = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+        NSMutableArray *arr = [NSMutableArray arrayWithArray:array];
+        if (self.isCollect) {
+            int index = 0;
+            for (VideoModel *model in arr) {
+                if ([model.url isEqualToString:self.videoModel.url]) {
+                    break;
+                }
+                index ++;
             }
-            index ++;
+            
+            [arr removeObjectAtIndex:index];
+            [self.collectBtn setImage:[UIImage imageNamed:@"unsoucang.png"] forState:UIControlStateNormal];
+        }else{
+            [arr addObject:self.videoModel];
+            [self.collectBtn setImage:[UIImage imageNamed:@"soucang.png"] forState:UIControlStateNormal];
         }
         
-        [arr removeObjectAtIndex:index];
-        [self.collectBtn setImage:[UIImage imageNamed:@"unsoucang.png"] forState:UIControlStateNormal];
+        NSData * tempArchive = [NSKeyedArchiver archivedDataWithRootObject:arr];
+        [[NSUserDefaults standardUserDefaults]setObject:tempArchive forKey:@"mycollection"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        [self showSuccessText:[NSString stringWithFormat:@"收藏成功,扣除%d积分",[AppUnitl sharedManager].model.video.collectintegral]];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self dismissLoading];
+        });
     }else{
-        [arr addObject:self.videoModel];
-        [self.collectBtn setImage:[UIImage imageNamed:@"soucang.png"] forState:UIControlStateNormal];
+        [self showErrorText:[NSString stringWithFormat:@"收藏失败,需要%d积分",[AppUnitl sharedManager].model.video.collectintegral]];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self dismissLoading];
+        });
+    
     }
     
-    NSData * tempArchive = [NSKeyedArchiver archivedDataWithRootObject:arr];
-    [[NSUserDefaults standardUserDefaults]setObject:tempArchive forKey:@"mycollection"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    
 }
 
 - (void)fullScreenBtnClick:(UIButton *)sender {
@@ -450,6 +467,7 @@ static const CGFloat ZFPlayerControlBarAutoFadeOutTimeInterval = 0.35f;
 - (void)downloadBtnClick:(UIButton *)sender {
     
     if (AppUnitl.sharedManager.isDownLoad) {
+        
         if ([self.delegate respondsToSelector:@selector(zf_controlView:downloadVideoAction:)]) {
             [self.delegate zf_controlView:self downloadVideoAction:sender];
         }

@@ -213,14 +213,14 @@
     
 }
 
--(BOOL)getWatchQuanxian{
+-(BOOL)getWatchQuanxian:(int)jian{
     NSString *jifen = [[NSUserDefaults standardUserDefaults]objectForKey:@"myintegral"];
     
     int jj = jifen.intValue;
     
     
-    if (jj >= self.model.video.wkintegral) {
-        jj -= self.model.video.wkintegral;
+    if (jj >= jian) {
+        jj -= jian;
         [[NSUserDefaults standardUserDefaults]setObject:[NSString stringWithFormat:@"%d",jj] forKey:@"myintegral"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         return YES;

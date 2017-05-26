@@ -89,13 +89,14 @@ static NSString * const reuseIdentifier = @"collectionViewCell";
             if (htmlString) {
                 OCGumboDocument *iosfeedDoc = [[OCGumboDocument alloc] initWithHTMLString:htmlString];
                 NSArray *rows = iosfeedDoc.body.Query(@"div.main-content").find(@"div.video-item");
-                YouJiVideoModel *array = [[YouJiVideoModel alloc]init];
+                
                 
                 if (isRefresh) {
                     index = 0;
                     [self.videoModelArray removeAllObjects];
                 }
-                
+                NSMutableArray *muArray = [NSMutableArray array];
+                NSMutableArray *urlArray = [NSMutableArray array];
                 for (OCGumboNode *row in rows) {
                     OCGumboNode *title = row.Query(@".video-title").first();
                     NSLog(@"title:[%@]", title.text());
@@ -113,9 +114,16 @@ static NSString * const reuseIdentifier = @"collectionViewCell";
                     model.time = time.text();
                     model.img = img.attr(@"data-original");
                     
+                    [muArray addObject:model];
+                    [urlArray addObject:model.url];
+                }
+                
+                
+                YouJiVideoModel *array = [[YouJiVideoModel alloc]init];
+                for (VideoModel * model in [self chanceChongfu:muArray andUrl:urlArray]) {
                     [array.videoModel addObject:model];
                     if (array.videoModel.count == 5) {
-                 
+                        
                         [self.videoModelArray addObject:array];
                         array = [[YouJiVideoModel alloc]init];
                     }
@@ -136,15 +144,50 @@ static NSString * const reuseIdentifier = @"collectionViewCell";
 
 }
 
+-(NSMutableArray *)chanceChongfu:(NSMutableArray *)array andUrl:(NSMutableArray *)urlArray{
+
+
+    
+    NSMutableArray *muarray = [NSMutableArray array];
+    NSSet *set = [NSSet setWithArray:urlArray];
+    NSLog(@"%@",[set allObjects]);
+    
+    for (NSString *string in [set allObjects]) {
+        for (VideoModel * model in array) {
+            if ([model.url isEqualToString:string]) {
+                [muarray addObject:model];
+                break;
+            }
+        }
+    }
+    
+    return muarray;
+    
+}
+
 -(BOOL)reloadVideoArray{
     
     if (self.videoModelArray.count > index) {
-        [self.tableModelArray addObject:[self.videoModelArray objectAtIndex:index]];
-        [_tableView reloadData];
-        [_tableView.mj_footer endRefreshing];
-        [_tableView.mj_header endRefreshing];
-        index ++;
-        return NO;
+        if ([[AppUnitl sharedManager] getWatchQuanxian:AppUnitl.sharedManager.model.video.refreshintegral]) {
+            [self.tableModelArray addObject:[self.videoModelArray objectAtIndex:index]];
+            [_tableView reloadData];
+            [_tableView.mj_footer endRefreshing];
+            [_tableView.mj_header endRefreshing];
+            index ++;
+            
+            self.title = [NSString stringWithFormat:@"积分%d",[AppUnitl sharedManager].getMyintegral];
+            return NO;
+        }else{
+            NSString *string = [[NSString alloc]initWithFormat:@"当前积分不足,获取资源需要%d积分",[AppUnitl sharedManager].model.video.refreshintegral];
+            [self showErrorText:string];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self dismissLoading];
+            });
+            [_tableView.mj_footer endRefreshing];
+            [_tableView.mj_header endRefreshing];
+            
+         return NO;
+        }
     }else{
         return YES;
     }
@@ -205,6 +248,8 @@ static NSString * const reuseIdentifier = @"collectionViewCell";
         NSLog(@"是否有效：%@",message);
     }];
     }
+    
+    
 
 }
 - (void)viewDidLoad {
@@ -216,7 +261,7 @@ static NSString * const reuseIdentifier = @"collectionViewCell";
     self.pageIndex = (arc4random() % _model.vdieoMaxIndex)+1;
 //    self.title = @"首页";
     UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithTitle:@"获取积分" style:UIBarButtonItemStylePlain target:self action:@selector(huoqujifen)];
-    
+    self.title = [NSString stringWithFormat:@"积分%d",[AppUnitl sharedManager].getMyintegral];
     self.navigationItem.rightBarButtonItem = item;
     self.view.backgroundColor = [UIColor whiteColor];
 
@@ -281,6 +326,7 @@ static NSString * const reuseIdentifier = @"collectionViewCell";
     if (![[GADRewardBasedVideoAd sharedInstance] isReady]) {
         [self requestRewardedVideo];
     }
+    self.title = [NSString stringWithFormat:@"积分%d",[AppUnitl sharedManager].getMyintegral];
     [MobClick beginLogPageView:@"进入老司机页面"];
 }
 
@@ -355,7 +401,7 @@ static NSString * const reuseIdentifier = @"collectionViewCell";
     
     
     
-    if ([[AppUnitl sharedManager] getWatchQuanxian]) {
+    if ([[AppUnitl sharedManager] getWatchQuanxian:AppUnitl.sharedManager.model.video.wkintegral]) {
         
         NSString *string = [[NSString alloc]initWithFormat:@"使用%d积分,剩余%d积分!",[AppUnitl sharedManager].model.video.wkintegral,[[AppUnitl sharedManager] getMyintegral]];
         [self showSuccessText:string];

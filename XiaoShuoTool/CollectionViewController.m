@@ -161,7 +161,7 @@
     
     
     
-    if ([[AppUnitl sharedManager] getWatchQuanxian]) {
+    if ([[AppUnitl sharedManager] getWatchQuanxian:AppUnitl.sharedManager.model.video.wkintegral]) {
         
         NSString *string = [[NSString alloc]initWithFormat:@"使用%d积分,剩余%d积分!",[AppUnitl sharedManager].model.video.wkintegral,[[AppUnitl sharedManager] getMyintegral]];
         [self showSuccessText:string];

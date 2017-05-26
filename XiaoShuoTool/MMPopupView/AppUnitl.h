@@ -21,7 +21,7 @@
 + (long long) fileSizeAtPath:(NSString*) filePath;
 +(int)compareOneDay:(NSDate *)oneDay withAnotherDay:(NSDate *)anotherDay;
 + (BOOL)dateTimeDifferenceWithStartTime:(NSString *)startTime endTime:(NSString *)endTime;
--(BOOL)getWatchQuanxian;
+-(BOOL)getWatchQuanxian:(int)jian;
 -(void)addMyintegral:(int) jifen;
 -(int)getMyintegral;
 +(BOOL)addCodeToJifen:(NSArray *)dateArray;

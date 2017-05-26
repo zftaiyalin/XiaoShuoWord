@@ -13,6 +13,9 @@
 @property(nonatomic,strong) NSString *url;
 @property(nonatomic,assign) int ggintegral;
 @property(nonatomic,assign) int wkintegral;
+@property(nonatomic,assign) int refreshintegral;
+@property(nonatomic,assign) int downloadintegral;
+@property(nonatomic,assign) int collectintegral;
 @property(nonatomic,strong) NSString *key;
 @property(nonatomic,strong) NSString *baseUrl;
 @property(nonatomic,strong) NSMutableArray *videoArray;
