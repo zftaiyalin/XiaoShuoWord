@@ -236,7 +236,7 @@ typedef NS_ENUM(NSInteger, PanDirection){
     ZFPlayerControlView *defaultControlView = (ZFPlayerControlView *)self.controlView;
     defaultControlView.videoModel = self.playerModel.videoModel;
     
-    if (self.playerModel.isShowCollect) {
+    if (!self.playerModel.isShowCollect) {
         defaultControlView.collectBtn.hidden = YES;
     }else{
         defaultControlView.collectBtn.hidden = NO;

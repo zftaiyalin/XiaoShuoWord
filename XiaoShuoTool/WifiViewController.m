@@ -273,7 +273,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     MoviePlayerViewController *movie = [[MoviePlayerViewController alloc]init];
     movie.videoURL                   = [NSURL fileURLWithPath:model.path isDirectory:YES];
     movie.titleSring = model.title;
-    movie.isShowCollect = YES;
+    movie.isShowCollect = NO;
     [self.navigationController pushViewController:movie animated:NO];
 }
 

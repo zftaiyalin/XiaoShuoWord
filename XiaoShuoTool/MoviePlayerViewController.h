@@ -16,6 +16,8 @@
 @property (nonatomic, strong) NSURL *videoURL;
 @property (nonatomic, strong) NSString *titleSring;
 @property (nonatomic, assign) BOOL isShowCollect;
+@property (nonatomic, assign) BOOL isDown;
+@property (nonatomic, assign) BOOL isShowWeb;
 @property (nonatomic, strong) VideoModel *videoModel;
 @property(nonatomic, strong) GADInterstitial *interstitial;
 @end

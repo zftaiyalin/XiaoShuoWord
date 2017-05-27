@@ -22,6 +22,7 @@
 @property (nonatomic, assign) BOOL isPlaying;
 @property (nonatomic, strong) ZFPlayerModel *playerModel;
 @property (nonatomic, strong) UIView *bottomView;
+@property(nonatomic,strong)UIWebView *webView;
 //@property (strong, nonatomic) UIButton *backBtn;
 
 @end
@@ -70,20 +71,25 @@
     // Do any additional setup after loading the view.
     self.zf_prefersNavigationBarHidden = YES;
     self.view.backgroundColor = [UIColor blackColor];
-    self.playerFatherView = [[UIView alloc]init];
-    [self.view addSubview:self.playerFatherView];
     
-    [self.playerFatherView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.view);
-        make.left.equalTo(self.view);
-        make.width.equalTo(self.view);
-        make.height.mas_equalTo(ScreenWidth*9/16);
-    }];
 
+
+        
+        self.playerFatherView = [[UIView alloc]init];
+        [self.view addSubview:self.playerFatherView];
+        
+        [self.playerFatherView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(self.view);
+            make.left.equalTo(self.view);
+            make.width.equalTo(self.view);
+            make.height.mas_equalTo(ScreenWidth*9/16);
+        }];
+        
+        // 自动播放，默认不自动播放
+        [self.playerView autoPlayTheVideo];
+        [self createAndLoadInterstitial];
     
-    // 自动播放，默认不自动播放
-    [self.playerView autoPlayTheVideo];
-    [self createAndLoadInterstitial];
+    
 }
 
 
@@ -240,7 +246,7 @@
         // _playerView.playerLayerGravity = ZFPlayerLayerGravityResize;
         
         // 打开下载功能（默认没有这个功能）
-        _playerView.hasDownload    = YES;
+        _playerView.hasDownload    = self.isDown;
         
         // 打开预览图
         self.playerView.hasPreviewView = YES;

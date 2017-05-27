@@ -22,8 +22,8 @@
 #import "OCGumbo+Query.h"
 #import "VideoModel.h"
 
-@interface AppDelegate ()<BaiduMobAdSplashDelegate>
-@property (nonatomic, strong) BaiduMobAdSplash *splash;
+@interface AppDelegate ()
+
 
 @end
 
@@ -41,14 +41,7 @@
     [UMVideoAd videoIsForceLandscape:NO];
     [UMVideoAd videosetCloseAlertContent:@"中途退出没有积分奖励哦"];
     
-    BaiduMobAdSplash *splash = [[BaiduMobAdSplash alloc] init];
-    splash.delegate = self;
-    splash.AdUnitTag = @"2058492";
-    splash.canSplashClick = YES;
-    self.splash = splash;
 
-    
-    
     UMConfigInstance.appKey = @"591d390d65b6d63c4c002623";
     UMConfigInstance.channelId = @"App Store";
     [MobClick startWithConfigure:UMConfigInstance];//配置以上参数后调用此方法初始化SDK！
@@ -63,77 +56,40 @@
     NSString *ss = [NSString stringWithFormat:@"http://opmams01o.bkt.clouddn.com/videoPlayer.json?v=%@",currentDateString];
     NSURL *xcfURL = [NSURL URLWithString:ss];
     NSString *htmlString = [NSString stringWithContentsOfURL:xcfURL encoding:NSUTF8StringEncoding error:&error];
+    
+    
+
+    
+//    xcfURL = [NSURL URLWithString:@"https://www.pornhub.com/video/search?search=japan"];
+//    htmlString = [NSString stringWithContentsOfURL:xcfURL encoding:NSUTF8StringEncoding error:&error];
 //    NSLog(@"%@", htmlString);
-    
 //
-//    NSError *error = nil;
-    //    https://www.youjizz.com/most-popular/2.html
-    xcfURL = [NSURL URLWithString:@"https://www.pornhub.com/video/search?search=japan"];
-    htmlString = [NSString stringWithContentsOfURL:xcfURL encoding:NSUTF8StringEncoding error:&error];
-    NSLog(@"%@", htmlString);
-    
-    NSData *htmlData = [[NSData alloc] initWithContentsOfURL:xcfURL];
-    
-    NSString *ssss = [[NSString alloc]initWithData:htmlData encoding:NSUTF8StringEncoding];
-    
-    NSLog(@"=========%@", ssss);
-    
-    OCGumboDocument *iosfeedDoc = [[OCGumboDocument alloc] initWithHTMLString:htmlString];
-    
-    NSString *title = iosfeedDoc.title;
-//    NSLog(@"%@", title);
-//    OCGumboElement *em = iosfeedDoc.rootElement;
-    NSArray *rows = iosfeedDoc.Query(@"li.videoBox");
-    
-    
-    
-    
-    for (OCGumboNode *row in rows) {
-//        OCGumboNode *title = row.Query(@".title").first();
-//        NSLog(@"title:[%@]", title.text());
-        OCGumboNode *link = row.Query(@"div.videoPreviewBg").find(@"img").first();
-//        NSLog(@"from:(%@)",link.attr(@"href"));
-//        NSLog(@"title:[%@]", link.attr(@"title"));
-//        OCGumboNode *time = row.Query(@".img").first();
-        NSLog(@"title:[%@]", link.attr(@"data-path"));
-        OCGumboNode *slink = row.Query(@"div.phimage").find(@"a").first();
-        NSLog(@"link:[%@]", slink.attr(@"href"));
-         NSLog(@"title:[%@]", slink.attr(@"title"));
-//        NSLog(@"link:[%@]", link.attr(@"data-path"));
-//        OCGumboNode *img = row.Query(@".img-responsive").first();
-//        NSLog(@"title:[%@]", img.attr(@"data-original"));
-        //            NSLog(@"by %@ \n", row.Query(@"p.meta").children(@"a").get(1).text());
-        
-//        VideoModel *model = [[VideoModel alloc]init];
-//        model.url = link.attr(@"href");
-//        model.title = title.text();
-//        model.time = time.text();
-//        model.img = img.attr(@"data-original");
-//        
-//        [muArray addObject:model];
-//        [urlArray addObject:model.url];
-    }
+//    OCGumboDocument *iosfeedDoc = [[OCGumboDocument alloc] initWithHTMLString:htmlString];
+//
+//    NSArray *rows = iosfeedDoc.Query(@"li.videoBox");
+//
+//    for (OCGumboNode *row in rows) {
+//
+//        OCGumboNode *link = row.Query(@"div.videoPreviewBg").find(@"img").first();
+//        NSLog(@"title:[%@]", link.attr(@"data-path"));
+//        OCGumboNode *slink = row.Query(@"div.phimage").find(@"a").first();
+//        NSLog(@"link:[%@]", slink.attr(@"href"));
+//         NSLog(@"title:[%@]", slink.attr(@"title"));
+//    }
     
     
     
     AppModel *model = [AppModel yy_modelWithJSON:htmlString];
-    NSLog(@"%@", model);
     
     
+
+
     
     AppUnitl.sharedManager.model = model;
     AppUnitl.sharedManager.isDownLoad = YES;
     AppUnitl.sharedManager.model.wetchat.isShow = YES;
 
 
-    
-    NSString * hhh =[AES128Util AES128Encrypt:@"video/search?search=japanese&page=" key:AppUnitl.sharedManager.model.video.key];
-    NSLog(@"%@", hhh);
-    
-
-    
-    
-//    pLabDate.text  = [NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:date1]];
 
     NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:@"mycollection"];
     

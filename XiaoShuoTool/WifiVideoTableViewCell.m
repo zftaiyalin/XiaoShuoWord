@@ -100,7 +100,13 @@
 -(void)loadVideoData:(VideoModel *)model{
     titleLabel.text = model.title;
     timeLabel.text = model.time;
-    NSString *image = [[NSString alloc]initWithFormat:@"https:%@",model.img];
+    NSString *image;
+    if ([model.img rangeOfString:@"https"].length > 0) {
+        image = [[NSString alloc]initWithFormat:@"%@",model.img];
+    }else{
+        image = [[NSString alloc]initWithFormat:@"https:%@",model.img];
+    }
+    
     [imageView setImageWithURLString:image placeholder:ZFPlayerImage(@"ZFPlayer_loading_bgView")];
 }
 @end

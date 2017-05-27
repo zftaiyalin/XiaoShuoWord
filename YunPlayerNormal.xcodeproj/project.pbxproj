@@ -16,8 +16,6 @@
 		6B428FCB1ED5A816000E607A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B428FCA1ED5A816000E607A /* CoreLocation.framework */; };
 		6B5B0D1F1EC4A18200945694 /* MineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B5B0D1E1EC4A18200945694 /* MineViewController.m */; };
 		6B5B0D221EC4A66800945694 /* DaiLuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B5B0D211EC4A66800945694 /* DaiLuViewController.m */; };
-		6B5CF8E51ED48709008484CB /* baidumobadsdk.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6B5CF8E41ED48709008484CB /* baidumobadsdk.bundle */; };
-		6B5CF8E71ED48786008484CB /* BaiduMobAdSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B5CF8E61ED48786008484CB /* BaiduMobAdSDK.framework */; };
 		6B5E67C11EC098B200A4D59E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B5E67C01EC098B200A4D59E /* SystemConfiguration.framework */; };
 		6B5E67C31EC098BB00A4D59E /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B5E67C21EC098BB00A4D59E /* CFNetwork.framework */; };
 		6B5E67C51EC098C400A4D59E /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B5E67C41EC098C400A4D59E /* MediaPlayer.framework */; };
@@ -76,6 +74,7 @@
 		6B70DB061EC1732000EB09FC /* NSObject+ALiHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B70DB051EC1732000EB09FC /* NSObject+ALiHUD.m */; };
 		6B70DB091EC173A200EB09FC /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B70DB081EC173A200EB09FC /* SearchViewController.m */; };
 		6B7ECFFA1ECEC57D00FDBA14 /* DNPayAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B7ECFF91ECEC57D00FDBA14 /* DNPayAlertView.m */; };
+		6B8473801ED91B4E007B7622 /* libFanYiSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B84737F1ED91B4E007B7622 /* libFanYiSDK.a */; };
 		6B8A706F1EBD774000CFFB62 /* ASValuePopUpView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B8A70501EBD774000CFFB62 /* ASValuePopUpView.m */; };
 		6B8A70701EBD774000CFFB62 /* ASValueTrackingSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B8A70521EBD774000CFFB62 /* ASValueTrackingSlider.m */; };
 		6B8A70711EBD774000CFFB62 /* UIAlertController+ZFPlayerRotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B8A70551EBD774000CFFB62 /* UIAlertController+ZFPlayerRotation.m */; };
@@ -178,8 +177,6 @@
 		6B5B0D1E1EC4A18200945694 /* MineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineViewController.m; sourceTree = "<group>"; };
 		6B5B0D201EC4A66800945694 /* DaiLuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DaiLuViewController.h; sourceTree = "<group>"; };
 		6B5B0D211EC4A66800945694 /* DaiLuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DaiLuViewController.m; sourceTree = "<group>"; };
-		6B5CF8E41ED48709008484CB /* baidumobadsdk.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = baidumobadsdk.bundle; sourceTree = "<group>"; };
-		6B5CF8E61ED48786008484CB /* BaiduMobAdSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BaiduMobAdSDK.framework; sourceTree = "<group>"; };
 		6B5E67C01EC098B200A4D59E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		6B5E67C21EC098BB00A4D59E /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		6B5E67C41EC098C400A4D59E /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
@@ -281,6 +278,8 @@
 		6B70DB081EC173A200EB09FC /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		6B7ECFF81ECEC57D00FDBA14 /* DNPayAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNPayAlertView.h; sourceTree = "<group>"; };
 		6B7ECFF91ECEC57D00FDBA14 /* DNPayAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DNPayAlertView.m; sourceTree = "<group>"; };
+		6B84737E1ED91B4E007B7622 /* FanYiSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FanYiSDK.h; sourceTree = "<group>"; };
+		6B84737F1ED91B4E007B7622 /* libFanYiSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFanYiSDK.a; sourceTree = "<group>"; };
 		6B8A704F1EBD774000CFFB62 /* ASValuePopUpView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASValuePopUpView.h; sourceTree = "<group>"; };
 		6B8A70501EBD774000CFFB62 /* ASValuePopUpView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASValuePopUpView.m; sourceTree = "<group>"; };
 		6B8A70511EBD774000CFFB62 /* ASValueTrackingSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASValueTrackingSlider.h; sourceTree = "<group>"; };
@@ -472,8 +471,8 @@
 				6B5E67C31EC098BB00A4D59E /* CFNetwork.framework in Frameworks */,
 				6B5E67C11EC098B200A4D59E /* SystemConfiguration.framework in Frameworks */,
 				6B666A6A1EBC806E00AA5C75 /* libGumbo.a in Frameworks */,
-				6B5CF8E71ED48786008484CB /* BaiduMobAdSDK.framework in Frameworks */,
 				6B5E67DE1EC0999E00A4D59E /* UMVideoSDK.a in Frameworks */,
+				6B8473801ED91B4E007B7622 /* libFanYiSDK.a in Frameworks */,
 				832C69552ECF7962D408986A /* libPods-YunPlayerNormal.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -929,8 +928,8 @@
 		E803C75B1CF57793001BB402 /* XiaoShuoTool */ = {
 			isa = PBXGroup;
 			children = (
-				6B5CF8E61ED48786008484CB /* BaiduMobAdSDK.framework */,
-				6B5CF8E41ED48709008484CB /* baidumobadsdk.bundle */,
+				6B84737E1ED91B4E007B7622 /* FanYiSDK.h */,
+				6B84737F1ED91B4E007B7622 /* libFanYiSDK.a */,
 				6B7ECFF71ECEC57D00FDBA14 /* DNPayAlertView */,
 				6B2C9AE91ECC3D6E009A8C83 /* web */,
 				6B8B53631ECBEA8F00EEDAA4 /* Core */,
@@ -1100,8 +1099,8 @@
 				TargetAttributes = {
 					E803C7581CF57793001BB402 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = WD9BF79VSR;
-						ProvisioningStyle = Manual;
+						DevelopmentTeam = BW3X4QNV6N;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -1144,7 +1143,6 @@
 				6B8B53A41ECBEA8F00EEDAA4 /* About.txt in Resources */,
 				6B8B53AC1ECBEA8F00EEDAA4 /* README.txt in Resources */,
 				6B70DAF31EC160EF00EB09FC /* HUD_info@3x.png in Resources */,
-				6B5CF8E51ED48709008484CB /* baidumobadsdk.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1178,8 +1176,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "
-";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-YunPlayerNormal/Pods-YunPlayerNormal-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		798BC49CDB82FBCC00DB67A0 /* Embed Pods Frameworks */ = {
@@ -1450,7 +1447,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = WD9BF79VSR;
+				DEVELOPMENT_TEAM = BW3X4QNV6N;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/XiaoShuoTool",
@@ -1464,11 +1461,12 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/XiaoShuoTool/OCGumboRelease/gumbo",
 					"$(PROJECT_DIR)/XiaoShuoTool/lib",
+					"$(PROJECT_DIR)/XiaoShuoTool",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.anfeng.zhainanplayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "466ce140-ee8a-4c4a-b659-cf3e903f7194";
-				PROVISIONING_PROFILE_SPECIFIER = com.anfeng.zhainanplayer;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
@@ -1479,7 +1477,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = WD9BF79VSR;
+				DEVELOPMENT_TEAM = BW3X4QNV6N;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/XiaoShuoTool",
@@ -1493,11 +1491,12 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/XiaoShuoTool/OCGumboRelease/gumbo",
 					"$(PROJECT_DIR)/XiaoShuoTool/lib",
+					"$(PROJECT_DIR)/XiaoShuoTool",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.anfeng.zhainanplayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "466ce140-ee8a-4c4a-b659-cf3e903f7194";
-				PROVISIONING_PROFILE_SPECIFIER = com.anfeng.zhainanplayer;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};
