@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UMVideoAd.h"
 
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>

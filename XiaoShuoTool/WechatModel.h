@@ -9,8 +9,11 @@
 #import <Foundation/Foundation.h>
 
 @interface WechatModel : NSObject
-@property(nonatomic,strong)NSString *url;
+@property(nonatomic,strong)NSString *wechatnick;
 @property(nonatomic,strong)NSString *wetchatTitle;
-@property(nonatomic,strong)NSString *alter;
+@property(nonatomic,strong)NSString *wetchatalter;
+@property(nonatomic,strong)NSString *groupUin;
+@property(nonatomic,strong)NSString *key;
+@property(nonatomic,assign)BOOL isWetchat;
 @property(nonatomic,assign)BOOL isShow;
 @end

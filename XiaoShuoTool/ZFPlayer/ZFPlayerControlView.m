@@ -432,12 +432,13 @@ static const CGFloat ZFPlayerControlBarAutoFadeOutTimeInterval = 0.35f;
         NSData * tempArchive = [NSKeyedArchiver archivedDataWithRootObject:arr];
         [[NSUserDefaults standardUserDefaults]setObject:tempArchive forKey:@"mycollection"];
         [[NSUserDefaults standardUserDefaults] synchronize];
-        
+        [MobClick event:@"收藏视频"];
         [self showSuccessText:[NSString stringWithFormat:@"收藏成功,扣除%d积分",[AppUnitl sharedManager].model.video.collectintegral]];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self dismissLoading];
         });
     }else{
+        
         [self showErrorText:[NSString stringWithFormat:@"收藏失败,需要%d积分",[AppUnitl sharedManager].model.video.collectintegral]];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self dismissLoading];
@@ -467,7 +468,7 @@ static const CGFloat ZFPlayerControlBarAutoFadeOutTimeInterval = 0.35f;
 - (void)downloadBtnClick:(UIButton *)sender {
     
     if (AppUnitl.sharedManager.isDownLoad) {
-        
+        [MobClick event:@"下载视频"];
         if ([self.delegate respondsToSelector:@selector(zf_controlView:downloadVideoAction:)]) {
             [self.delegate zf_controlView:self downloadVideoAction:sender];
         }

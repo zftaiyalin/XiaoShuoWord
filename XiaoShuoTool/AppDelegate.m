@@ -32,15 +32,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    
-    [UMVideoAd initAppID:@"452daca28d91e51a" appKey:@"300195c14eacd089" cacheVideo:YES];
-    //开启非wifi预缓存视频文件
-    [UMVideoAd videoDownloadOnUNWifi:YES];
-    [UMVideoAd videoShowProgressTime:YES];
-    [UMVideoAd hideDetailViewReplayBtn:NO];
-    [UMVideoAd videoIsForceLandscape:NO];
-    [UMVideoAd videosetCloseAlertContent:@"中途退出没有积分奖励哦"];
-    
 
     UMConfigInstance.appKey = @"591d390d65b6d63c4c002623";
     UMConfigInstance.channelId = @"App Store";
@@ -57,38 +48,15 @@
     NSURL *xcfURL = [NSURL URLWithString:ss];
     NSString *htmlString = [NSString stringWithContentsOfURL:xcfURL encoding:NSUTF8StringEncoding error:&error];
     
-    
-
-    
-//    xcfURL = [NSURL URLWithString:@"https://www.pornhub.com/video/search?search=japan"];
-//    htmlString = [NSString stringWithContentsOfURL:xcfURL encoding:NSUTF8StringEncoding error:&error];
-//    NSLog(@"%@", htmlString);
-//
-//    OCGumboDocument *iosfeedDoc = [[OCGumboDocument alloc] initWithHTMLString:htmlString];
-//
-//    NSArray *rows = iosfeedDoc.Query(@"li.videoBox");
-//
-//    for (OCGumboNode *row in rows) {
-//
-//        OCGumboNode *link = row.Query(@"div.videoPreviewBg").find(@"img").first();
-//        NSLog(@"title:[%@]", link.attr(@"data-path"));
-//        OCGumboNode *slink = row.Query(@"div.phimage").find(@"a").first();
-//        NSLog(@"link:[%@]", slink.attr(@"href"));
-//         NSLog(@"title:[%@]", slink.attr(@"title"));
-//    }
-    
-    
-    
-    AppModel *model = [AppModel yy_modelWithJSON:htmlString];
-    
-    
-
-
-    
+    AppModel *model = [AppModel yy_modelWithJSON:htmlString];    
     AppUnitl.sharedManager.model = model;
     AppUnitl.sharedManager.isDownLoad = YES;
-    AppUnitl.sharedManager.model.wetchat.isShow = YES;
-
+//    AppUnitl.sharedManager.model.wetchat.isShow = YES;
+    if (AppUnitl.sharedManager.model.wetchat.isShow) {
+        if (![[NSUserDefaults standardUserDefaults] objectForKey:@"pinglun"]) {
+            AppUnitl.sharedManager.model.wetchat.isShow = NO;
+        }
+    }
 
 
     NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:@"mycollection"];

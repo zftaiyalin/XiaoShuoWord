@@ -28,8 +28,6 @@
 		6B5E67D31EC0993B00A4D59E /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B5E67D21EC0993B00A4D59E /* CoreTelephony.framework */; };
 		6B5E67D51EC0995000A4D59E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B5E67D41EC0995000A4D59E /* Security.framework */; };
 		6B5E67D71EC0995800A4D59E /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B5E67D61EC0995800A4D59E /* WebKit.framework */; };
-		6B5E67DD1EC0999E00A4D59E /* UMVideo.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6B5E67DB1EC0999E00A4D59E /* UMVideo.bundle */; };
-		6B5E67DE1EC0999E00A4D59E /* UMVideoSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B5E67DC1EC0999E00A4D59E /* UMVideoSDK.a */; };
 		6B5E67E11EC0A98800A4D59E /* YouJiVideoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B5E67E01EC0A98800A4D59E /* YouJiVideoModel.m */; };
 		6B666A6A1EBC806E00AA5C75 /* libGumbo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B666A651EBC806E00AA5C75 /* libGumbo.a */; };
 		6B666A6B1EBC806E00AA5C75 /* OCGumbo+Query.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B666A671EBC806E00AA5C75 /* OCGumbo+Query.m */; };
@@ -125,7 +123,6 @@
 		6B8B53BA1ECBEA8F00EEDAA4 /* WebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B8B539F1ECBEA8F00EEDAA4 /* WebSocket.m */; };
 		6B8B53C21ECBEAAC00EEDAA4 /* MyHttpConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B8B53C11ECBEAAC00EEDAA4 /* MyHttpConnection.m */; };
 		6B8B53C51ECBEB2600EEDAA4 /* WifiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B8B53C41ECBEB2600EEDAA4 /* WifiViewController.m */; };
-		6B9CB0CC1ECD9C230030FCB3 /* AdvertisingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B9CB0CB1ECD9C230030FCB3 /* AdvertisingViewController.m */; };
 		6B9CB0CF1ECDA7BD0030FCB3 /* CollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B9CB0CE1ECDA7BD0030FCB3 /* CollectionViewController.m */; };
 		6BDD963B1EC440300061C196 /* VideoUrlModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BDD963A1EC440300061C196 /* VideoUrlModel.m */; };
 		6BDD963E1EC441AB0061C196 /* VideoPlayModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BDD963D1EC441AB0061C196 /* VideoPlayModel.m */; };
@@ -189,9 +186,6 @@
 		6B5E67D21EC0993B00A4D59E /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		6B5E67D41EC0995000A4D59E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		6B5E67D61EC0995800A4D59E /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
-		6B5E67DA1EC0999E00A4D59E /* UMVideoAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMVideoAd.h; sourceTree = "<group>"; };
-		6B5E67DB1EC0999E00A4D59E /* UMVideo.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = UMVideo.bundle; sourceTree = "<group>"; };
-		6B5E67DC1EC0999E00A4D59E /* UMVideoSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = UMVideoSDK.a; sourceTree = "<group>"; };
 		6B5E67DF1EC0A98800A4D59E /* YouJiVideoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouJiVideoModel.h; sourceTree = "<group>"; };
 		6B5E67E01EC0A98800A4D59E /* YouJiVideoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YouJiVideoModel.m; sourceTree = "<group>"; };
 		6B666A631EBC806E00AA5C75 /* gumbo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gumbo.h; sourceTree = "<group>"; };
@@ -381,8 +375,6 @@
 		6B8B53C11ECBEAAC00EEDAA4 /* MyHttpConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyHttpConnection.m; sourceTree = "<group>"; };
 		6B8B53C31ECBEB2600EEDAA4 /* WifiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WifiViewController.h; sourceTree = "<group>"; };
 		6B8B53C41ECBEB2600EEDAA4 /* WifiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WifiViewController.m; sourceTree = "<group>"; };
-		6B9CB0CA1ECD9C230030FCB3 /* AdvertisingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdvertisingViewController.h; sourceTree = "<group>"; };
-		6B9CB0CB1ECD9C230030FCB3 /* AdvertisingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdvertisingViewController.m; sourceTree = "<group>"; };
 		6B9CB0CD1ECDA7BD0030FCB3 /* CollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewController.h; sourceTree = "<group>"; };
 		6B9CB0CE1ECDA7BD0030FCB3 /* CollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionViewController.m; sourceTree = "<group>"; };
 		6BDD96391EC440300061C196 /* VideoUrlModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoUrlModel.h; sourceTree = "<group>"; };
@@ -471,7 +463,6 @@
 				6B5E67C31EC098BB00A4D59E /* CFNetwork.framework in Frameworks */,
 				6B5E67C11EC098B200A4D59E /* SystemConfiguration.framework in Frameworks */,
 				6B666A6A1EBC806E00AA5C75 /* libGumbo.a in Frameworks */,
-				6B5E67DE1EC0999E00A4D59E /* UMVideoSDK.a in Frameworks */,
 				6B8473801ED91B4E007B7622 /* libFanYiSDK.a in Frameworks */,
 				832C69552ECF7962D408986A /* libPods-YunPlayerNormal.a in Frameworks */,
 			);
@@ -487,24 +478,6 @@
 				6B2C9AEB1ECC3D6E009A8C83 /* upload.html */,
 			);
 			path = web;
-			sourceTree = "<group>";
-		};
-		6B5E67D81EC0999E00A4D59E /* lib */ = {
-			isa = PBXGroup;
-			children = (
-				6B5E67D91EC0999E00A4D59E /* include */,
-				6B5E67DB1EC0999E00A4D59E /* UMVideo.bundle */,
-				6B5E67DC1EC0999E00A4D59E /* UMVideoSDK.a */,
-			);
-			path = lib;
-			sourceTree = "<group>";
-		};
-		6B5E67D91EC0999E00A4D59E /* include */ = {
-			isa = PBXGroup;
-			children = (
-				6B5E67DA1EC0999E00A4D59E /* UMVideoAd.h */,
-			);
-			path = include;
 			sourceTree = "<group>";
 		};
 		6B666A601EBC806E00AA5C75 /* OCGumboRelease */ = {
@@ -935,7 +908,6 @@
 				6B8B53631ECBEA8F00EEDAA4 /* Core */,
 				6B6849651EC40FFB00EC6D22 /* ASE128 */,
 				6B70DAE51EC160EF00EB09FC /* ALiHUD */,
-				6B5E67D81EC0999E00A4D59E /* lib */,
 				6B8A704E1EBD774000CFFB62 /* ZFPlayer */,
 				6B666A6D1EBC808600AA5C75 /* MJRefresh */,
 				6B666A601EBC806E00AA5C75 /* OCGumboRelease */,
@@ -967,8 +939,6 @@
 				E803C77E1CF584EC001BB402 /* JACenterViewController.m */,
 				E803C7871CF58E1B001BB402 /* XiaoshuoViewController.h */,
 				E803C7881CF58E1B001BB402 /* XiaoshuoViewController.m */,
-				6B9CB0CA1ECD9C230030FCB3 /* AdvertisingViewController.h */,
-				6B9CB0CB1ECD9C230030FCB3 /* AdvertisingViewController.m */,
 				6B70DB071EC173A200EB09FC /* SearchViewController.h */,
 				6B70DB081EC173A200EB09FC /* SearchViewController.m */,
 				6B5E67DF1EC0A98800A4D59E /* YouJiVideoModel.h */,
@@ -1099,7 +1069,7 @@
 				TargetAttributes = {
 					E803C7581CF57793001BB402 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = BW3X4QNV6N;
+						DevelopmentTeam = WD9BF79VSR;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -1138,7 +1108,6 @@
 				6B666AAA1EBC808600AA5C75 /* MJRefresh.bundle in Resources */,
 				E803C7671CF57793001BB402 /* Main.storyboard in Resources */,
 				6B70DAF21EC160EF00EB09FC /* HUD_info@2x.png in Resources */,
-				6B5E67DD1EC0999E00A4D59E /* UMVideo.bundle in Resources */,
 				6B70DAF01EC160EF00EB09FC /* HUD_error@2x.png in Resources */,
 				6B8B53A41ECBEA8F00EEDAA4 /* About.txt in Resources */,
 				6B8B53AC1ECBEA8F00EEDAA4 /* README.txt in Resources */,
@@ -1274,7 +1243,6 @@
 				6B8A70711EBD774000CFFB62 /* UIAlertController+ZFPlayerRotation.m in Sources */,
 				6B70DB021EC1610600EB09FC /* ZFFileModel.m in Sources */,
 				6B70DB011EC1610600EB09FC /* ZFDownloadManager.m in Sources */,
-				6B9CB0CC1ECD9C230030FCB3 /* AdvertisingViewController.m in Sources */,
 				6B8B53BA1ECBEA8F00EEDAA4 /* WebSocket.m in Sources */,
 				6B8B53C51ECBEB2600EEDAA4 /* WifiViewController.m in Sources */,
 				6B68496E1EC40FFB00EC6D22 /* GTMBase64.m in Sources */,
@@ -1447,7 +1415,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = BW3X4QNV6N;
+				DEVELOPMENT_TEAM = WD9BF79VSR;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/XiaoShuoTool",
@@ -1455,7 +1424,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/XiaoShuoTool/PrefixHeader.pch";
 				INFOPLIST_FILE = XiaoShuoTool/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1477,7 +1446,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = BW3X4QNV6N;
+				DEVELOPMENT_TEAM = WD9BF79VSR;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/XiaoShuoTool",
@@ -1485,7 +1455,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/XiaoShuoTool/PrefixHeader.pch";
 				INFOPLIST_FILE = XiaoShuoTool/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

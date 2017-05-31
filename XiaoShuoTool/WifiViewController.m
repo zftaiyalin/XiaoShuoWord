@@ -24,7 +24,7 @@
 #import "AppLocaVideoModel.h"
 #import "WifiVideoTableViewCell.h"
 #import "MoviePlayerViewController.h"
-#import "UMVideoAd.h"
+
 
 static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
@@ -116,7 +116,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.and.right.equalTo(self.view);
         make.top.equalTo(self.view);
-        make.bottom.equalTo(self.view);
+        make.bottom.equalTo(self.view).offset(-50);
     }];
     
     
@@ -133,31 +133,23 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
         make.width.equalTo(self.view);
     }];
     
-    if (![AppUnitl sharedManager].model.wetchat.isShow) {
-        [self performSelector:@selector(playVideo) withObject:nil afterDelay:0.5];
-    }
+   
+    GADBannerView *ban = [[GADBannerView alloc]initWithFrame:CGRectMake(0, self.view.height-50-48, self.view.width, 50)];
+    ban.adUnitID = @"ca-app-pub-3676267735536366/3913068135";
+    ban.rootViewController = self;
+    
+    GADRequest *request = [GADRequest request];
+    // Requests test ads on devices you specify. Your test device ID is printed to the console when
+    // an ad request is made. GADBannerView automatically returns test ads when running on a
+    // simulator.
+//        request.testDevices = @[
+//                                @"fe9239b402756b9539e3beb3a686378d"  // Eric's iPod Touch
+//                                ];
+    [ban loadRequest:request];
+    
+    [self.view addSubview:ban];
 
-}
-
--(void)playVideo{
-    [UMVideoAd videoSpotPlay:self videoSuperView:self.view videoPlayFinishCallBackBlock:^(BOOL isFinishPlay){
-        if (isFinishPlay) {
-            NSLog(@"视频播放结束");
-        }else{
-            NSLog(@"中途退出");
-            
-        }
-        
-    } videoPlayConfigCallBackBlock:^(BOOL isLegal){
-        //注意：  isLegal在（app有联网，并且注册的appkey后台审核通过）的情况下才返回yes, 否则都是返回no.
-        NSString *message = @"";
-        if (isLegal) {
-            message = @"此次播放有效";
-        }else{
-            message = @"此次播放无效";
-        }
-        NSLog(@"是否有效：%@",message);
-    }];
+    
 }
 
 -(void)pushWifi{
@@ -178,7 +170,10 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self getVideoArrayToPhone];
+    
+    
 }
+
 
 -(void)getVideoArrayToPhone{
     

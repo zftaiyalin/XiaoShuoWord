@@ -9,8 +9,11 @@
 #import "DaiLuViewController.h"
 #import "AES128Util.h"
 #import "NSObject+ALiHUD.h"
+@import GoogleMobileAds;
 
-@interface DaiLuViewController ()
+@interface DaiLuViewController ()<GADRewardBasedVideoAdDelegate>{
+    BOOL isRequestVideo;
+}
 
 @property(nonatomic,strong) UIButton *wechatBtu;
 @property(nonatomic,strong) UITextField *textField;
@@ -21,46 +24,36 @@
 @implementation DaiLuViewController
 
 -(void)huoqujifen{
-    [UMVideoAd videoPlay:self videoPlayFinishCallBackBlock:^(BOOL isFinishPlay){
-        if (isFinishPlay) {
-            NSLog(@"视频播放结束");
-            
-        }else{
-            NSLog(@"中途退出");
-            [MobClick event:@"中途关闭广告"];
-        }
+    if ([[GADRewardBasedVideoAd sharedInstance] isReady]) {
+        [[GADRewardBasedVideoAd sharedInstance] presentFromRootViewController:self];
+    }else{
+        [self requestRewardedVideo];
+        isRequestVideo = YES;
+        [self showText:@"正在获取积分广告"];
         
-    } videoPlayConfigCallBackBlock:^(BOOL isLegal){
-        NSString *message = @"";
-        if (isLegal) {
-            message = @"此次播放有效";
-            [MobClick event:@"有效播放广告"];
-            [[AppUnitl sharedManager] addMyintegral:[AppUnitl sharedManager].model.video.ggintegral];
-            NSString *string = [[NSString alloc]initWithFormat:@"获取%d积分,当前积分%d",[AppUnitl sharedManager].model.video.ggintegral,[[AppUnitl sharedManager] getMyintegral]];
-            [self showSuccessText:string];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self dismissLoading];
-            });
-            
-        }else{
-            
-            message = @"此次播放无效";
-            [self showErrorText:message];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self dismissLoading];
-            });
-        }
-        //                UIImage *image = [MobiVideoAd oWVideoImage];
-        NSLog(@"是否有效：%@",message);
-    }];
-    
+    }
 }
+
+- (void)requestRewardedVideo {
+    GADRequest *request = [GADRequest request];
+    [[GADRewardBasedVideoAd sharedInstance] loadRequest:request
+                                           withAdUnitID:@"ca-app-pub-3676267735536366/6453222138"];
+}
+
+
 -(void)dealloc{
     NSLog(@"释放控制器");
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+     [GADRewardBasedVideoAd sharedInstance].delegate = self;
+    
     
     self.title = @"带路党";
     self.view.backgroundColor = [UIColor colorWithHexString:@"#efeff5"];
@@ -68,13 +61,23 @@
     UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithTitle:@"获取积分" style:UIBarButtonItemStylePlain target:self action:@selector(huoqujifen)];
     
     self.navigationItem.rightBarButtonItem = item;
+
+    GADBannerView *ban = [[GADBannerView alloc]initWithFrame:CGRectMake(0, 64, self.view.width, 50)];
+    ban.adUnitID = @"ca-app-pub-3676267735536366/5566428138";
+    ban.rootViewController = self;
     
-    UMBannerView *bannerView = [UMVideoAd videoBannerPlayerFrame:CGRectMake(0, 64, self.view.frame.size.width, 50) videoBannerPlayCloseCallBackBlock:^(BOOL isLegal){
-        NSLog(@"关闭banner");
-        NSLog(@"close banner");
-    }];
+    GADRequest *request = [GADRequest request];
     
-    [self.view addSubview:bannerView];
+    // Requests test ads on devices you specify. Your test device ID is printed to the console when
+    // an ad request is made. GADBannerView automatically returns test ads when running on a
+    // simulator.
+//    request.testDevices = @[
+//                            @"fe9239b402756b9539e3beb3a686378d"  // Eric's iPod Touch
+//                            ];
+    [ban loadRequest:request];
+    
+    [self.view addSubview:ban];
+    
     
     _wechatBtu = [UIButton buttonWithType:UIButtonTypeCustom];
     _wechatBtu.backgroundColor = [UIColor whiteColor];
@@ -89,7 +92,12 @@
     
     
     UILabel *label = [[UILabel alloc]init];
-    label.text = [AppUnitl sharedManager].model.wetchat.url;
+    if ([AppUnitl sharedManager].model.wetchat.isWetchat) {
+        label.text = [AppUnitl sharedManager].model.wetchat.wechatnick;
+    }else{
+        label.text = @"老司机带路群，加群，你懂得😉";
+    }
+    
     label.textColor = [UIColor colorWithHexString:@"#FF6A6A"];
     [_wechatBtu addSubview:label];
     
@@ -113,36 +121,36 @@
 
     
     
-    UIView *textView = [[UIView alloc]init];
-    textView.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:textView];
-    
-    [textView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.and.right.equalTo(self.view);
-        make.top.equalTo(_jgLabel.mas_bottom).offset(15);
-        make.height.mas_equalTo(44);
-    }];
-    
-    _textField = [[UITextField alloc]init];
-    _textField.placeholder = @"免广告积分码";
-    [textView addSubview:_textField];
-    
-    [_textField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(textView).insets(UIEdgeInsetsMake(0, 13, 0, 13));
-    }];
-    
-    _tijiaoBtu = [UIButton buttonWithType:UIButtonTypeCustom];
-    _tijiaoBtu.backgroundColor = [UIColor whiteColor];
-    [_tijiaoBtu setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [_tijiaoBtu setTitle:@"提交" forState:UIControlStateNormal];
-    [_tijiaoBtu addTarget:self action:@selector(tijiaolaosiji) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:_tijiaoBtu];
-    
-    [_tijiaoBtu mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.and.right.equalTo(self.view);
-        make.top.equalTo(textView).offset(65);
-        make.height.mas_equalTo(44);
-    }];
+//    UIView *textView = [[UIView alloc]init];
+//    textView.backgroundColor = [UIColor whiteColor];
+//    [self.view addSubview:textView];
+//    
+//    [textView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.and.right.equalTo(self.view);
+//        make.top.equalTo(_jgLabel.mas_bottom).offset(15);
+//        make.height.mas_equalTo(44);
+//    }];
+//    
+//    _textField = [[UITextField alloc]init];
+//    _textField.placeholder = @"免广告积分码";
+//    [textView addSubview:_textField];
+//    
+//    [_textField mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.edges.equalTo(textView).insets(UIEdgeInsetsMake(0, 13, 0, 13));
+//    }];
+//    
+//    _tijiaoBtu = [UIButton buttonWithType:UIButtonTypeCustom];
+//    _tijiaoBtu.backgroundColor = [UIColor whiteColor];
+//    [_tijiaoBtu setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//    [_tijiaoBtu setTitle:@"提交" forState:UIControlStateNormal];
+//    [_tijiaoBtu addTarget:self action:@selector(tijiaolaosiji) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:_tijiaoBtu];
+//    
+//    [_tijiaoBtu mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.and.right.equalTo(self.view);
+//        make.top.equalTo(textView).offset(65);
+//        make.height.mas_equalTo(44);
+//    }];
     
 }
 
@@ -207,16 +215,23 @@
 
 
 -(void)copyWechat{
-//    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-//    pasteboard.string = [AppUnitl sharedManager].model.wetchat.url;
-//
-//    UIAlertView *infoAlert = [[UIAlertView alloc] initWithTitle:@"提示"message:@"已复制老司机微信号，是否前往寻找老司机？" delegate:self   cancelButtonTitle:@"待会儿" otherButtonTitles:@"前往",nil];
-//    [infoAlert show];
-    [self joinGroup:@"" key:@""];
+    
+    if ([AppUnitl sharedManager].model.wetchat.isWetchat) {
+        UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+        pasteboard.string = [AppUnitl sharedManager].model.wetchat.wechatnick;
+        
+        UIAlertView *infoAlert = [[UIAlertView alloc] initWithTitle:@"提示"message:@"已复制老司机微信号，是否前往寻找老司机？" delegate:self   cancelButtonTitle:@"待会儿" otherButtonTitles:@"前往",nil];
+        [infoAlert show];
+  
+    }else{
+    [self joinGroup:[AppUnitl sharedManager].model.wetchat.groupUin key:[AppUnitl sharedManager].model.wetchat.key];
+    }
+    
 
 }
 
 - (BOOL)joinGroup:(NSString *)groupUin key:(NSString *)key{
+    [MobClick event:@"添加qq群"];
     NSString *urlStr = [NSString stringWithFormat:@"mqqapi://card/show_pslcard?src_type=internal&version=1&uin=%@&key=%@&card_type=group&source=external", @"643483053",@"3633e772ddb30b8b125efc2d1368fc8de0aec864e100b7a352b337c547bb7877"];
     NSURL *url = [NSURL URLWithString:urlStr];
 //    if([[UIApplication sharedApplication] canOpenURL:url]){
@@ -229,7 +244,7 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 1) {
-        [MobClick event:@"前往微信"];
+        
         
         NSString *str = @"weixin:/";
         
@@ -251,5 +266,55 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+#pragma mark GADRewardBasedVideoAdDelegate implementation
+
+- (void)rewardBasedVideoAdDidReceiveAd:(GADRewardBasedVideoAd *)rewardBasedVideoAd {
+    NSLog(@"Reward based video ad is received.");
+    if (isRequestVideo) {
+        isRequestVideo = NO;
+        [self dismissLoading];
+        [[GADRewardBasedVideoAd sharedInstance] presentFromRootViewController:self];
+    }
+    
+}
+
+- (void)rewardBasedVideoAdDidOpen:(GADRewardBasedVideoAd *)rewardBasedVideoAd {
+    NSLog(@"Opened reward based video ad.");
+}
+
+- (void)rewardBasedVideoAdDidStartPlaying:(GADRewardBasedVideoAd *)rewardBasedVideoAd {
+    NSLog(@"Reward based video ad started playing.");
+    NSLog(@"admob奖励视频开始播放");
+}
+
+- (void)rewardBasedVideoAdDidClose:(GADRewardBasedVideoAd *)rewardBasedVideoAd {
+    NSLog(@"Reward based video ad is closed.");
+    NSLog(@"中途关闭admob奖励视频");
+}
+
+- (void)rewardBasedVideoAd:(GADRewardBasedVideoAd *)rewardBasedVideoAd
+   didRewardUserWithReward:(GADAdReward *)reward {
+    NSLog(@"有效的播放admob奖励视频");
+    
+    [[AppUnitl sharedManager] addMyintegral:[AppUnitl sharedManager].model.video.ggintegral];
+    NSString *string = [[NSString alloc]initWithFormat:@"获取%d积分,当前积分%d",[AppUnitl sharedManager].model.video.ggintegral,[[AppUnitl sharedManager] getMyintegral]];
+    [self showSuccessText:string];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self dismissLoading];
+    });
+}
+
+- (void)rewardBasedVideoAdWillLeaveApplication:(GADRewardBasedVideoAd *)rewardBasedVideoAd {
+    NSLog(@"Reward based video ad will leave application.");
+    NSLog(@"点击admo奖励视频准备离开app");
+}
+
+- (void)rewardBasedVideoAd:(GADRewardBasedVideoAd *)rewardBasedVideoAd
+    didFailToLoadWithError:(NSError *)error {
+    NSLog(@"Reward based video ad failed to load.");
+    NSLog(@"admob奖励视频加载失败");
+}
+
 
 @end

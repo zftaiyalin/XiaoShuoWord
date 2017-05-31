@@ -14,6 +14,7 @@
 
 - (void)showText:(NSString *)aText
 {
+    [ALiProgressHUD setForegroundColor:[UIColor whiteColor]];
     [ALiProgressHUD showWithStatus:aText];
 }
 
@@ -21,12 +22,14 @@
 - (void)showErrorText:(NSString *)aText
 {
     [ALiProgressHUD setForegroundColor:[UIColor whiteColor]];
+    [ALiProgressHUD setMaximumDismissTimeInterval:60];
     [ALiProgressHUD showErrorWithStatus:aText];
 }
 
 - (void)showSuccessText:(NSString *)aText
 {
     [ALiProgressHUD setForegroundColor:[UIColor whiteColor]];
+    [ALiProgressHUD setMaximumDismissTimeInterval:60];
     [ALiProgressHUD showSuccessWithStatus:aText];
     
 }

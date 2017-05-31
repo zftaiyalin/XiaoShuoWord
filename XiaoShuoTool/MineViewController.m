@@ -7,7 +7,6 @@
 //
 
 #import "MineViewController.h"
-#import "UMVideoAd.h"
 #import "ZFDownloadViewController.h"
 #import "DaiLuViewController.h"
 #import "NewDateCodeViewController.h"
@@ -15,6 +14,7 @@
 #import "CollectionViewController.h"
 #import "DNPayAlertView.h"
 #import "NSObject+ALiHUD.h"
+@import GoogleMobileAds;
 
 @interface MineViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -30,6 +30,22 @@
     self.title = @"我的";
     self.view.backgroundColor = [UIColor colorWithHexString:@"#efeff5"];
     
+    
+    GADBannerView *ban = [[GADBannerView alloc]initWithFrame:CGRectMake(0, 64, self.view.width, 50)];
+    ban.adUnitID = @"ca-app-pub-3676267735536366/5529402138";
+    ban.rootViewController = self;
+    
+    GADRequest *request = [GADRequest request];
+    // Requests test ads on devices you specify. Your test device ID is printed to the console when
+    // an ad request is made. GADBannerView automatically returns test ads when running on a
+    // simulator.
+//    request.testDevices = @[
+//                            @"fe9239b402756b9539e3beb3a686378d"  // Eric's iPod Touch
+//                            ];
+    [ban loadRequest:request];
+    
+    [self.view addSubview:ban];
+    
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
@@ -43,16 +59,25 @@
     
     [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.and.right.bottom.equalTo(self.view);
-        make.top.equalTo(self.view).offset(50);
+        make.top.equalTo(ban.mas_bottom);
     }];
     
-    UMBannerView *bannerView = [UMVideoAd videoBannerPlayerFrame:CGRectMake(0, 64, self.view.frame.size.width, 50) videoBannerPlayCloseCallBackBlock:^(BOOL isLegal){
-        NSLog(@"关闭banner");
-        NSLog(@"close banner");
-    }];
-    
-    [self.view addSubview:bannerView];
+    if (![[NSUserDefaults standardUserDefaults] objectForKey:@"pinglun"]) {
+        UIAlertView *infoAlert = [[UIAlertView alloc] initWithTitle:@"好评有你想要的"message:@"五星好评后重启app,然后你懂得😉" delegate:self   cancelButtonTitle:@"取消" otherButtonTitles:@"去评论",nil];
+        [infoAlert show];
+    }
 }
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 1) {
+        NSString *str = [NSString stringWithFormat:
+                         @"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=%@&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8",
+                         @"1239455471"];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"pinglun"];
+    }
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -290,8 +315,8 @@
                         ZFDownloadViewController *vc = [[ZFDownloadViewController alloc]init];
                         [self.navigationController pushViewController:vc animated:YES];
                     }else{
-                        UIAlertView *infoAlert = [[UIAlertView alloc] initWithTitle:@"提示"message:@"您的版本不是VIP版本，下载VIP版可提供下载功能，尽享免广告观看!" delegate:self   cancelButtonTitle:@"取消" otherButtonTitles:@"下载",nil];
-                        [infoAlert show];
+//                        UIAlertView *infoAlert = [[UIAlertView alloc] initWithTitle:@"提示"message:@"您的版本不是VIP版本，下载VIP版可提供下载功能，尽享免广告观看!" delegate:self   cancelButtonTitle:@"取消" otherButtonTitles:@"下载",nil];
+//                        [infoAlert show];
                         
                     }
                 }
@@ -304,8 +329,9 @@
                     }]; 
                 }else{
 //                    cell.textLabel.text = @"赏个好评";
-                    NewDateCodeViewController *vc = [[NewDateCodeViewController alloc]init];
-                    [self.navigationController pushViewController:vc animated:YES];
+                     [self pushPinglun];
+//                    NewDateCodeViewController *vc = [[NewDateCodeViewController alloc]init];
+//                    [self.navigationController pushViewController:vc animated:YES];
                 }
             }
         }
@@ -316,22 +342,29 @@
                 [tableView reloadData];
             }];
         }else{
-
+            [self pushPinglun];
 //                cell.textLabel.text = @"赏个好评";
-                NewDateCodeViewController *vc = [[NewDateCodeViewController alloc]init];
-                [self.navigationController pushViewController:vc animated:YES];
+//                NewDateCodeViewController *vc = [[NewDateCodeViewController alloc]init];
+//                [self.navigationController pushViewController:vc animated:YES];
             
         }
     }
 }
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (buttonIndex == 1) {
-        [MobClick event:@"前往微信"];
-        
-        NSString *str = @"weixin:/";
-        
-        [[UIApplication sharedApplication]openURL:[NSURL URLWithString:str]];
-    }
+
+-(void)pushPinglun{
+    NSString *str = [NSString stringWithFormat:
+                     @"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=%@&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8",
+                     @"1239455471"];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
 }
+//- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+//    if (buttonIndex == 1) {
+//        [MobClick event:@"前往微信"];
+//        
+//        NSString *str = @"weixin:/";
+//        
+//        [[UIApplication sharedApplication]openURL:[NSURL URLWithString:str]];
+//    }
+//}
 
 @end

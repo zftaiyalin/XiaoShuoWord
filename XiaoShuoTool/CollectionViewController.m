@@ -11,64 +11,63 @@
 #import "MoviePlayerViewController.h"
 #import "VideoModel.h"
 #import "NSObject+ALiHUD.h"
-#import "UMVideoAd.h"
 #import "OCGumbo.h"
 #import "OCGumbo+Query.h"
 #import "AES128Util.h"
+@import GoogleMobileAds;
 
-
-@interface CollectionViewController ()<UITableViewDelegate,UITableViewDataSource>{
+@interface CollectionViewController ()<UITableViewDelegate,UITableViewDataSource,GADRewardBasedVideoAdDelegate>{
     UITableView *_tableView;
     UILabel *label;
     NSMutableArray *videoArray;
+    BOOL isRequestVideo;
 }
 
 @end
 
 @implementation CollectionViewController
 -(void)huoqujifen{
-    [UMVideoAd videoPlay:self videoPlayFinishCallBackBlock:^(BOOL isFinishPlay){
-        if (isFinishPlay) {
-            NSLog(@"视频播放结束");
-            
-        }else{
-            NSLog(@"中途退出");
-            [MobClick event:@"中途关闭广告"];
-        }
-        
-    } videoPlayConfigCallBackBlock:^(BOOL isLegal){
-        NSString *message = @"";
-        if (isLegal) {
-            message = @"此次播放有效";
-            [MobClick event:@"有效播放广告"];
-            [[AppUnitl sharedManager] addMyintegral:[AppUnitl sharedManager].model.video.ggintegral];
-            NSString *string = [[NSString alloc]initWithFormat:@"获取%d积分,当前积分%d",[AppUnitl sharedManager].model.video.ggintegral,[[AppUnitl sharedManager] getMyintegral]];
-            [self showSuccessText:string];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self dismissLoading];
-            });
-            
-        }else{
-            
-            message = @"此次播放无效";
-            [self showErrorText:message];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self dismissLoading];
-            });
-        }
-        //                UIImage *image = [MobiVideoAd oWVideoImage];
-        NSLog(@"是否有效：%@",message);
-    }];
+    if ([[GADRewardBasedVideoAd sharedInstance] isReady]) {
+        [[GADRewardBasedVideoAd sharedInstance] presentFromRootViewController:self];
+    }else{
+        [self requestRewardedVideo];
+        isRequestVideo = YES;
+        [self showText:@"正在获取积分广告"];
+    }
     
 }
+
+
+- (void)requestRewardedVideo {
+    GADRequest *request = [GADRequest request];
+    [[GADRewardBasedVideoAd sharedInstance] loadRequest:request
+                                           withAdUnitID:@"ca-app-pub-3676267735536366/6453222138"];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+
+    
+    [GADRewardBasedVideoAd sharedInstance].delegate = self;
     self.title = @"收藏";
     self.view.backgroundColor = [UIColor whiteColor];
     UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithTitle:@"获取积分" style:UIBarButtonItemStylePlain target:self action:@selector(huoqujifen)];
     
     self.navigationItem.rightBarButtonItem = item;
+    
+    
+    GADBannerView *ban = [[GADBannerView alloc]initWithFrame:CGRectMake(0, 64, self.view.width, 50)];
+    ban.adUnitID = @"ca-app-pub-3676267735536366/5566428138";
+    ban.rootViewController = self;
+    
+    GADRequest *request = [GADRequest request];
+
+    [ban loadRequest:request];
+    
+    [self.view addSubview:ban];
+    
     
     _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height) style:UITableViewStylePlain];
     _tableView.dataSource = self;
@@ -80,7 +79,7 @@
     
     [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.and.right.equalTo(self.view);
-        make.top.equalTo(self.view);
+        make.top.equalTo(ban.mas_bottom);
         make.bottom.equalTo(self.view);
     }];
     
@@ -102,6 +101,7 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+     [[UIApplication sharedApplication] setStatusBarHidden:YES];
     [self getVideoArrayToPhone];
     
 }
@@ -244,4 +244,64 @@
     [self getVideoArrayToPhone];
     
 }
+
+#pragma mark GADRewardBasedVideoAdDelegate implementation
+
+- (void)rewardBasedVideoAdDidReceiveAd:(GADRewardBasedVideoAd *)rewardBasedVideoAd {
+    NSLog(@"Reward based video ad is received.");
+    if (isRequestVideo) {
+        isRequestVideo = NO;
+        [self dismissLoading];
+        [[GADRewardBasedVideoAd sharedInstance] presentFromRootViewController:self];
+    }
+    
+}
+
+- (void)rewardBasedVideoAdDidOpen:(GADRewardBasedVideoAd *)rewardBasedVideoAd {
+    NSLog(@"Opened reward based video ad.");
+}
+
+- (void)rewardBasedVideoAdDidStartPlaying:(GADRewardBasedVideoAd *)rewardBasedVideoAd {
+    NSLog(@"Reward based video ad started playing.");
+    NSLog(@"admob奖励视频开始播放");
+}
+
+- (void)rewardBasedVideoAdDidClose:(GADRewardBasedVideoAd *)rewardBasedVideoAd {
+    NSLog(@"Reward based video ad is closed.");
+    NSLog(@"中途关闭admob奖励视频");
+}
+
+- (void)rewardBasedVideoAd:(GADRewardBasedVideoAd *)rewardBasedVideoAd
+   didRewardUserWithReward:(GADAdReward *)reward {
+    NSLog(@"有效的播放admob奖励视频");
+    
+    [[AppUnitl sharedManager] addMyintegral:[AppUnitl sharedManager].model.video.ggintegral];
+    NSString *string = [[NSString alloc]initWithFormat:@"获取%d积分,当前积分%d",[AppUnitl sharedManager].model.video.ggintegral,[[AppUnitl sharedManager] getMyintegral]];
+    [self showSuccessText:string];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self dismissLoading];
+    });
+}
+
+- (void)rewardBasedVideoAdWillLeaveApplication:(GADRewardBasedVideoAd *)rewardBasedVideoAd {
+    NSLog(@"Reward based video ad will leave application.");
+    NSLog(@"点击admo奖励视频准备离开app");
+}
+
+- (void)rewardBasedVideoAd:(GADRewardBasedVideoAd *)rewardBasedVideoAd
+    didFailToLoadWithError:(NSError *)error {
+    NSLog(@"Reward based video ad failed to load.");
+    NSLog(@"admob奖励视频加载失败");
+    if (isRequestVideo) {
+        isRequestVideo = NO;
+        [self dismissLoading];
+        
+        [self showErrorText:@"获取广告失败"];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self dismissLoading];
+        });
+    }
+}
+
+
 @end

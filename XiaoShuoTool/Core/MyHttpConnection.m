@@ -16,11 +16,11 @@
 #import "MultipartMessageHeaderField.h"
 #import "HTTPDynamicFileResponse.h"
 #import "HTTPFileResponse.h"
-#ifdef DEBUG
-#define XCLog(format, ...) printf("%s ^_^[%s (%d)] %s\n", [[self GetLogNowTime]UTF8String], [[[NSString stringWithUTF8String:__FILE__] lastPathComponent]UTF8String], __LINE__, [[NSString stringWithFormat:format, ## __VA_ARGS__] UTF8String]);
-#else
-#define NSLog(format, ...)
-#endif
+//#ifdef DEBUG
+//#define XCLog(format, ...) printf("%s ^_^[%s (%d)] %s\n", [[self GetLogNowTime]UTF8String], [[[NSString stringWithUTF8String:__FILE__] lastPathComponent]UTF8String], __LINE__, [[NSString stringWithFormat:format, ## __VA_ARGS__] UTF8String]);
+//#else
+//#define NSLog(format, ...)
+//#endif
 
 @class MultipartFormDataParser;
 // Log levels : off, error, warn, info, verbose
@@ -60,7 +60,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_VERBOSE; // | HTTP_LOG_FLAG_TRACE
     HTTPLogTrace();
     
     // Inform HTTP server that we expect a body to accompany a POST request
-    XCLog(@"GET  %@ %@",method,path);
+//    XCLog(@"GET  %@ %@",method,path);
     if([method isEqualToString:@"POST"] && [path isEqualToString:@"/upload.html"]) {
         // here we need to make sure, boundary is set in header
         NSString* contentType = [request headerField:@"Content-Type"];
@@ -104,7 +104,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_VERBOSE; // | HTTP_LOG_FLAG_TRACE
 - (NSObject<HTTPResponse> *)httpResponseForMethod:(NSString *)method URI:(NSString *)path
 {
     HTTPLogTrace();
-    XCLog(@"🍎-- %@ %@",method,path);
+//    XCLog(@"🍎-- %@ %@",method,path);
     if ([method isEqualToString:@"POST"] && [path isEqualToString:@"/upload.html"])
     {
         
@@ -134,7 +134,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_VERBOSE; // | HTTP_LOG_FLAG_TRACE
         // let download the uploaded files
 //        NSLog(@"1111--------------- %@",[[config documentRoot] stringByAppendingString:path]);
 //        return [[HTTPFileResponse alloc] initWithFilePath: [[config documentRoot] stringByAppendingString:path] forConnection:self];
-        XCLog(@"不让下载呢");
+//        XCLog(@"不让下载呢");
         return nil;
     }
     
@@ -144,10 +144,10 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_VERBOSE; // | HTTP_LOG_FLAG_TRACE
 - (void)prepareForBodyWithSize:(UInt64)contentLength
 {
     HTTPLogTrace();
-    XCLog(@"🍌");
+//    XCLog(@"🍌");
     // set up mime parser
     NSString* boundary = [request headerField:@"boundary"];
-    XCLog(@"%llu",contentLength);
+//    XCLog(@"%llu",contentLength);
     parser = [[MultipartFormDataParser alloc] initWithBoundary:boundary formEncoding:NSUTF8StringEncoding];
     parser.delegate = self;
     

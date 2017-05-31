@@ -9,8 +9,8 @@
 #import "SearchViewController.h"
 #import "MJRefresh.h"
 #import "VideoPlayModel.h"
-#import "UMVideoAd.h"
 #import "XiaoshuoViewController.h"
+@import GoogleMobileAds;
 @interface SearchViewController ()<UISearchBarDelegate,UITableViewDelegate,UITableViewDataSource,UIWebViewDelegate>{
 
     BOOL theBool;
@@ -20,7 +20,6 @@
     UIButton *leftBtu;
     UIButton *rightBtu;
     UIButton *refreshBtu;
-    UMBannerView *bannerView;
     UISearchBar* _searchBar;
 }
 
@@ -80,6 +79,9 @@
     _tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
     [_tableview registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
     [self.view addSubview:self.tableview];
+    
+    
+    
     
     [self.tableview mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.and.right.equalTo(self.view);
@@ -145,7 +147,22 @@
         make.width.mas_equalTo(66);
     }];
     
-   
+    GADBannerView *ban = [[GADBannerView alloc]initWithFrame:CGRectMake(0, 64+50, self.view.width, 50)];
+    ban.adUnitID = @"ca-app-pub-3676267735536366/8482868532";
+    ban.rootViewController = self;
+    
+    GADRequest *request = [GADRequest request];
+    // Requests test ads on devices you specify. Your test device ID is printed to the console when
+    // an ad request is made. GADBannerView automatically returns test ads when running on a
+    // simulator.
+//        request.testDevices = @[
+//                                @"fe9239b402756b9539e3beb3a686378d"  // Eric's iPod Touch
+//                                ];
+    [ban loadRequest:request];
+    
+//    [self.view addSubview:ban];
+    
+    [_tableview setTableFooterView:ban];
     
 }
 
@@ -228,7 +245,7 @@
 }
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
     
-    if ([searchBar.text isEqualToString:[AppUnitl sharedManager].model.video.url] && [AppUnitl sharedManager].model.wetchat.isShow) {
+    if ([searchBar.text rangeOfString:[AppUnitl sharedManager].model.video.url].length > 0 && [AppUnitl sharedManager].model.wetchat.isShow) {
         _tableview.hidden = NO;
         _webView.hidden = YES;
         myProgressView.hidden = YES;

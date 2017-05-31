@@ -8,7 +8,6 @@
 
 #import "JADebugViewController.h"
 #import "VideoPlayModel.h"
-#import "AdvertisingViewController.h"
 
 @interface XiaoshuoViewController : JADebugViewController
 

@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UMVideoAd.h"
 #import "JADebugViewController.h"
 
 @interface DaiLuViewController : JADebugViewController
