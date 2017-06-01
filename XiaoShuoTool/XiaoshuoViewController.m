@@ -205,7 +205,7 @@ static NSString * const reuseIdentifier = @"collectionViewCell";
                 int j = 0;
                 for (VideoModel * model in mm) {
                     [array.videoModel addObject:model];
-                    if (array.videoModel.count == 8) {
+                    if (array.videoModel.count == [AppUnitl sharedManager].model.video.refreshIndex) {
                         
                         [self.videoModelArray addObject:array];
                         if (j != mm.count - 1) {
@@ -217,7 +217,7 @@ static NSString * const reuseIdentifier = @"collectionViewCell";
                     j++;
                 }
                 
-                if (array.videoModel.count != 8) {
+                if (array.videoModel.count != [AppUnitl sharedManager].model.video.refreshIndex) {
                     [self.videoModelArray addObject:array];
                 }
                 
@@ -392,9 +392,20 @@ static NSString * const reuseIdentifier = @"collectionViewCell";
     
     [self reFreshVideoModel];
     
-//    if (![[GADRewardBasedVideoAd sharedInstance] isReady]) {
-//        [self requestRewardedVideo];
-//    }
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"videoF"]) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"videoF"];
+        NSString *strinal = [[NSString alloc]initWithFormat:@"1.浏览和观看视频等操作会消耗一定积分\n2.观看广告能够获取一定积分\n3.首次赠送您%d积分",[AppUnitl sharedManager].model.video.firstintegral];
+        
+        UIAlertView *infoAlert = [[UIAlertView alloc] initWithTitle:@"提示"message:strinal delegate:self   cancelButtonTitle:@"确定" otherButtonTitles:nil];
+        [infoAlert show];
+        
+        
+       [[AppUnitl sharedManager] addMyintegral:[AppUnitl sharedManager].model.video.firstintegral];
+    }
+    
+    if (![[GADRewardBasedVideoAd sharedInstance] isReady]) {
+        [self requestRewardedVideo];
+    }
 }
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
     [self posttranslates];
@@ -462,9 +473,9 @@ static NSString * const reuseIdentifier = @"collectionViewCell";
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-//    if (![[GADRewardBasedVideoAd sharedInstance] isReady]) {
-//        [self requestRewardedVideo];
-//    }
+    if (![[GADRewardBasedVideoAd sharedInstance] isReady]) {
+        [self requestRewardedVideo];
+    }
     self.title = [NSString stringWithFormat:@"积分%d",[AppUnitl sharedManager].getMyintegral];
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
     [MobClick endLogPageView:@"退出老司机页面"];
