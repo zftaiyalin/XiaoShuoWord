@@ -62,8 +62,8 @@
         make.top.equalTo(ban.mas_bottom);
     }];
     
-    if (![[NSUserDefaults standardUserDefaults] objectForKey:@"pinglun"]) {
-        UIAlertView *infoAlert = [[UIAlertView alloc] initWithTitle:@"好评有你想要的"message:@"五星好评后重启app,然后你懂得😉" delegate:self   cancelButtonTitle:@"取消" otherButtonTitles:@"去评论",nil];
+    if (![[NSUserDefaults standardUserDefaults] objectForKey:@"pinglun"] && [AppUnitl sharedManager].model.wetchat.isAlertShow) {
+        UIAlertView *infoAlert = [[UIAlertView alloc] initWithTitle:[AppUnitl sharedManager].model.wetchat.alertTitle message:[AppUnitl sharedManager].model.wetchat.alertText delegate:self   cancelButtonTitle:@"取消" otherButtonTitles:@"去评论",nil];
         [infoAlert show];
     }
 }

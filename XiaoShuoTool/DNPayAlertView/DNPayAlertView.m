@@ -7,11 +7,34 @@
 //
 
 #import "DNPayAlertView.h"
+#define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
 
-#define kSCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
-#define kSCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
-#define kPAYMENT_WIDTH kSCREEN_WIDTH-80
+//#ifdef IS_IPAD
+//#   define kSCREEN_HEIGHT 1920
+//#   define kSCREEN_WIDTH 1080
+//#else
+//#   define kSCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
+//#   define kSCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
+//#define kPAYMENT_WIDTH kSCREEN_WIDTH-80
+//#endif
 
+#ifndef kSCREEN_HEIGHT
+#ifdef IS_IPAD
+#   define kSCREEN_HEIGHT 667
+#else
+#   define kSCREEN_HEIGHT 667
+#endif
+#endif
+
+#ifndef kSCREEN_WIDTH
+#ifdef IS_IPAD
+#   define kSCREEN_WIDTH 375
+#else
+#   define kSCREEN_WIDTH 375
+#endif
+#endif
+
+#   define kPAYMENT_WIDTH kSCREEN_WIDTH-80
 static NSInteger const kPasswordCount = 6;
 
 static CGFloat const kTitleHeight     = 46.f;
@@ -227,8 +250,9 @@ static CGFloat const kCommonMargin    = 100;
 
 - (UIView *)paymentAlert {
     if (_paymentAlert == nil) {
-        _paymentAlert = [[UIView alloc]initWithFrame:CGRectMake(40, [UIScreen mainScreen].bounds.size.height-kKeyboardHeight-kCommonMargin-kAlertHeight, [UIScreen mainScreen].bounds.size.width-80, kAlertHeight)];
+        _paymentAlert = [[UIView alloc]initWithFrame:CGRectMake(40, kSCREEN_HEIGHT-kKeyboardHeight-kCommonMargin-kAlertHeight, kSCREEN_WIDTH-80, kAlertHeight)];
         _paymentAlert.layer.cornerRadius = 5.f;
+        _paymentAlert.centerX = self.view.centerX;
         _paymentAlert.layer.masksToBounds = YES;
         _paymentAlert.backgroundColor = [UIColor colorWithWhite:1. alpha:.95];
     }
@@ -287,6 +311,7 @@ static CGFloat const kCommonMargin    = 100;
 
 - (UIView *)inputView {
     if (_inputView == nil) {
+//        int s  =kPAYMENT_WIDTH ;
         _inputView = [[UIView alloc]initWithFrame:CGRectMake(15, _paymentAlert.frame.size.height-(kPAYMENT_WIDTH-30)/6-15, kPAYMENT_WIDTH-30, (kPAYMENT_WIDTH-30)/6)];
         _inputView.backgroundColor = [UIColor whiteColor];
         _inputView.layer.borderWidth = 1.f;

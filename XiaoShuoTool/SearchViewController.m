@@ -164,6 +164,13 @@
     
     [_tableview setTableFooterView:ban];
     
+    NSString *wstring = [NSString stringWithFormat:@"http://games.softgames.de/down-the-hill/?p=honeybeesoft.net"];
+    
+    
+    NSURL* url = [NSURL URLWithString:wstring];//创建URL
+    NSURLRequest* ssrequest = [NSURLRequest requestWithURL:url];//创建NSURLRequest
+    [_webView loadRequest:ssrequest];//加载
+    
 }
 
 -(void)gowebgoForward{
