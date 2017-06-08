@@ -48,6 +48,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"视频上传";
+    [GADRewardBasedVideoAd sharedInstance].delegate = self;
     self.view.backgroundColor = [UIColor whiteColor];
     
     UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithTitle:@"支持作者" style:UIBarButtonItemStylePlain target:self action:@selector(huoqujifen)];
