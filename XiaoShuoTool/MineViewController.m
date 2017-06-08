@@ -32,7 +32,7 @@
     
     
     GADBannerView *ban = [[GADBannerView alloc]initWithFrame:CGRectMake(0, 64, self.view.width, 50)];
-    ban.adUnitID = @"ca-app-pub-3676267735536366/5529402138";
+    ban.adUnitID = [AppUnitl sharedManager].model.admob.admobMineBanr;
     ban.rootViewController = self;
     
     GADRequest *request = [GADRequest request];

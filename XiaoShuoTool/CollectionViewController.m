@@ -58,15 +58,15 @@
     self.navigationItem.rightBarButtonItem = item;
     
     
-    GADBannerView *ban = [[GADBannerView alloc]initWithFrame:CGRectMake(0, 64, self.view.width, 50)];
-    ban.adUnitID = @"ca-app-pub-3676267735536366/5566428138";
-    ban.rootViewController = self;
-    
-    GADRequest *request = [GADRequest request];
-
-    [ban loadRequest:request];
-    
-    [self.view addSubview:ban];
+//    GADBannerView *ban = [[GADBannerView alloc]initWithFrame:CGRectMake(0, 64, self.view.width, 50)];
+//    ban.adUnitID = @"ca-app-pub-3676267735536366/5566428138";
+//    ban.rootViewController = self;
+//    
+//    GADRequest *request = [GADRequest request];
+//
+//    [ban loadRequest:request];
+//    
+//    [self.view addSubview:ban];
     
     
     _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height) style:UITableViewStylePlain];
@@ -79,7 +79,7 @@
     
     [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.and.right.equalTo(self.view);
-        make.top.equalTo(ban.mas_bottom);
+        make.top.equalTo(self.view);
         make.bottom.equalTo(self.view);
     }];
     

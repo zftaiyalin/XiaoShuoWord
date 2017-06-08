@@ -95,7 +95,7 @@
 
 - (void)createAndLoadInterstitial {
     self.interstitial =
-    [[GADInterstitial alloc] initWithAdUnitID:@"ca-app-pub-3676267735536366/7929955336"];
+    [[GADInterstitial alloc] initWithAdUnitID:[AppUnitl sharedManager].model.admob.admobIns];
     
     GADRequest *request = [GADRequest request];
     // Request test ads on devices you specify. Your test device ID is printed to the console when
