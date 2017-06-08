@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="retina4_0" orientation="portrait">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -18,17 +18,17 @@
                         <viewControllerLayoutGuide type="bottom" id="xb3-aO-Qok"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icon-App-83.5x83.5" translatesAutoresizingMaskIntoConstraints="NO" id="7lU-Sa-GEm">
-                                <rect key="frame" x="118.5" y="242.5" width="83" height="83"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon-83.5.png" translatesAutoresizingMaskIntoConstraints="NO" id="GQM-wK-uwZ">
+                                <rect key="frame" x="165.66666666666666" y="326.66666666666669" width="83" height="83"/>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.16778659326424872" green="0.16778659326424872" blue="0.16778659326424872" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="7lU-Sa-GEm" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="GWV-fW-oXg"/>
-                            <constraint firstItem="7lU-Sa-GEm" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="ghn-5x-gTa"/>
+                            <constraint firstItem="GQM-wK-uwZ" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="gTP-y8-nsN"/>
+                            <constraint firstItem="GQM-wK-uwZ" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="tTa-VP-S6z"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -38,6 +38,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Icon-App-83.5x83.5" width="83" height="83"/>
+        <image name="icon-83.5.png" width="83" height="83"/>
     </resources>
 </document>

@@ -147,26 +147,26 @@
         make.width.mas_equalTo(66);
     }];
     
-    GADBannerView *ban = [[GADBannerView alloc]initWithFrame:CGRectMake(0, 64+50, self.view.width, 50)];
-    ban.adUnitID = @"ca-app-pub-3676267735536366/8482868532";
-    ban.rootViewController = self;
-    
-    GADRequest *request = [GADRequest request];
-    // Requests test ads on devices you specify. Your test device ID is printed to the console when
-    // an ad request is made. GADBannerView automatically returns test ads when running on a
-    // simulator.
-//        request.testDevices = @[
-//                                @"fe9239b402756b9539e3beb3a686378d"  // Eric's iPod Touch
-//                                ];
-    [ban loadRequest:request];
-    
-//    [self.view addSubview:ban];
-    
-    [_tableview setTableFooterView:ban];
-    
-//    NSString *wstring = [NSString stringWithFormat:@"http://hexgl.bkcore.com/play/"];
+
+//    GADBannerView *ban = [[GADBannerView alloc]initWithFrame:CGRectMake(0, 64+50, self.view.width, 50)];
+//    ban.adUnitID = @"ca-app-pub-3676267735536366/8482868532";
+//    ban.rootViewController = self;
 //    
-////    http://games.softgames.de/down-the-hill/?p=honeybeesoft.net
+//    GADRequest *request = [GADRequest request];
+//    // Requests test ads on devices you specify. Your test device ID is printed to the console when
+//    // an ad request is made. GADBannerView automatically returns test ads when running on a
+//    // simulator.
+////        request.testDevices = @[
+////                                @"fe9239b402756b9539e3beb3a686378d"  // Eric's iPod Touch
+////                                ];
+//    [ban loadRequest:request];
+//    
+////    [self.view addSubview:ban];
+//    
+//    [_tableview setTableFooterView:ban];
+    
+//    NSString *wstring = [NSString stringWithFormat:@"http://games.softgames.de/down-the-hill/?p=honeybeesoft.net"];
+//
 //    
 //    NSURL* url = [NSURL URLWithString:wstring];//创建URL
 //    NSURLRequest* ssrequest = [NSURLRequest requestWithURL:url];//创建NSURLRequest
@@ -264,9 +264,16 @@
         myProgressView.hidden = NO;
         
         _bottomView.hidden = NO;
-//    NSString *wstring = [NSString stringWithFormat:@"http://www.btkuaisou.org/word/%@.html",[searchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+
+        NSString *wstring;
         
-        NSString *wstring = [NSString stringWithFormat:@"http://v.baidu.com/v?word=%@",[searchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        
+        if (AppUnitl.sharedManager.model.wetchat.isShow) {
+           wstring = [NSString stringWithFormat:@"http://www.btkuaisou.org/word/%@.html",[searchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        }else{
+            wstring = [NSString stringWithFormat:@"http://v.baidu.com/v?word=%@",[searchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        }
+
 
 
     NSURL* url = [NSURL URLWithString:wstring];//创建URL

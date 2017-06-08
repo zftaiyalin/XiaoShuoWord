@@ -10,9 +10,9 @@
 
 @interface AdmobModel : NSObject
 @property (nonatomic,assign) BOOL isAdmob;
-@property (nonatomic,strong) NSString *youmId;
-@property (nonatomic,strong) NSString *youmKey;
-@property (nonatomic,strong) NSString *admobBanr;
+@property (nonatomic,strong) NSString *admobWifiBanr;
+@property (nonatomic,strong) NSString *admobVideoBanr;
+@property (nonatomic,strong) NSString *admobMineBanr;
 @property (nonatomic,strong) NSString *admobReVideo;
 @property (nonatomic,strong) NSString *admobIns;
 

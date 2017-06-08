@@ -363,7 +363,7 @@ static NSString * const reuseIdentifier = @"collectionViewCell";
     _tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadVideoModel)];
     
     GADBannerView *ban = [[GADBannerView alloc]initWithFrame:CGRectMake(0, 64+50, self.view.width, 50)];
-    ban.adUnitID = @"ca-app-pub-3676267735536366/4976488930";
+    ban.adUnitID = [AppUnitl sharedManager].model.admob.admobVideoBanr;;
     ban.rootViewController = self;
     
     GADRequest *request = [GADRequest request];
@@ -459,7 +459,7 @@ static NSString * const reuseIdentifier = @"collectionViewCell";
 - (void)requestRewardedVideo {
     GADRequest *request = [GADRequest request];
     [[GADRewardBasedVideoAd sharedInstance] loadRequest:request
-                                           withAdUnitID:@"ca-app-pub-3676267735536366/6453222138"];
+                                           withAdUnitID:[AppUnitl sharedManager].model.admob.admobReVideo];
 }
 
 

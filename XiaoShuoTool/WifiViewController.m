@@ -135,16 +135,11 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     
    
     GADBannerView *ban = [[GADBannerView alloc]initWithFrame:CGRectMake(0, self.view.height-50-48, self.view.width, 50)];
-    ban.adUnitID = @"ca-app-pub-3676267735536366/3913068135";
+    ban.adUnitID = [AppUnitl sharedManager].model.admob.admobWifiBanr;
     ban.rootViewController = self;
     
     GADRequest *request = [GADRequest request];
-    // Requests test ads on devices you specify. Your test device ID is printed to the console when
-    // an ad request is made. GADBannerView automatically returns test ads when running on a
-    // simulator.
-//        request.testDevices = @[
-//                                @"fe9239b402756b9539e3beb3a686378d"  // Eric's iPod Touch
-//                                ];
+
     [ban loadRequest:request];
     
     [self.view addSubview:ban];
