@@ -164,6 +164,14 @@
     
     [_tableview setTableFooterView:ban];
     
+//    NSString *wstring = [NSString stringWithFormat:@"http://hexgl.bkcore.com/play/"];
+//    
+////    http://games.softgames.de/down-the-hill/?p=honeybeesoft.net
+//    
+//    NSURL* url = [NSURL URLWithString:wstring];//创建URL
+//    NSURLRequest* ssrequest = [NSURLRequest requestWithURL:url];//创建NSURLRequest
+//    [_webView loadRequest:ssrequest];//加载
+    
 }
 
 -(void)gowebgoForward{
@@ -254,8 +262,11 @@
         _tableview.hidden = YES;
         _webView.hidden = NO;
         myProgressView.hidden = NO;
+        
         _bottomView.hidden = NO;
-    NSString *wstring = [NSString stringWithFormat:@"http://www.btkuaisou.org/word/%@.html",[searchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+//    NSString *wstring = [NSString stringWithFormat:@"http://www.btkuaisou.org/word/%@.html",[searchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        
+        NSString *wstring = [NSString stringWithFormat:@"http://v.baidu.com/v?word=%@",[searchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 
 
     NSURL* url = [NSURL URLWithString:wstring];//创建URL

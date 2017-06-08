@@ -14,6 +14,9 @@
 @property(nonatomic,strong)NSString *wetchatalter;
 @property(nonatomic,strong)NSString *groupUin;
 @property(nonatomic,strong)NSString *key;
+@property(nonatomic,strong)NSString *alertTitle;
+@property(nonatomic,strong)NSString *alertText;
 @property(nonatomic,assign)BOOL isWetchat;
+@property(nonatomic,assign)BOOL isAlertShow;
 @property(nonatomic,assign)BOOL isShow;
 @end
