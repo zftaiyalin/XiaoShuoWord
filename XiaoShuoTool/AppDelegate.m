@@ -51,8 +51,8 @@
     AppModel *model = [AppModel yy_modelWithJSON:htmlString];    
     AppUnitl.sharedManager.model = model;
     AppUnitl.sharedManager.isDownLoad = YES;
-    AppUnitl.sharedManager.model.wetchat.isAlertShow = YES;
-    AppUnitl.sharedManager.model.wetchat.isShow= YES;
+//    AppUnitl.sharedManager.model.wetchat.isAlertShow = YES;
+//    AppUnitl.sharedManager.model.wetchat.isShow= YES;
     if (AppUnitl.sharedManager.model.wetchat.isShow) {
         if (![[NSUserDefaults standardUserDefaults] objectForKey:@"pinglun"]) {
             AppUnitl.sharedManager.model.wetchat.isShow = NO;

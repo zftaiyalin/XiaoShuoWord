@@ -13,53 +13,5 @@
             stopOnStyle = "0">
          </BreakpointContent>
       </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "XiaoShuoTool/XiaoshuoViewController.m"
-            timestampString = "518587900.840506"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "104"
-            endingLineNumber = "104"
-            landmarkName = "-OCGumboVideoModel:"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__44-[XiaoshuoViewController OCGumboVideoModel:]_block_invoke"
-                  moduleName = "YunPlayerNormal"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/anfeng/XiaoShuoWord/XiaoShuoTool/XiaoshuoViewController.m"
-                  timestampString = "518587901.32979"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "104"
-                  endingLineNumber = "104"
-                  offsetFromSymbolStart = "188">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__44-[XiaoshuoViewController OCGumboVideoModel:]_block_invoke_2"
-                  moduleName = "YunPlayerNormal"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/anfeng/XiaoShuoWord/XiaoShuoTool/XiaoshuoViewController.m"
-                  timestampString = "518587901.331603"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "104"
-                  endingLineNumber = "104"
-                  offsetFromSymbolStart = "48">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
    </Breakpoints>
 </Bucket>
