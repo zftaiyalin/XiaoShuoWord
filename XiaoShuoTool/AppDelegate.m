@@ -47,12 +47,19 @@
     NSString *ss = [NSString stringWithFormat:@"http://opmams01o.bkt.clouddn.com/videoPlayer.json?v=%@",currentDateString];
     NSURL *xcfURL = [NSURL URLWithString:ss];
     NSString *htmlString = [NSString stringWithContentsOfURL:xcfURL encoding:NSUTF8StringEncoding error:&error];
+    AppModel *model;
+    if (htmlString == nil) {
+        model =[[AppModel alloc]init];
+        model.wetchat.isShow= NO;
+    }else{
+        model = [AppModel yy_modelWithJSON:htmlString];
+    }
     
-    AppModel *model = [AppModel yy_modelWithJSON:htmlString];    
+    
     AppUnitl.sharedManager.model = model;
     AppUnitl.sharedManager.isDownLoad = YES;
-    AppUnitl.sharedManager.model.wetchat.isAlertShow = YES;
-    AppUnitl.sharedManager.model.wetchat.isShow= YES;
+//    AppUnitl.sharedManager.model.wetchat.isAlertShow = YES;
+//    AppUnitl.sharedManager.model.wetchat.isShow= YES;
     if (AppUnitl.sharedManager.model.wetchat.isShow) {
         if (![[NSUserDefaults standardUserDefaults] objectForKey:@"pinglun"]) {
             AppUnitl.sharedManager.model.wetchat.isShow = NO;

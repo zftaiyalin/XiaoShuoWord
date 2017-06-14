@@ -266,13 +266,10 @@
         _bottomView.hidden = NO;
 
         NSString *wstring;
-        
-        
-        if (AppUnitl.sharedManager.model.wetchat.isShow) {
-           wstring = [NSString stringWithFormat:@"http://www.btkuaisou.org/word/%@.html",[searchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-        }else{
-            wstring = [NSString stringWithFormat:@"http://v.baidu.com/v?word=%@",[searchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-        }
+
+
+        wstring = [NSString stringWithFormat:@"http://v.baidu.com/v?word=%@",[searchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+
 
 
 
