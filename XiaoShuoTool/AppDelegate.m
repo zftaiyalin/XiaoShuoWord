@@ -65,22 +65,6 @@
             AppUnitl.sharedManager.model.wetchat.isShow = NO;
         }
     }
-    
-//    NSString *string = [AES128Util AES128Encrypt:@"https://www.youjizz.com/most-popular/" key:model.video.key];
-//    
-//    NSLog(@"%@",string);
-//    
-//    string = [AES128Util AES128Encrypt:@"https://www.youjizz.com/search/" key:model.video.key];
-//    
-//    NSLog(@"%@",string);
-//    
-//    string = [AES128Util AES128Encrypt:@"-" key:model.video.key];
-//    
-//    NSLog(@"%@",string);
-//    
-//    string = [AES128Util AES128Encrypt:@"https://www.youjizz.com/" key:model.video.key];
-//    
-//    NSLog(@"%@",string);
 
     NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:@"mycollection"];
     
