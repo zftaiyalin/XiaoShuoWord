@@ -14,6 +14,7 @@
 		6B2C9AED1ECC3D6E009A8C83 /* upload.html in Resources */ = {isa = PBXBuildFile; fileRef = 6B2C9AEB1ECC3D6E009A8C83 /* upload.html */; };
 		6B3FB3B91ED87DC000D07050 /* AdmobModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B3FB3B81ED87DC000D07050 /* AdmobModel.m */; };
 		6B428FCB1ED5A816000E607A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B428FCA1ED5A816000E607A /* CoreLocation.framework */; };
+		6B5AB3861EF183CD0024C292 /* iconlaunch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6B5AB3851EF183CD0024C292 /* iconlaunch@2x.png */; };
 		6B5B0D1F1EC4A18200945694 /* MineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B5B0D1E1EC4A18200945694 /* MineViewController.m */; };
 		6B5B0D221EC4A66800945694 /* DaiLuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B5B0D211EC4A66800945694 /* DaiLuViewController.m */; };
 		6B5E67C11EC098B200A4D59E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B5E67C01EC098B200A4D59E /* SystemConfiguration.framework */; };
@@ -71,7 +72,6 @@
 		6B70DB031EC1610600EB09FC /* ZFHttpRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B70DAFF1EC1610600EB09FC /* ZFHttpRequest.m */; };
 		6B70DB061EC1732000EB09FC /* NSObject+ALiHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B70DB051EC1732000EB09FC /* NSObject+ALiHUD.m */; };
 		6B70DB091EC173A200EB09FC /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B70DB081EC173A200EB09FC /* SearchViewController.m */; };
-		6B7D3E4E1EE9159B00C25281 /* icon-83.5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6B7D3E4D1EE9159B00C25281 /* icon-83.5@2x.png */; };
 		6B7ECFFA1ECEC57D00FDBA14 /* DNPayAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B7ECFF91ECEC57D00FDBA14 /* DNPayAlertView.m */; };
 		6B8473801ED91B4E007B7622 /* libFanYiSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B84737F1ED91B4E007B7622 /* libFanYiSDK.a */; };
 		6B8A706F1EBD774000CFFB62 /* ASValuePopUpView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B8A70501EBD774000CFFB62 /* ASValuePopUpView.m */; };
@@ -171,6 +171,7 @@
 		6B3FB3B81ED87DC000D07050 /* AdmobModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdmobModel.m; sourceTree = "<group>"; };
 		6B428FC81ED5A7DA000E607A /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		6B428FCA1ED5A816000E607A /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		6B5AB3851EF183CD0024C292 /* iconlaunch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconlaunch@2x.png"; sourceTree = "<group>"; };
 		6B5B0D1D1EC4A18200945694 /* MineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineViewController.h; sourceTree = "<group>"; };
 		6B5B0D1E1EC4A18200945694 /* MineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineViewController.m; sourceTree = "<group>"; };
 		6B5B0D201EC4A66800945694 /* DaiLuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DaiLuViewController.h; sourceTree = "<group>"; };
@@ -271,7 +272,6 @@
 		6B70DB051EC1732000EB09FC /* NSObject+ALiHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+ALiHUD.m"; sourceTree = "<group>"; };
 		6B70DB071EC173A200EB09FC /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
 		6B70DB081EC173A200EB09FC /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
-		6B7D3E4D1EE9159B00C25281 /* icon-83.5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-83.5@2x.png"; sourceTree = "<group>"; };
 		6B7ECFF81ECEC57D00FDBA14 /* DNPayAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNPayAlertView.h; sourceTree = "<group>"; };
 		6B7ECFF91ECEC57D00FDBA14 /* DNPayAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DNPayAlertView.m; sourceTree = "<group>"; };
 		6B84737E1ED91B4E007B7622 /* FanYiSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FanYiSDK.h; sourceTree = "<group>"; };
@@ -959,7 +959,7 @@
 				6B68495E1EC40B2F00EC6D22 /* PrefixHeader.pch */,
 				E803C7651CF57793001BB402 /* Main.storyboard */,
 				E803C7681CF57793001BB402 /* Assets.xcassets */,
-				6B7D3E4D1EE9159B00C25281 /* icon-83.5@2x.png */,
+				6B5AB3851EF183CD0024C292 /* iconlaunch@2x.png */,
 				E803C76A1CF57793001BB402 /* LaunchScreen.storyboard */,
 				E803C76D1CF57793001BB402 /* Info.plist */,
 				E803C75C1CF57793001BB402 /* Supporting Files */,
@@ -1101,7 +1101,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6B2C9AEC1ECC3D6E009A8C83 /* index.html in Resources */,
-				6B7D3E4E1EE9159B00C25281 /* icon-83.5@2x.png in Resources */,
+				6B5AB3861EF183CD0024C292 /* iconlaunch@2x.png in Resources */,
 				6B70DAF11EC160EF00EB09FC /* HUD_error@3x.png in Resources */,
 				6B70DAF51EC160EF00EB09FC /* HUD_success@3x.png in Resources */,
 				6B2C9AED1ECC3D6E009A8C83 /* upload.html in Resources */,

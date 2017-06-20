@@ -47,8 +47,15 @@
     NSString *ss = [NSString stringWithFormat:@"http://opmams01o.bkt.clouddn.com/videoPlayer.json?v=%@",currentDateString];
     NSURL *xcfURL = [NSURL URLWithString:ss];
     NSString *htmlString = [NSString stringWithContentsOfURL:xcfURL encoding:NSUTF8StringEncoding error:&error];
+    AppModel *model;
+    if (htmlString == nil) {
+        model =[[AppModel alloc]init];
+        model.wetchat.isShow= NO;
+    }else{
+        model = [AppModel yy_modelWithJSON:htmlString];
+    }
     
-    AppModel *model = [AppModel yy_modelWithJSON:htmlString];    
+    
     AppUnitl.sharedManager.model = model;
     AppUnitl.sharedManager.isDownLoad = YES;
 //    AppUnitl.sharedManager.model.wetchat.isAlertShow = YES;
@@ -58,7 +65,22 @@
             AppUnitl.sharedManager.model.wetchat.isShow = NO;
         }
     }
-
+    
+//    NSString *string = [AES128Util AES128Encrypt:@"https://www.youjizz.com/most-popular/" key:model.video.key];
+//    
+//    NSLog(@"%@",string);
+//    
+//    string = [AES128Util AES128Encrypt:@"https://www.youjizz.com/search/" key:model.video.key];
+//    
+//    NSLog(@"%@",string);
+//    
+//    string = [AES128Util AES128Encrypt:@"-" key:model.video.key];
+//    
+//    NSLog(@"%@",string);
+//    
+//    string = [AES128Util AES128Encrypt:@"https://www.youjizz.com/" key:model.video.key];
+//    
+//    NSLog(@"%@",string);
 
     NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:@"mycollection"];
     

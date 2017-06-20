@@ -147,6 +147,7 @@
         make.width.mas_equalTo(66);
     }];
     
+
 //    GADBannerView *ban = [[GADBannerView alloc]initWithFrame:CGRectMake(0, 64+50, self.view.width, 50)];
 //    ban.adUnitID = @"ca-app-pub-3676267735536366/8482868532";
 //    ban.rootViewController = self;
@@ -165,7 +166,7 @@
 //    [_tableview setTableFooterView:ban];
     
 //    NSString *wstring = [NSString stringWithFormat:@"http://games.softgames.de/down-the-hill/?p=honeybeesoft.net"];
-//    
+//
 //    
 //    NSURL* url = [NSURL URLWithString:wstring];//创建URL
 //    NSURLRequest* ssrequest = [NSURLRequest requestWithURL:url];//创建NSURLRequest
@@ -261,15 +262,15 @@
         _tableview.hidden = YES;
         _webView.hidden = NO;
         myProgressView.hidden = NO;
+        
         _bottomView.hidden = NO;
+
         NSString *wstring;
-        
-        
-        if (AppUnitl.sharedManager.model.wetchat.isShow) {
-           wstring = [NSString stringWithFormat:@"http://www.btkuaisou.org/word/%@.html",[searchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-        }else{
-            wstring = [NSString stringWithFormat:@"http://v.baidu.com/v?word=%@",[searchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-        }
+
+
+        wstring = [NSString stringWithFormat:@"http://v.baidu.com/v?word=%@",[searchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+
+
 
 
     NSURL* url = [NSURL URLWithString:wstring];//创建URL
