@@ -7,7 +7,5 @@ pod 'Reachability'
 pod 'YYCategories'
 pod 'YYModel'
 pod 'UMengAnalytics'
-pod 'Firebase/Core'
-pod 'Firebase/AdMob'
 
 end

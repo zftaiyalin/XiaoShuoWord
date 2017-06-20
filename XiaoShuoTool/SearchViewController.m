@@ -9,9 +9,7 @@
 #import "SearchViewController.h"
 #import "MJRefresh.h"
 #import "VideoPlayModel.h"
-#import "XiaoshuoViewController.h"
-@import GoogleMobileAds;
-@interface SearchViewController ()<UISearchBarDelegate,UITableViewDelegate,UITableViewDataSource,UIWebViewDelegate>{
+@interface SearchViewController ()<UISearchBarDelegate,UIWebViewDelegate>{
 
     BOOL theBool;
     //IBOutlet means you can place the progressView in Interface Builder and connect it to your code
@@ -23,7 +21,7 @@
     UISearchBar* _searchBar;
 }
 
-@property(nonatomic,strong)UITableView *tableview;
+
 @property(nonatomic,strong)UIWebView *webView;
 @property(nonatomic,strong)UIView *bottomView;
 
@@ -71,24 +69,7 @@
         make.left.and.right.and.top.equalTo(self.view);
         make.height.equalTo(self.view).offset(-44);
     }];
-    
-    _tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height) style:UITableViewStylePlain];
-    _tableview.dataSource = self;
-    _tableview.delegate = self;
-    _tableview.hidden = YES;
-    _tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [_tableview registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
-    [self.view addSubview:self.tableview];
-    
-    
-    
-    
-    [self.tableview mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.and.right.equalTo(self.view);
-        make.top.equalTo(_webView).offset(64);
-        make.bottom.equalTo(self.view);
-    }];
-    
+
     // 仿微信进度条
     CGFloat progressBarHeight = 2.f;
     
@@ -146,31 +127,7 @@
         make.top.and.bottom.equalTo(_bottomView);
         make.width.mas_equalTo(66);
     }];
-    
 
-//    GADBannerView *ban = [[GADBannerView alloc]initWithFrame:CGRectMake(0, 64+50, self.view.width, 50)];
-//    ban.adUnitID = @"ca-app-pub-3676267735536366/8482868532";
-//    ban.rootViewController = self;
-//    
-//    GADRequest *request = [GADRequest request];
-//    // Requests test ads on devices you specify. Your test device ID is printed to the console when
-//    // an ad request is made. GADBannerView automatically returns test ads when running on a
-//    // simulator.
-////        request.testDevices = @[
-////                                @"fe9239b402756b9539e3beb3a686378d"  // Eric's iPod Touch
-////                                ];
-//    [ban loadRequest:request];
-//    
-////    [self.view addSubview:ban];
-//    
-//    [_tableview setTableFooterView:ban];
-    
-//    NSString *wstring = [NSString stringWithFormat:@"http://games.softgames.de/down-the-hill/?p=honeybeesoft.net"];
-//
-//    
-//    NSURL* url = [NSURL URLWithString:wstring];//创建URL
-//    NSURLRequest* ssrequest = [NSURLRequest requestWithURL:url];//创建NSURLRequest
-//    [_webView loadRequest:ssrequest];//加载
     
 }
 
@@ -245,21 +202,13 @@
 
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
-    _tableview.hidden = YES;
     _webView.hidden = NO;
     myProgressView.hidden = NO;
     _bottomView.hidden = NO;
 
 }
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
-    
-    if ([searchBar.text rangeOfString:[AppUnitl sharedManager].model.video.url].length > 0 && [AppUnitl sharedManager].model.wetchat.isShow) {
-        _tableview.hidden = NO;
-        _webView.hidden = YES;
-        myProgressView.hidden = YES;
-        _bottomView.hidden = YES;
-    }else{
-        _tableview.hidden = YES;
+
         _webView.hidden = NO;
         myProgressView.hidden = NO;
         
@@ -276,7 +225,7 @@
     NSURL* url = [NSURL URLWithString:wstring];//创建URL
     NSURLRequest* request = [NSURLRequest requestWithURL:url];//创建NSURLRequest
     [_webView loadRequest:request];//加载
-    }
+    
     
 }
 #pragma mark - 初始化控件
@@ -297,45 +246,6 @@
     // Pass the selected object to the new view controller.
 }
 */
-
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return [AppUnitl sharedManager].model.video.videoArray.count;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 44;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    VideoPlayModel *model = [[AppUnitl sharedManager].model.video.videoArray objectAtIndex:indexPath.row];
-    
-    cell.textLabel.text = [NSString stringWithFormat:@"%@", model.videoTitle];
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    UIView *line = [[UIView alloc]init];
-    line.backgroundColor = [UIColor colorWithHexString:@"#d9d9d9"];
-    [cell addSubview:line];
-    
-    [line mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.and.right.and.top.equalTo(cell);
-        make.height.mas_equalTo(0.25);
-    }];
-    return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    [_searchBar resignFirstResponder];
-    [MobClick beginLogPageView:@"进入老司机页面"];
-    XiaoshuoViewController *videoVC = [[XiaoshuoViewController alloc]init];
-    videoVC.model =  [[AppUnitl sharedManager].model.video.videoArray objectAtIndex:indexPath.row];
-    [self.navigationController pushViewController:videoVC animated:YES];
-}
 
 
 @end

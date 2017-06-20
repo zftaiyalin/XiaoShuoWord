@@ -9,10 +9,10 @@
 #import "DaiLuViewController.h"
 #import "AES128Util.h"
 #import "NSObject+ALiHUD.h"
-@import GoogleMobileAds;
 
-@interface DaiLuViewController ()<GADRewardBasedVideoAdDelegate>{
-    BOOL isRequestVideo;
+
+@interface DaiLuViewController (){
+   
 }
 
 @property(nonatomic,strong) UIButton *wechatBtu;
@@ -23,22 +23,6 @@
 
 @implementation DaiLuViewController
 
--(void)huoqujifen{
-    if ([[GADRewardBasedVideoAd sharedInstance] isReady]) {
-        [[GADRewardBasedVideoAd sharedInstance] presentFromRootViewController:self];
-    }else{
-        [self requestRewardedVideo];
-        isRequestVideo = YES;
-        [self showText:@"正在获取积分广告"];
-        
-    }
-}
-
-- (void)requestRewardedVideo {
-    GADRequest *request = [GADRequest request];
-    [[GADRewardBasedVideoAd sharedInstance] loadRequest:request
-                                           withAdUnitID:@"ca-app-pub-3676267735536366/6453222138"];
-}
 
 
 -(void)dealloc{
@@ -52,9 +36,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-     [GADRewardBasedVideoAd sharedInstance].delegate = self;
-    
-    
+
     self.title = @"带路党";
     self.view.backgroundColor = [UIColor colorWithHexString:@"#efeff5"];
     
@@ -62,23 +44,6 @@
     
     self.navigationItem.rightBarButtonItem = item;
 
-    GADBannerView *ban = [[GADBannerView alloc]initWithFrame:CGRectMake(0, 64, self.view.width, 50)];
-    ban.adUnitID = @"ca-app-pub-3676267735536366/5566428138";
-    ban.rootViewController = self;
-    
-    GADRequest *request = [GADRequest request];
-    
-    // Requests test ads on devices you specify. Your test device ID is printed to the console when
-    // an ad request is made. GADBannerView automatically returns test ads when running on a
-    // simulator.
-//    request.testDevices = @[
-//                            @"fe9239b402756b9539e3beb3a686378d"  // Eric's iPod Touch
-//                            ];
-    [ban loadRequest:request];
-    
-    [self.view addSubview:ban];
-    
-    
     _wechatBtu = [UIButton buttonWithType:UIButtonTypeCustom];
     _wechatBtu.backgroundColor = [UIColor whiteColor];
     [_wechatBtu addTarget:self action:@selector(copyWechat) forControlEvents:UIControlEventTouchUpInside];
@@ -266,55 +231,6 @@
     // Pass the selected object to the new view controller.
 }
 */
-
-#pragma mark GADRewardBasedVideoAdDelegate implementation
-
-- (void)rewardBasedVideoAdDidReceiveAd:(GADRewardBasedVideoAd *)rewardBasedVideoAd {
-    NSLog(@"Reward based video ad is received.");
-    if (isRequestVideo) {
-        isRequestVideo = NO;
-        [self dismissLoading];
-        [[GADRewardBasedVideoAd sharedInstance] presentFromRootViewController:self];
-    }
-    
-}
-
-- (void)rewardBasedVideoAdDidOpen:(GADRewardBasedVideoAd *)rewardBasedVideoAd {
-    NSLog(@"Opened reward based video ad.");
-}
-
-- (void)rewardBasedVideoAdDidStartPlaying:(GADRewardBasedVideoAd *)rewardBasedVideoAd {
-    NSLog(@"Reward based video ad started playing.");
-    NSLog(@"admob奖励视频开始播放");
-}
-
-- (void)rewardBasedVideoAdDidClose:(GADRewardBasedVideoAd *)rewardBasedVideoAd {
-    NSLog(@"Reward based video ad is closed.");
-    NSLog(@"中途关闭admob奖励视频");
-}
-
-- (void)rewardBasedVideoAd:(GADRewardBasedVideoAd *)rewardBasedVideoAd
-   didRewardUserWithReward:(GADAdReward *)reward {
-    NSLog(@"有效的播放admob奖励视频");
-    
-    [[AppUnitl sharedManager] addMyintegral:[AppUnitl sharedManager].model.video.ggintegral];
-    NSString *string = [[NSString alloc]initWithFormat:@"获取%d积分,当前积分%d",[AppUnitl sharedManager].model.video.ggintegral,[[AppUnitl sharedManager] getMyintegral]];
-    [self showSuccessText:string];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self dismissLoading];
-    });
-}
-
-- (void)rewardBasedVideoAdWillLeaveApplication:(GADRewardBasedVideoAd *)rewardBasedVideoAd {
-    NSLog(@"Reward based video ad will leave application.");
-    NSLog(@"点击admo奖励视频准备离开app");
-}
-
-- (void)rewardBasedVideoAd:(GADRewardBasedVideoAd *)rewardBasedVideoAd
-    didFailToLoadWithError:(NSError *)error {
-    NSLog(@"Reward based video ad failed to load.");
-    NSLog(@"admob奖励视频加载失败");
-}
 
 
 @end

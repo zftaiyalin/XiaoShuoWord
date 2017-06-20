@@ -9,11 +9,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>GoogleToolboxForMac.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Pods-YunPlayerNormal.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -47,7 +42,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>707028FE08CE72BC046256042D3C7887</key>
+		<key>66266BEC7ECB4C8C3A9E073567531A98</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7B91FBD28AA4C4A4801628DF00DAE374</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>869FDC1761294AD91918D8978B8E921C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -57,27 +62,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A49E4D88645E67E67D055724D4AC385D</key>
+		<key>A46162F7A3DC7B3F8472AD4314C0E11D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C8669EEDA27F2BB2D9AB2FAAE280EB21</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>E1BBB76ADBF2EF4EF2CE5DF6BBC77296</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>E1C1E9B0AA11A472C4F1B9848D7258B9</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>E6B3DD204345DBE514359A39C4E275BD</key>
+		<key>AABBBA85535F4DF97982162EA3843B27</key>
 		<dict>
 			<key>primary</key>
 			<true/>

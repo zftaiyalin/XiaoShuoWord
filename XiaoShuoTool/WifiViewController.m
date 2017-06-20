@@ -133,18 +133,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
         make.width.equalTo(self.view);
     }];
     
-   
-    GADBannerView *ban = [[GADBannerView alloc]initWithFrame:CGRectMake(0, self.view.height-50-48, self.view.width, 50)];
-    ban.adUnitID = [AppUnitl sharedManager].model.admob.admobWifiBanr;
-    ban.rootViewController = self;
-    
-    GADRequest *request = [GADRequest request];
-
-    [ban loadRequest:request];
-    
-    [self.view addSubview:ban];
-
-    
+  
 }
 
 -(void)pushWifi{

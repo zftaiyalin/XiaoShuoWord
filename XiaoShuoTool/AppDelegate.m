@@ -8,7 +8,6 @@
 
 #import "AppDelegate.h"
 #import "JACenterViewController.h"
-#import "XiaoshuoViewController.h"
 #import "ZFDownloadViewController.h"
 #import "SearchViewController.h"
 #import "AES128Util.h"

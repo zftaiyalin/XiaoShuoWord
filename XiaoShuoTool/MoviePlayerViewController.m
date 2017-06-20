@@ -36,9 +36,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     // pop回来时候是否自动播放
-    
-    int num  = self.navigationController.viewControllers.count;
-    
+
     if (self.navigationController.viewControllers.count == 2 && self.playerView && self.isPlaying) {
         self.isPlaying = NO;
         self.playerView.playerPushedOrPresented = NO;
@@ -71,8 +69,6 @@
     // Do any additional setup after loading the view.
     self.zf_prefersNavigationBarHidden = YES;
     self.view.backgroundColor = [UIColor blackColor];
-    
-
 
         
         self.playerFatherView = [[UIView alloc]init];
@@ -87,79 +83,12 @@
         
         // 自动播放，默认不自动播放
         [self.playerView autoPlayTheVideo];
-        [self createAndLoadInterstitial];
+   
     
     
 }
 
 
-- (void)createAndLoadInterstitial {
-    self.interstitial =
-    [[GADInterstitial alloc] initWithAdUnitID:[AppUnitl sharedManager].model.admob.admobIns];
-    
-    GADRequest *request = [GADRequest request];
-    // Request test ads on devices you specify. Your test device ID is printed to the console when
-    // an ad request is made.
-//    request.testDevices = @[ kGADSimulatorID, @"fe9239b402756b9539e3beb3a686378d" ];
-    [self.interstitial loadRequest:request];
-    
-    
-    // 状态栏是由当前app控制的，首先获取当前app
-    UIApplication *app = [UIApplication sharedApplication];
-    
-    NSArray *children = [[[app valueForKeyPath:@"statusBar"] valueForKeyPath:@"foregroundView"] subviews];
-    
-    int type = 0;
-    for (id child in children) {
-        if ([child isKindOfClass:NSClassFromString(@"UIStatusBarDataNetworkItemView")]) {
-            type = [[child valueForKeyPath:@"dataNetworkType"] intValue];
-        }
-    }
-    
-    BOOL net = NO;
-    switch (type) {
-        case 1:
-            
-//            return @"2G";
-            net = YES;
-            break;
-            
-        case 2:
-            net = YES;
-//            return @"3G";
-             break;
-        case 3:
-            net = YES;
-//            return @"4G";
-             break;
-        case 5:
-            net = YES;
-//            return @"WIFI";
-             break;
-        default:
-            net = NO;
-//            return @“NO-WIFI";//代表未知网络
-            
-            break;
-    }
-    if (net) {
-        [self performSelector:@selector(playAdmob) withObject:nil afterDelay:0.1];
-    }
-    
-}
-
--(void)playAdmob{
-    
-    if (self.interstitial.isReady) {
-        
-        [self.interstitial presentFromRootViewController:self];
-        
-        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playAdmob) object:nil];
-
-    }else{
-        [self performSelector:@selector(playAdmob) withObject:nil afterDelay:0.1];
-    }
-}
 
 
 - (void)didReceiveMemoryWarning {

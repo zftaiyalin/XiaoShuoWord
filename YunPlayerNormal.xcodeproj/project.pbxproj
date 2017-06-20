@@ -73,7 +73,6 @@
 		6B70DB061EC1732000EB09FC /* NSObject+ALiHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B70DB051EC1732000EB09FC /* NSObject+ALiHUD.m */; };
 		6B70DB091EC173A200EB09FC /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B70DB081EC173A200EB09FC /* SearchViewController.m */; };
 		6B7ECFFA1ECEC57D00FDBA14 /* DNPayAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B7ECFF91ECEC57D00FDBA14 /* DNPayAlertView.m */; };
-		6B8473801ED91B4E007B7622 /* libFanYiSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B84737F1ED91B4E007B7622 /* libFanYiSDK.a */; };
 		6B8A706F1EBD774000CFFB62 /* ASValuePopUpView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B8A70501EBD774000CFFB62 /* ASValuePopUpView.m */; };
 		6B8A70701EBD774000CFFB62 /* ASValueTrackingSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B8A70521EBD774000CFFB62 /* ASValueTrackingSlider.m */; };
 		6B8A70711EBD774000CFFB62 /* UIAlertController+ZFPlayerRotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B8A70551EBD774000CFFB62 /* UIAlertController+ZFPlayerRotation.m */; };
@@ -138,7 +137,6 @@
 		E803C76C1CF57793001BB402 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E803C76A1CF57793001BB402 /* LaunchScreen.storyboard */; };
 		E803C7831CF584EC001BB402 /* JADebugViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E803C77C1CF584EC001BB402 /* JADebugViewController.m */; };
 		E803C7841CF584EC001BB402 /* JACenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E803C77E1CF584EC001BB402 /* JACenterViewController.m */; };
-		E803C7891CF58E1B001BB402 /* XiaoshuoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E803C7881CF58E1B001BB402 /* XiaoshuoViewController.m */; };
 		E803C7BB1CF59262001BB402 /* MASCompositeConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = E803C7921CF59262001BB402 /* MASCompositeConstraint.m */; };
 		E803C7BC1CF59262001BB402 /* MASConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = E803C7951CF59262001BB402 /* MASConstraint.m */; };
 		E803C7BD1CF59262001BB402 /* MASConstraintMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = E803C7971CF59262001BB402 /* MASConstraintMaker.m */; };
@@ -274,8 +272,6 @@
 		6B70DB081EC173A200EB09FC /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		6B7ECFF81ECEC57D00FDBA14 /* DNPayAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNPayAlertView.h; sourceTree = "<group>"; };
 		6B7ECFF91ECEC57D00FDBA14 /* DNPayAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DNPayAlertView.m; sourceTree = "<group>"; };
-		6B84737E1ED91B4E007B7622 /* FanYiSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FanYiSDK.h; sourceTree = "<group>"; };
-		6B84737F1ED91B4E007B7622 /* libFanYiSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFanYiSDK.a; sourceTree = "<group>"; };
 		6B8A704F1EBD774000CFFB62 /* ASValuePopUpView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASValuePopUpView.h; sourceTree = "<group>"; };
 		6B8A70501EBD774000CFFB62 /* ASValuePopUpView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASValuePopUpView.m; sourceTree = "<group>"; };
 		6B8A70511EBD774000CFFB62 /* ASValueTrackingSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASValueTrackingSlider.h; sourceTree = "<group>"; };
@@ -403,8 +399,6 @@
 		E803C77C1CF584EC001BB402 /* JADebugViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JADebugViewController.m; sourceTree = "<group>"; };
 		E803C77D1CF584EC001BB402 /* JACenterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JACenterViewController.h; sourceTree = "<group>"; };
 		E803C77E1CF584EC001BB402 /* JACenterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JACenterViewController.m; sourceTree = "<group>"; };
-		E803C7871CF58E1B001BB402 /* XiaoshuoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XiaoshuoViewController.h; sourceTree = "<group>"; };
-		E803C7881CF58E1B001BB402 /* XiaoshuoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XiaoshuoViewController.m; sourceTree = "<group>"; };
 		E803C7911CF59262001BB402 /* MASCompositeConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASCompositeConstraint.h; sourceTree = "<group>"; };
 		E803C7921CF59262001BB402 /* MASCompositeConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASCompositeConstraint.m; sourceTree = "<group>"; };
 		E803C7931CF59262001BB402 /* MASConstraint+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MASConstraint+Private.h"; sourceTree = "<group>"; };
@@ -465,7 +459,6 @@
 				6B5E67C31EC098BB00A4D59E /* CFNetwork.framework in Frameworks */,
 				6B5E67C11EC098B200A4D59E /* SystemConfiguration.framework in Frameworks */,
 				6B666A6A1EBC806E00AA5C75 /* libGumbo.a in Frameworks */,
-				6B8473801ED91B4E007B7622 /* libFanYiSDK.a in Frameworks */,
 				832C69552ECF7962D408986A /* libPods-YunPlayerNormal.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -903,8 +896,6 @@
 		E803C75B1CF57793001BB402 /* XiaoShuoTool */ = {
 			isa = PBXGroup;
 			children = (
-				6B84737E1ED91B4E007B7622 /* FanYiSDK.h */,
-				6B84737F1ED91B4E007B7622 /* libFanYiSDK.a */,
 				6B7ECFF71ECEC57D00FDBA14 /* DNPayAlertView */,
 				6B2C9AE91ECC3D6E009A8C83 /* web */,
 				6B8B53631ECBEA8F00EEDAA4 /* Core */,
@@ -939,8 +930,6 @@
 				6B6849601EC40CAB00EC6D22 /* MyViewController.m */,
 				E803C77D1CF584EC001BB402 /* JACenterViewController.h */,
 				E803C77E1CF584EC001BB402 /* JACenterViewController.m */,
-				E803C7871CF58E1B001BB402 /* XiaoshuoViewController.h */,
-				E803C7881CF58E1B001BB402 /* XiaoshuoViewController.m */,
 				6B70DB071EC173A200EB09FC /* SearchViewController.h */,
 				6B70DB081EC173A200EB09FC /* SearchViewController.m */,
 				6B5E67DF1EC0A98800A4D59E /* YouJiVideoModel.h */,
@@ -1204,7 +1193,6 @@
 				6B666AA31EBC808600AA5C75 /* MJRefreshAutoStateFooter.m in Sources */,
 				6B8B53B81ECBEA8F00EEDAA4 /* HTTPFileResponse.m in Sources */,
 				6B8B53A01ECBEA8F00EEDAA4 /* DDData.m in Sources */,
-				E803C7891CF58E1B001BB402 /* XiaoshuoViewController.m in Sources */,
 				6B666A6C1EBC806E00AA5C75 /* OCGumbo.m in Sources */,
 				6B8B53B31ECBEA8F00EEDAA4 /* MultipartMessageHeaderField.m in Sources */,
 				6B69F5CE1EC54E4C00E334FE /* NewDateCodeViewController.m in Sources */,

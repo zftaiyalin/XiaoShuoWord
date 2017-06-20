@@ -8,7 +8,6 @@
 
 #import "JADebugViewController.h"
 #import "VideoModel.h"
-@import GoogleMobileAds;
 
 
 @interface MoviePlayerViewController : JADebugViewController
@@ -19,5 +18,4 @@
 @property (nonatomic, assign) BOOL isDown;
 @property (nonatomic, assign) BOOL isShowWeb;
 @property (nonatomic, strong) VideoModel *videoModel;
-@property(nonatomic, strong) GADInterstitial *interstitial;
 @end

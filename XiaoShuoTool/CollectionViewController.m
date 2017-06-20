@@ -14,43 +14,26 @@
 #import "OCGumbo.h"
 #import "OCGumbo+Query.h"
 #import "AES128Util.h"
-@import GoogleMobileAds;
 
-@interface CollectionViewController ()<UITableViewDelegate,UITableViewDataSource,GADRewardBasedVideoAdDelegate>{
+@interface CollectionViewController ()<UITableViewDelegate,UITableViewDataSource>{
     UITableView *_tableView;
     UILabel *label;
     NSMutableArray *videoArray;
-    BOOL isRequestVideo;
+
 }
 
 @end
 
 @implementation CollectionViewController
--(void)huoqujifen{
-    if ([[GADRewardBasedVideoAd sharedInstance] isReady]) {
-        [[GADRewardBasedVideoAd sharedInstance] presentFromRootViewController:self];
-    }else{
-        [self requestRewardedVideo];
-        isRequestVideo = YES;
-        [self showText:@"正在获取积分广告"];
-    }
-    
-}
 
 
-- (void)requestRewardedVideo {
-    GADRequest *request = [GADRequest request];
-    [[GADRewardBasedVideoAd sharedInstance] loadRequest:request
-                                           withAdUnitID:@"ca-app-pub-3676267735536366/6453222138"];
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
 
-    
-    [GADRewardBasedVideoAd sharedInstance].delegate = self;
+
     self.title = @"收藏";
     self.view.backgroundColor = [UIColor whiteColor];
     UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithTitle:@"获取积分" style:UIBarButtonItemStylePlain target:self action:@selector(huoqujifen)];
@@ -243,64 +226,6 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
     [self getVideoArrayToPhone];
     
-}
-
-#pragma mark GADRewardBasedVideoAdDelegate implementation
-
-- (void)rewardBasedVideoAdDidReceiveAd:(GADRewardBasedVideoAd *)rewardBasedVideoAd {
-    NSLog(@"Reward based video ad is received.");
-    if (isRequestVideo) {
-        isRequestVideo = NO;
-        [self dismissLoading];
-        [[GADRewardBasedVideoAd sharedInstance] presentFromRootViewController:self];
-    }
-    
-}
-
-- (void)rewardBasedVideoAdDidOpen:(GADRewardBasedVideoAd *)rewardBasedVideoAd {
-    NSLog(@"Opened reward based video ad.");
-}
-
-- (void)rewardBasedVideoAdDidStartPlaying:(GADRewardBasedVideoAd *)rewardBasedVideoAd {
-    NSLog(@"Reward based video ad started playing.");
-    NSLog(@"admob奖励视频开始播放");
-}
-
-- (void)rewardBasedVideoAdDidClose:(GADRewardBasedVideoAd *)rewardBasedVideoAd {
-    NSLog(@"Reward based video ad is closed.");
-    NSLog(@"中途关闭admob奖励视频");
-}
-
-- (void)rewardBasedVideoAd:(GADRewardBasedVideoAd *)rewardBasedVideoAd
-   didRewardUserWithReward:(GADAdReward *)reward {
-    NSLog(@"有效的播放admob奖励视频");
-    
-    [[AppUnitl sharedManager] addMyintegral:[AppUnitl sharedManager].model.video.ggintegral];
-    NSString *string = [[NSString alloc]initWithFormat:@"获取%d积分,当前积分%d",[AppUnitl sharedManager].model.video.ggintegral,[[AppUnitl sharedManager] getMyintegral]];
-    [self showSuccessText:string];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self dismissLoading];
-    });
-}
-
-- (void)rewardBasedVideoAdWillLeaveApplication:(GADRewardBasedVideoAd *)rewardBasedVideoAd {
-    NSLog(@"Reward based video ad will leave application.");
-    NSLog(@"点击admo奖励视频准备离开app");
-}
-
-- (void)rewardBasedVideoAd:(GADRewardBasedVideoAd *)rewardBasedVideoAd
-    didFailToLoadWithError:(NSError *)error {
-    NSLog(@"Reward based video ad failed to load.");
-    NSLog(@"admob奖励视频加载失败");
-    if (isRequestVideo) {
-        isRequestVideo = NO;
-        [self dismissLoading];
-        
-        [self showErrorText:@"获取广告失败"];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self dismissLoading];
-        });
-    }
 }
 
 
