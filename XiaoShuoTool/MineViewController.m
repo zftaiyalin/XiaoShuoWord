@@ -87,21 +87,16 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [AppUnitl sharedManager].model.wetchat.isShow ? 3:2;
+    return 2;
     
     //收藏 清楚缓存 赏个好评 下载
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    if ([AppUnitl sharedManager].model.wetchat.isShow) {
 
-        return 2;
-   
-    }else{
-        return 1;
-        
-    }
+    return 1;
+
    
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -116,57 +111,23 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
     
-    
-    if ([AppUnitl sharedManager].model.wetchat.isShow) {
+
         if (indexPath.section == 0) {
             
-            if (indexPath.row == 0) {
-                cell.textLabel.text = [AppUnitl sharedManager].model.wetchat.wetchatTitle;
-            }else{
-                
-                if ([AppUnitl getBoolMiMa]) {
-                    cell.textLabel.text = @"重置密码";
-                }else{
-                    
-                    cell.textLabel.text = @"设置密码";
-                }
+        
+                cell.textLabel.text = @"联系老司机";
+            
                 UIView *line = [[UIView alloc]init];
                 line.backgroundColor = [UIColor colorWithHexString:@"#d9d9d9"];
                 [cell addSubview:line];
-                
+            
                 [line mas_makeConstraints:^(MASConstraintMaker *make) {
                     make.left.and.right.and.top.equalTo(cell);
                     make.height.mas_equalTo(0.25);
                 }];
-            }
-            
-        }else{
-            if (indexPath.section == 1) {
-                if (indexPath.row == 0) {
-                    cell.textLabel.text = @"收藏";
-                }else{
-                    cell.textLabel.text = @"下载";
-                    
-                    UIView *line = [[UIView alloc]init];
-                    line.backgroundColor = [UIColor colorWithHexString:@"#d9d9d9"];
-                    [cell addSubview:line];
-                    
-                    [line mas_makeConstraints:^(MASConstraintMaker *make) {
-                        make.left.and.right.and.top.equalTo(cell);
-                        make.height.mas_equalTo(0.25);
-                    }];
-                    
-                }
+           
             }else{
-                if (indexPath.row == 0) {
-                    
-                    float tmpSize = [[SDImageCache sharedImageCache]getSize];
-                    
-                    NSLog(@"%f",tmpSize);
-//                    cell.detailTextLabel.textAlignment = NSTextAlignmentRight;
-//                    cell.detailTextLabel.font = [UIFont systemFontOfSize:13];
-                    cell.textLabel.text = [NSString stringWithFormat:@"清除缓存      %.2fM",tmpSize/1024/1024];
-                }else{
+
                     cell.textLabel.text = @"赏个好评";
                     UIView *line = [[UIView alloc]init];
                     line.backgroundColor = [UIColor colorWithHexString:@"#d9d9d9"];
@@ -176,246 +137,22 @@
                         make.left.and.right.and.top.equalTo(cell);
                         make.height.mas_equalTo(0.25);
                     }];
-                }
-            }
-        }
-    }else{
-        if (indexPath.section == 0) {
-            float tmpSize = [[SDImageCache sharedImageCache]getSize];
-            
-            NSLog(@"%f",tmpSize);
-            cell.textLabel.text = [NSString stringWithFormat:@"清除缓存      %.2fM",tmpSize/1024/1024];
-        }else{
-  
-//                cell.textLabel.text = @"赏个好评";
-//                UIView *line = [[UIView alloc]init];
-//                line.backgroundColor = [UIColor colorWithHexString:@"#d9d9d9"];
-//                [cell addSubview:line];
-//                
-//                [line mas_makeConstraints:^(MASConstraintMaker *make) {
-//                    make.left.and.right.and.top.equalTo(cell);
-//                    make.height.mas_equalTo(0.25);
-//                }];
-            
-            if ([AppUnitl getBoolMiMa]) {
-                cell.textLabel.text = @"重置密码";
-            }else{
                 
-                cell.textLabel.text = @"设置密码";
             }
-            UIView *line = [[UIView alloc]init];
-            line.backgroundColor = [UIColor colorWithHexString:@"#d9d9d9"];
-            [cell addSubview:line];
-            
-            [line mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.left.and.right.and.top.equalTo(cell);
-                make.height.mas_equalTo(0.25);
-            }];
-            
-        }
-    }
-    
-    
+
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    
-    if ([AppUnitl sharedManager].model.wetchat.isShow) {
         if (indexPath.section == 0) {
-//            cell.textLabel.text = [AppUnitl sharedManager].model.wetchat.wetchatTitle;
-            
-            
-            if (indexPath.row == 0) {
-                DaiLuViewController *lu = [[DaiLuViewController alloc]init];
-                [self.navigationController pushViewController:lu animated:YES];
-            }else{
-//                cell.textLabel.text = @"设置密码";
-                if ([AppUnitl getBoolMiMa]) {
-                    DNPayAlertView *payAlert = [[DNPayAlertView alloc]init];
-                    payAlert.detail = @"密码设置";
-                    payAlert.amount= @"请输入老密码";
-                    payAlert.isThree = YES;
-                    payAlert.twoString = @"请再一次输入密码";
-                    payAlert.threeString = @"请输入新密码";
-                    [payAlert show];
-                    payAlert.completeHandle = ^(NSString *inputPwd) {
-                        NSLog(@"密码是%@",inputPwd);
-                        if ([inputPwd isEqualToString:@"两次密码不一致"]) {
-                            
-                            [self showErrorText:@"两次密码不一致"];
-                            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                                [self dismissLoading];
-                            });
-                        }else if ([inputPwd isEqualToString:@"密码输入错误"]) {
-                            
-                            [self showErrorText:@"密码输入错误"];
-                            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                                [self dismissLoading];
-                            });
-                        }
-                        else{
-                            [self showSuccessText:@"密码设置成功"];
-                            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                                [self dismissLoading];
-                            });
-                            [AppUnitl addStringMiMa:inputPwd];
-                            [tableView reloadData];
-                        }
-                    };
-                }else{
-                    DNPayAlertView *payAlert = [[DNPayAlertView alloc]init];
-                    payAlert.detail = @"密码设置";
-                    payAlert.amount= @"请输入新密码";
-                    payAlert.isTwo = YES;
-                    payAlert.twoString = @"请再一次输入密码";
-                    [payAlert show];
-                    payAlert.completeHandle = ^(NSString *inputPwd) {
-                        NSLog(@"密码是%@",inputPwd);
-                        if ([inputPwd isEqualToString:@"两次密码不一致"]) {
-                            
-                            [self showErrorText:@"两次密码不一致"];
-                            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                                [self dismissLoading];
-                            });
-                        }else if ([inputPwd isEqualToString:@"密码输入错误"]) {
-                            
-                            [self showErrorText:@"密码输入错误"];
-                            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                                [self dismissLoading];
-                            });
-                        }
-                        else{
-                            [AppUnitl addStringMiMa:inputPwd];
-                            [tableView reloadData];
-                            
-                            [self showSuccessText:@"密码设置成功"];
-                            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                                [self dismissLoading];
-                            });
-                        }
-                    };
-                
-                }
-                
-            }
+            DaiLuViewController *lu = [[DaiLuViewController alloc]init];
+            [self.navigationController pushViewController:lu animated:YES];
         }else{
-            if (indexPath.section == 1) {
-                if (indexPath.row == 0) {
-//                    cell.textLabel.text = @"收藏";
-                    
-                    
-                    CollectionViewController *vc = [[CollectionViewController alloc]init];
-                    [self.navigationController pushViewController:vc animated:YES];
-                }else{
-//                    cell.textLabel.text = @"下载";
-                    if (AppUnitl.sharedManager.isDownLoad) {
-                        ZFDownloadViewController *vc = [[ZFDownloadViewController alloc]init];
-                        [self.navigationController pushViewController:vc animated:YES];
-                    }else{
-//                        UIAlertView *infoAlert = [[UIAlertView alloc] initWithTitle:@"提示"message:@"您的版本不是VIP版本，下载VIP版可提供下载功能，尽享免广告观看!" delegate:self   cancelButtonTitle:@"取消" otherButtonTitles:@"下载",nil];
-//                        [infoAlert show];
-                        
-                    }
-                }
-            }else{
-                if (indexPath.row == 0) {
-
-                    //                cell.textLabel.text = @"清楚缓存";
-                    [[SDImageCache sharedImageCache] clearDiskOnCompletion:^{
-                        [tableView reloadData];
-                    }]; 
-                }else{
-//                    cell.textLabel.text = @"赏个好评";
-                     [self pushPinglun];
-//                    NewDateCodeViewController *vc = [[NewDateCodeViewController alloc]init];
-//                    [self.navigationController pushViewController:vc animated:YES];
-                }
-            }
+            [self pushPinglun];
         }
-    }else{
-        if (indexPath.section == 0) {
-            //                cell.textLabel.text = @"清楚缓存";
-            [[SDImageCache sharedImageCache] clearDiskOnCompletion:^{
-                [tableView reloadData];
-            }];
-        }else{
-//            [self pushPinglun];
-//                cell.textLabel.text = @"赏个好评";
-//                NewDateCodeViewController *vc = [[NewDateCodeViewController alloc]init];
-//                [self.navigationController pushViewController:vc animated:YES];
-            
-            if ([AppUnitl getBoolMiMa]) {
-                DNPayAlertView *payAlert = [[DNPayAlertView alloc]init];
-                payAlert.detail = @"密码设置";
-                payAlert.amount= @"请输入老密码";
-                payAlert.isThree = YES;
-                payAlert.twoString = @"请再一次输入密码";
-                payAlert.threeString = @"请输入新密码";
-                [payAlert show];
-                payAlert.completeHandle = ^(NSString *inputPwd) {
-                    NSLog(@"密码是%@",inputPwd);
-                    if ([inputPwd isEqualToString:@"两次密码不一致"]) {
-                        
-                        [self showErrorText:@"两次密码不一致"];
-                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                            [self dismissLoading];
-                        });
-                    }else if ([inputPwd isEqualToString:@"密码输入错误"]) {
-                        
-                        [self showErrorText:@"密码输入错误"];
-                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                            [self dismissLoading];
-                        });
-                    }
-                    else{
-                        [self showSuccessText:@"密码设置成功"];
-                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                            [self dismissLoading];
-                        });
-                        [AppUnitl addStringMiMa:inputPwd];
-                        [tableView reloadData];
-                    }
-                };
-            }else{
-                DNPayAlertView *payAlert = [[DNPayAlertView alloc]init];
-                payAlert.detail = @"密码设置";
-                payAlert.amount= @"请输入新密码";
-                payAlert.isTwo = YES;
-                payAlert.twoString = @"请再一次输入密码";
-                [payAlert show];
-                payAlert.completeHandle = ^(NSString *inputPwd) {
-                    NSLog(@"密码是%@",inputPwd);
-                    if ([inputPwd isEqualToString:@"两次密码不一致"]) {
-                        
-                        [self showErrorText:@"两次密码不一致"];
-                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                            [self dismissLoading];
-                        });
-                    }else if ([inputPwd isEqualToString:@"密码输入错误"]) {
-                        
-                        [self showErrorText:@"密码输入错误"];
-                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                            [self dismissLoading];
-                        });
-                    }
-                    else{
-                        [AppUnitl addStringMiMa:inputPwd];
-                        [tableView reloadData];
-                        
-                        [self showSuccessText:@"密码设置成功"];
-                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                            [self dismissLoading];
-                        });
-                    }
-                };
-                
-            }
-            
-        }
-    }
+  
 }
 
 -(void)pushPinglun{
@@ -424,14 +161,6 @@
                      @"1239455471"];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
 }
-//- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-//    if (buttonIndex == 1) {
-//        [MobClick event:@"前往微信"];
-//        
-//        NSString *str = @"weixin:/";
-//        
-//        [[UIApplication sharedApplication]openURL:[NSURL URLWithString:str]];
-//    }
-//}
+
 
 @end

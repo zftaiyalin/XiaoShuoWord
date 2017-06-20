@@ -83,40 +83,6 @@
         make.right.equalTo(self.view).offset(-13);
         make.top.equalTo(_wechatBtu.mas_bottom).offset(15);
     }];
-
-    
-    
-//    UIView *textView = [[UIView alloc]init];
-//    textView.backgroundColor = [UIColor whiteColor];
-//    [self.view addSubview:textView];
-//    
-//    [textView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.and.right.equalTo(self.view);
-//        make.top.equalTo(_jgLabel.mas_bottom).offset(15);
-//        make.height.mas_equalTo(44);
-//    }];
-//    
-//    _textField = [[UITextField alloc]init];
-//    _textField.placeholder = @"免广告积分码";
-//    [textView addSubview:_textField];
-//    
-//    [_textField mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.edges.equalTo(textView).insets(UIEdgeInsetsMake(0, 13, 0, 13));
-//    }];
-//    
-//    _tijiaoBtu = [UIButton buttonWithType:UIButtonTypeCustom];
-//    _tijiaoBtu.backgroundColor = [UIColor whiteColor];
-//    [_tijiaoBtu setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-//    [_tijiaoBtu setTitle:@"提交" forState:UIControlStateNormal];
-//    [_tijiaoBtu addTarget:self action:@selector(tijiaolaosiji) forControlEvents:UIControlEventTouchUpInside];
-//    [self.view addSubview:_tijiaoBtu];
-//    
-//    [_tijiaoBtu mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.and.right.equalTo(self.view);
-//        make.top.equalTo(textView).offset(65);
-//        make.height.mas_equalTo(44);
-//    }];
-    
 }
 
 -(void)tijiaolaosiji{
